@@ -1,4 +1,4 @@
-## SFTweets
+# SFTweets
 
 ### Background
 
@@ -25,7 +25,7 @@ Users will be able to:
 
 ### Technologies & Technical Challenges
 
-This app will utilize React.js, Redux, Twitter API, ![Twitter API Ruby gem](https://github.com/sferik/twitter), Google Maps API, Rails 5, HTML, CSS.
+This app will utilize React.js, Redux, Twitter API, Twitter API Ruby Gem (https://github.com/sferik/twitter), Google Maps API, Rails 5, HTML, CSS.
 
 React will store the current state of the tweets we are placing using the search request. The whole front-end will be built using a Redux architecture. A search query will run through a Rails RESTful API in order to render results, and all the results will be displayed using JS, HTML, and CSS.
 
