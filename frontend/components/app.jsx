@@ -1,10 +1,10 @@
 import React from 'react';
+import MapContainer from './map/map_container';
 
 const App = ({ children }) => (
   <div>
-    <h1>We them Boys!</h1>
-    <p>For Reals</p>
-    { children }
+    <MapContainer />
+    {children}
   </div>
 );
 
