@@ -9,11 +9,16 @@ end
 
 client.user("mjaltamirano13")
 
-client.search("tacos", geocode: "37.754880,-122.410066,12mi").take(40).each do |tweet|
-  puts tweet.text
-  puts tweet.created_at
-  puts tweet.user.screen_name
-  puts tweet.user.profile_image_url_https
+# client.search("tacos", geocode: "37.754880,-122.410066,12mi").take(40).each do |tweet|
+#   puts tweet.text
+#   puts tweet.created_at
+#   puts tweet.user.screen_name
+#   puts tweet.user.profile_image_url_https
+# end
+
+client.trends(id = 2487956).take(10).each do |trend|
+  puts trend.name
+  puts trend.tweet_volume
 end
 
 

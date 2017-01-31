@@ -8,8 +8,21 @@ class Api::TweetsController < ApplicationController
   end
 
   def index
+    @trends = client.trends(id = 2487956).take(10)
+
+    first_trend = @trends.first.name.to_s
+    @tweets = client.search(first_trend, geocode: "37.754880,-122.410066,5mi")
+
+    render :index
+  end
+
+  def show
     if params[:query]
       @tweets = client.search(params[:query], geocode: "37.754880,-122.410066,5mi")
+    else
+      render json: ["Invalid search request"], status: 401
     end
+
+    render :search
   end
 end
