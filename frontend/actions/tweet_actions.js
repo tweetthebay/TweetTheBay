@@ -9,7 +9,7 @@ export const fetchTweets = () => dispatch => (
     err => dispatch(receiveTweetErrors(err.responseJSON)))
 );
 
-const receiveTweets = tweets => ({
+export const receiveTweets = tweets => ({
   type: RECEIVE_TWEETS,
   tweets
 });
@@ -17,8 +17,9 @@ const receiveTweets = tweets => ({
 export const receiveTweet = (tweet) => ({
   type: RECEIVE_TWEET,
   tweet
+});
 
-const receiveTweetErrors = errors => ({
+export const receiveTweetErrors = errors => ({
   type: RECEIVE_TWEET_ERRORS,
   errors
 });
