@@ -1,9 +1,11 @@
-import RECEIVE_TWEET from '../actions/tweet_actions';
-import merge from "lodash/merge";
+import merge from 'lodash/merge';
+import { RECEIVE_TWEETS, RECEIVE_TWEET } from '../actions/tweet_actions.js';
 
-
-const tweetReducer = (state = [], action) => {
-  switch (action.type) {
+const TweetReducer = (state = {}, action) => {
+  Object.freeze(state);
+  switch(action.type){
+    case RECEIVE_TWEETS:
+      return action.tweets;
     case RECEIVE_TWEET:
       return action.tweet;
     default:
@@ -11,4 +13,4 @@ const tweetReducer = (state = [], action) => {
   }
 };
 
-export default tweetReducer;
+export default TweetReducer;
