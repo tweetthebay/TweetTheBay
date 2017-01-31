@@ -12,7 +12,9 @@ let dummyTweets = [
     content: 'hop',
     coordinates: {coordinates: [-122.43129699999999, 37.71370248522799]}
   }
-]
+];
+
+// TODO: change dummyTweets to this.props.tweets
 
 class Map extends React.Component {
   constructor(props) {
@@ -51,9 +53,11 @@ class Map extends React.Component {
     // this.geocoder = new google.maps.Geocoder;
     this.infowindow = new google.maps.InfoWindow;
     this.bounds = new google.maps.LatLngBounds;
-    dummyTweets.forEach(tweet => {
-      this.addTweet(tweet)
-    })
+    if (this.props.tweets) {
+      this.props.tweets.forEach(tweet => {
+        this.addTweet(tweet);
+      });
+    }
   }
 
   componentWillReceiveProps(newProps) {
@@ -62,13 +66,18 @@ class Map extends React.Component {
     const map = (this.refs.map);
     this.map = new google.maps.Map(map, {
       center: {lat: lat, lng: lng},
-      zoom: 14
+      zoom: 11
     });
 
     this.getLocation(this.map);
-    dummyTweets.forEach(tweet => {
-      this.addTweet(tweet)
-    });
+    // dummyTweets.forEach(tweet => {
+    //   this.addTweet(tweet);
+    // });
+    if (this.props.tweets) {
+      this.props.tweets.forEach(tweet => {
+        this.addTweet(tweet);
+      });
+    }
   }
 
   getLocation (map) {
@@ -85,19 +94,23 @@ class Map extends React.Component {
   addTweet (tweet) {
     this.modal;
     let that = this;
-    let pos = new google.maps.LatLng(tweet.coordinates.coordinates[1], tweet.coordinates.coordinates[0]);
-    let marker = new google.maps.Marker({
-            position: pos,
-            map: this.map
-          });
+    if (tweet.coordinates) {
+      let pos = new google.maps.LatLng(
+        tweet.coordinates.coordinates[1],
+        tweet.coordinates.coordinates[0]
+      );
+      let marker = new google.maps.Marker({
+        position: pos,
+        map: this.map
+      });
       this.bounds.extend(marker.position);
       marker.addListener('click', () => {
-        // we will replace this click with a modal later on
         that.tweet = tweet;
         that.openModal();
         // that.infowindow.setContent(`${tweet.content}`);
         // that.infowindow.open(that.map, marker);
       });
+    }
   }
 
   render() {
@@ -132,7 +145,7 @@ class Map extends React.Component {
                 isOpen={this.state.modalOpen}
                 onRequestClose={this.closeModal}
                 style={ModalStyle}>
-                {(this.tweet) ? <p>{this.tweet.content}</p> : null }
+                {(this.tweet) ? <p>{this.tweet.text}</p> : null }
              <br/><br/>
               </Modal>
       </div>

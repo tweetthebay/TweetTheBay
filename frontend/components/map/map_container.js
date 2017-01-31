@@ -3,7 +3,8 @@ import Map from './map';
 import fetchTweets from '../../actions/tweet_actions';
 
 const mapStateToProps = state => ({
-
+  tweets: state.tweets.tweets,
+  tweet: state.tweets.tweet
 });
 
 const mapDispatchToProps = dispatch => ({
