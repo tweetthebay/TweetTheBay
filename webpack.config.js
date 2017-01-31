@@ -1,6 +1,6 @@
 module.exports = {
   context: __dirname,
-  entry: "./frontend/hashworld.jsx",
+  entry: "./frontend/SFTweets.jsx",
   output: {
     path: "./app/assets/javascripts",
     filename: "bundle.js"
