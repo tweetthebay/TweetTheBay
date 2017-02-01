@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import Sidebar from './sidebar';
 
 const mapStateToProps = state => ({
-  tweets: state.tweets.tweets,
-  tweet: state.tweets.tweet
+  tweets: state.tweets,
+  tweet: state.tweets
 });
 
 const mapDispatchToProps = dispatch => ({

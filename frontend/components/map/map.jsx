@@ -19,6 +19,7 @@ class Map extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.geocodeAddress = this.geocodeAddress.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.markers = [];
   }
 
 
@@ -45,11 +46,10 @@ class Map extends React.Component {
     this.infowindow = new google.maps.InfoWindow;
     this.bounds = new google.maps.LatLngBounds;
 
-    if (this.props.tweets) {
+    if (this.props.tweets.length > 0) {
       this.props.tweets.forEach(tweet => {
         this.addTweet(tweet);
       });
-      this.map.fitBounds(this.bounds);
     }
     let that = this;
     google.maps.event.addDomListener(window, "resize", function() {
@@ -63,11 +63,16 @@ class Map extends React.Component {
 
     this.getLocation(this.map);
 
+    if (newProps !== this.props) {
+      for (let i = 0; i < this.markers.length; i++) {
+        this.markers[i].setMap(null);
+      }
+    }
+
     if (newProps.tweets) {
       newProps.tweets.forEach(tweet => {
         this.addTweet(tweet);
       });
-      this.map.fitBounds(this.bounds);
     }
   }
 
@@ -100,7 +105,7 @@ class Map extends React.Component {
         position: pos,
         map: this.map
       });
-      this.bounds.extend(marker.getPosition());
+      this.markers.push(marker)
       this.handleClick(marker, tweet);
     } else if (typeof tweet.place === 'undefined' ) {
       return;
@@ -122,8 +127,7 @@ class Map extends React.Component {
           map: resultsMap,
           position: position
         });
-
-        that.bounds.extend(marker.getPosition());
+        this.markers.push(marker);
         that.handleClick(marker, tweet);
       } else {
         return;
@@ -134,9 +138,11 @@ class Map extends React.Component {
   handleClick (marker, tweet) {
     let that = this;
     marker.addListener('click', () => {
-      that.map.setCenter(this.position)
-      that.tweet = tweet;
-      that.openModal();
+      // that.tweet = tweet;
+      // that.openModal();
+      that.map.setCenter(this.position);
+      that.infowindow.setContent(`${tweet.text}`);
+      that.infowindow.open(that.map, marker);
     });
   }
 
