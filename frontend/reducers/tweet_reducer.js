@@ -5,9 +5,9 @@ const TweetReducer = (state = {}, action) => {
   Object.freeze(state);
   switch(action.type){
     case RECEIVE_TWEETS:
-      return action.tweets;
+      return merge({}, state, {tweets: action.tweets});
     case RECEIVE_TWEET:
-      return action.tweet;
+      return merge({}, state, {tweet: action.tweet});
     default:
       return state;
   }

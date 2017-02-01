@@ -4,12 +4,13 @@ export const RECEIVE_TWEETS = "RECEIVE_TWEETS";
 export const RECEIVE_TWEET = 'RECEIVE_TWEET';
 export const RECEIVE_TWEET_ERRORS = "RECEIVE_ERRORS";
 
-export const fetchTweets = () => dispatch => (
-  APIUtils.fetchTweets().then(data => dispatch(receiveTweets(data)),
+export const fetchTweets = (query) => dispatch => (
+  APIUtils.searchTweets(query).then(data => dispatch(receiveTweets(data)),
     err => dispatch(receiveTweetErrors(err.responseJSON)))
 );
 
-const receiveTweets = tweets => ({
+
+export const receiveTweets = tweets => ({
   type: RECEIVE_TWEETS,
   tweets
 });
@@ -17,8 +18,9 @@ const receiveTweets = tweets => ({
 export const receiveTweet = (tweet) => ({
   type: RECEIVE_TWEET,
   tweet
+});
 
-const receiveTweetErrors = errors => ({
+export const receiveTweetErrors = errors => ({
   type: RECEIVE_TWEET_ERRORS,
   errors
 });
