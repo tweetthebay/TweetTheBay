@@ -26,9 +26,8 @@ class Search extends React.Component {
           <input
             className='search-input'
             type='text'
-            placeholder='Search'
+            placeholder='Search Tweets'
             onChange={this.update}/>
-          <input type='submit' name='Submit'/>
         </form>
       </div>
 

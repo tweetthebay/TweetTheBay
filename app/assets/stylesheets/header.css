@@ -43,5 +43,19 @@
   margin-left: 40px;
   vertical-align: middle;
   position: relative;
-  bottom: 10px;
+  bottom: 11px;
+}
+
+.search-input{
+  width: 150px;
+  height: 30px;
+  background: white;
+  border: none;
+  font-size: 10pt;
+  float: left;
+  color: #63717f;
+  padding-left: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
