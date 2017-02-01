@@ -73,13 +73,15 @@ class Map extends React.Component {
   }
 
   getLocation (map) {
-    map.addListener('dragend', (event) => {
+    let that = this;
+    map.addListener('idle', (event) => {
 
       const bounds = map.getBounds();
+      const radius = Math.abs(bounds.f.b - bounds.f.f) * 34.5;
       const centerLat = map.getCenter().lat();
       const centerLng = map.getCenter().lng();
 
-      this.setState({bounds: bounds, lat: centerLat, lng: centerLng});
+      that.props.setMapPosition({radius: radius, lat: centerLat, lng: centerLng});
 
       // const lat = event.latLng.lat();
       // const lng = event.latLng.lng();
