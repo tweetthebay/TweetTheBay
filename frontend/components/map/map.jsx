@@ -35,8 +35,6 @@ class Map extends React.Component {
     let lat = 37.773972;
     let lng =  -122.431297;
 
-    // this.tweets = this.props.fetchTweets();
-
     const map = (this.refs.map);
     this.map = new google.maps.Map(map, {
       center: {lat, lng},
@@ -46,6 +44,7 @@ class Map extends React.Component {
     this.geocoder = new google.maps.Geocoder;
     this.infowindow = new google.maps.InfoWindow;
     this.bounds = new google.maps.LatLngBounds;
+
     if (this.props.tweets) {
       this.props.tweets.forEach(tweet => {
         this.addTweet(tweet);
@@ -55,15 +54,9 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    let lat = 37.773972;
-    let lng = -122.431297;
-    const map = (this.refs.map);
-    this.map = new google.maps.Map(map, {
-      center: {lat: lat, lng: lng},
-      zoom: 11
-    });
 
     this.getLocation(this.map);
+
     if (newProps.tweets) {
       newProps.tweets.forEach(tweet => {
         this.addTweet(tweet);
@@ -73,20 +66,18 @@ class Map extends React.Component {
   }
 
   getLocation (map) {
+
     let that = this;
     map.addListener('idle', (event) => {
+
 
       const bounds = map.getBounds();
       const radius = Math.abs(bounds.f.b - bounds.f.f) * 34.5;
       const centerLat = map.getCenter().lat();
       const centerLng = map.getCenter().lng();
 
+
       that.props.setMapPosition({radius: radius, lat: centerLat, lng: centerLng});
-
-      // const lat = event.latLng.lat();
-      // const lng = event.latLng.lng();
-
-      //we can return anything we want from here.
     });
   }
 
@@ -103,12 +94,12 @@ class Map extends React.Component {
         position: pos,
         map: this.map
       });
-      this.bounds.extend(marker.position);
+      this.bounds.extend(marker.getPosition());
       this.handleClick(marker, tweet);
-    } else if (tweet.place_name === "" || typeof tweet.place_name === 'undefined') {
+    } else if (typeof tweet.place === 'undefined' ) {
       return;
     } else {
-      this.geocodeAddress(that.geocoder, that.map, tweet.place_name, tweet);
+      this.geocodeAddress(that.geocoder, that.map, tweet.place.full_name, tweet);
     }
   }
 
@@ -117,15 +108,17 @@ class Map extends React.Component {
     geocoder.geocode({'address': address}, (results, status) => {
       if (status === 'OK') {
         let random = 0.01 * Math.random()
+        let factor = random <= 0.005 ? 1 : -1;
         let position = new google.maps.LatLng(
-          results[0].geometry.location.lat()+random,
-          results[0].geometry.location.lng()+random);
+          results[0].geometry.location.lat()+random*factor,
+          results[0].geometry.location.lng()+random*factor);
         let marker = new google.maps.Marker({
           map: resultsMap,
           position: position
         });
-        this.bounds.extend(marker.position);
-        this.handleClick(marker, tweet);
+
+        that.bounds.extend(marker.getPosition());
+        that.handleClick(marker, tweet);
         return marker
       } else {
         return;
