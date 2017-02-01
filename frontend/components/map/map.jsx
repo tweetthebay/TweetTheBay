@@ -3,18 +3,6 @@ import ReactDOM from 'react-dom';
 import {Link} from 'react-router';
 import Modal from 'react-modal';
 
-let dummyTweets = [
-  {
-    content: 'hey',
-    coordinates: {coordinates: [-122.43129699999997, 37.773972]}
-  },
-  {
-    content: 'hop',
-    coordinates: {coordinates: [-122.43129699999999, 37.71370248522799]}
-  }
-];
-
-
 class Map extends React.Component {
   constructor(props) {
     super(props);
