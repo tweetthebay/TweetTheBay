@@ -10,9 +10,13 @@
   justify-content: flex-start;
 }
 
+.sidebar-container {
+
+}
+
 .sidebar {
   width: 325px;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .tweet-list-item {

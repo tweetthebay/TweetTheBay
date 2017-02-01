@@ -28,13 +28,16 @@ class Sidebar extends React.Component {
     }
   }
 
+
+
   render () {
 
     const tweetList = this.state.tweets.map((tweet, idx) => {
 
-      return (
+      if (tweet.coordinates || tweet.place) {
+        return (
           <ListItem
-            key={ tweet.user_name }
+            key={ idx }
             leftAvatar= {<img src={`${tweet.user_image}`} />}
             primaryText={`${tweet.user_name}`}
             secondaryText={
@@ -42,18 +45,21 @@ class Sidebar extends React.Component {
                 {tweet.text}
               </p>
             }
-            secondaryTextLines={ 3 }
+            secondaryTextLines={ 2 }
             />
-      );
+        );
+      }
     });
 
     return (
-      <aside className='sidebar'>
-        <List>
-          <Subheader>Most Recent</Subheader>
-          { tweetList }
-        </List>
-      </aside>
+      <div className='sidebar-container'>        
+        <aside className='sidebar'>
+          <List>
+            <Subheader>Most Recent</Subheader>
+            { tweetList }
+          </List>
+        </aside>
+      </div>
     );
   }
 }
