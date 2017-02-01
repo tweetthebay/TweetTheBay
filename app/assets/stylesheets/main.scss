@@ -11,8 +11,13 @@
 }
 
 .sidebar {
-  border: 1px solid red;
   width: 325px;
+  overflow: scroll;
+}
+
+.tweet-list-item {
+  border: 1px solid black;
+  height: 100px;
 }
 
 .map-container {
