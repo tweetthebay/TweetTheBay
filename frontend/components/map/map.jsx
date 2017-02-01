@@ -131,7 +131,6 @@ class Map extends React.Component {
           this.openModal();
         });
         return marker
-        console.log(marker);
       } else {
         return;
       }
