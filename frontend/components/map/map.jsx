@@ -14,18 +14,18 @@ let dummyTweets = [
   }
 ];
 
-// TODO: change dummyTweets to this.props.tweets
 
 class Map extends React.Component {
   constructor(props) {
     super(props);
-    this.getLocation = this.getLocation.bind(this);
-    this.addTweet = this.addTweet.bind(this);
     this.state = {
       modalOpen: false
     };
+    this.getLocation = this.getLocation.bind(this);
+    this.addTweet = this.addTweet.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.geocodeAddress = this.geocodeAddress.bind(this);
   }
 
 
@@ -50,7 +50,7 @@ class Map extends React.Component {
       zoom: 11
     });
     this.getLocation(this.map);
-    // this.geocoder = new google.maps.Geocoder;
+    this.geocoder = new google.maps.Geocoder;
     this.infowindow = new google.maps.InfoWindow;
     this.bounds = new google.maps.LatLngBounds;
     if (this.props.tweets) {
@@ -73,8 +73,8 @@ class Map extends React.Component {
     // dummyTweets.forEach(tweet => {
     //   this.addTweet(tweet);
     // });
-    if (this.props.tweets) {
-      this.props.tweets.forEach(tweet => {
+    if (newProps.tweets) {
+      newProps.tweets.forEach(tweet => {
         this.addTweet(tweet);
       });
     }
@@ -94,12 +94,13 @@ class Map extends React.Component {
   addTweet (tweet) {
     this.modal;
     let that = this;
+    let marker;
     if (tweet.coordinates) {
       let pos = new google.maps.LatLng(
         tweet.coordinates.coordinates[1],
         tweet.coordinates.coordinates[0]
       );
-      let marker = new google.maps.Marker({
+      marker = new google.maps.Marker({
         position: pos,
         map: this.map
       });
@@ -107,10 +108,33 @@ class Map extends React.Component {
       marker.addListener('click', () => {
         that.tweet = tweet;
         that.openModal();
-        // that.infowindow.setContent(`${tweet.content}`);
-        // that.infowindow.open(that.map, marker);
       });
+    } else if (tweet.place_name === "" || typeof tweet.place_name === 'undefined') {
+      return;
+    } else {
+      this.geocodeAddress(that.geocoder, that.map, tweet.place_name, tweet);
     }
+  }
+
+  geocodeAddress(geocoder, resultsMap, address, tweet) {
+    let that = this;
+    geocoder.geocode({'address': address}, (results, status) => {
+      if (status === 'OK') {
+        // resultsMap.setCenter(results[0].geometry.location);
+        let marker = new google.maps.Marker({
+          map: resultsMap,
+          position: results[0].geometry.location
+        });
+        this.bounds.extend(marker.position);
+        marker.addListener('click', () => {
+          that.tweet = tweet;
+          this.openModal();
+        });
+        return marker
+      } else {
+        return;
+      }
+    });
   }
 
   render() {

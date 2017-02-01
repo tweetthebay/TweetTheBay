@@ -7,27 +7,28 @@ class Search extends React.Component {
       searchParams: ''
     };
     this.update = this.update.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  update() {
-    return e => {
-      this.setState({ ['searchParams']: e.target.value });
-      this.props.searchTweets(e.target.value);
-    };
+  update(e) {
+    this.setState({ ['searchParams']: e.target.value });
+  }
+
+  handleSubmit (e) {
+    e.preventDefault();
+    this.props.searchTweets(this.state.searchParams);
   }
 
   render() {
     return(
       <div>
-        <form className='search-form'>
+        <form className='search-form' onSubmit={this.handleSubmit}>
           <input
             className='search-input'
             type='text'
             placeholder='Search'
-            onChange={this.update('searchParams')} />
-          <i className="fa fa-search search-icon"
-            aria-hidden="true"
-            onClick={this.update} ></i>
+            onChange={this.update}/>
+          <input type='submit' name='Submit'/>
         </form>
       </div>
 
