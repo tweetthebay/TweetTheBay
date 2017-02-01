@@ -70,9 +70,6 @@ class Map extends React.Component {
     });
 
     this.getLocation(this.map);
-    // dummyTweets.forEach(tweet => {
-    //   this.addTweet(tweet);
-    // });
     if (newProps.tweets) {
       newProps.tweets.forEach(tweet => {
         this.addTweet(tweet);
@@ -120,10 +117,13 @@ class Map extends React.Component {
     let that = this;
     geocoder.geocode({'address': address}, (results, status) => {
       if (status === 'OK') {
-        // resultsMap.setCenter(results[0].geometry.location);
+        let random = 0.01 * Math.random()
+        let position = new google.maps.LatLng(
+          results[0].geometry.location.lat()+random,
+          results[0].geometry.location.lng()+random);
         let marker = new google.maps.Marker({
           map: resultsMap,
-          position: results[0].geometry.location
+          position: position
         });
         this.bounds.extend(marker.position);
         marker.addListener('click', () => {
@@ -163,7 +163,7 @@ class Map extends React.Component {
   }
   };
     return(
-      <div>
+      <div className='map-container'>
         <div className="map" id='map' ref='map'>Map</div>
           <Modal
                 contentLabel='Modal'

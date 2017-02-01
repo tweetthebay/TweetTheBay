@@ -32,6 +32,8 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'twitter'
 
+gem "figaro"
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
