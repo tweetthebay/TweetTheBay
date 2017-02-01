@@ -1,0 +1,61 @@
+.header{
+  background-color: #02344A;
+  color: white;
+  font-family: "Open Sans", "Arial", sans-serif;
+}
+
+.header-container{
+  box-shadow: 1px 1px 1px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.header-brand{
+  padding: 20px 20px 20px 20px;
+  display: inline-block;
+}
+
+.fa-twitter-square:before{
+  margin-right: 20px;
+}
+
+.logo{
+  display: inline-block;
+  position: relative;
+  bottom: 5px;
+  margin: 0;
+}
+
+.website-description{
+  display: inline-block;
+  vertical-align: center;
+  margin: 0;
+  padding: 5px 0px 5px 20px;
+  border-left: 2px solid #f0f0f0;
+  line-height: 20px;
+}
+
+.search-container{
+  display: inline-block;
+  vertical-align: center;
+  margin-left: 40px;
+  vertical-align: middle;
+  position: relative;
+  bottom: 11px;
+}
+
+.search-input{
+  width: 150px;
+  height: 30px;
+  background: white;
+  border: none;
+  font-size: 10pt;
+  float: left;
+  color: #63717f;
+  padding-left: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
