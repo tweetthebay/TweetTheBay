@@ -1,5 +1,15 @@
 import React from 'react';
 
+import {List, ListItem} from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+import Subheader from 'material-ui/Subheader';
+import Avatar from 'material-ui/Avatar';
+import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+
 class Sidebar extends React.Component {
   constructor(props) {
     super(props);
@@ -13,7 +23,7 @@ class Sidebar extends React.Component {
 
   componentWillReceiveProps(newProps) {
     if (newProps.tweets) {
-      this.setState({tweets: newProps.tweets});
+      this.setState({ tweets: newProps.tweets });
       console.log(newProps.tweets);
     }
   }
@@ -23,18 +33,26 @@ class Sidebar extends React.Component {
     const tweetList = this.state.tweets.map((tweet, idx) => {
 
       return (
-        <li key={idx} className='tweet-list-item'>
-          <p>{tweet.text}</p>
-          <p> - {tweet.user_name}</p>
-        </li>
+          <ListItem
+            key={ tweet.user_name }
+            leftAvatar= {<img src={`${tweet.user_image}`} />}
+            primaryText={`${tweet.user_name}`}
+            secondaryText={
+              <p>
+                {tweet.text}
+              </p>
+            }
+            secondaryTextLines={ 3 }
+            />
       );
     });
 
     return (
       <aside className='sidebar'>
-        <ul>
-          {tweetList}
-        </ul>
+        <List>
+          <Subheader>Most Recent</Subheader>
+          { tweetList }
+        </List>
       </aside>
     );
   }
