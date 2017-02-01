@@ -1,0 +1,24 @@
+.index-body {
+  border: 1px solid black;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.sidebar {
+  border: 1px solid red;
+  width: 300px;
+}
+
+.map-container {
+  top: 0;
+  width: 80%;
+  height: 800px;
+}
+
+.map {
+  top: 0;
+  width: 100%;
+  height: 800px;
+}
