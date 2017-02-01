@@ -1,6 +1,5 @@
 class Api::TweetsController < ApplicationController
  def index
-
    @client = Twitter::REST::Client.new do |config|
     config.consumer_key        = ENV['CONSUMER_API_KEY']
     config.consumer_secret     = ENV['CONSUMER_API_SECRET']
@@ -9,7 +8,7 @@ class Api::TweetsController < ApplicationController
    end
 
    if params[:query]
-     @tweets = @client.search("#{params[:query]}", geocode: "37.754880,-122.410066,25mi").attrs[:statuses]
+     @tweets = @client.search("#{params[:query]}", geocode: "#{params[:location][:lat]},#{params[:location][:lng]},#{params[:location][:radius]}mi").attrs[:statuses]
      @place_tweets = @tweets.select { |tweet| tweet[:coordinates] != nil }
      @geo_tweets = @tweets.select { |tweet| tweet[:place] != nil }
      @place_name_tweets = @tweets.select do |tweet|

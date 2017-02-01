@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import Map from './map';
 import fetchTweets from '../../actions/tweet_actions';
-import setMapPosition from '../../actions/map_actions';
+import { setMapPosition } from '../../actions/map_actions';
 
 const mapStateToProps = state => ({
   tweets: state.tweets.tweets,
