@@ -33,8 +33,6 @@ class Sidebar extends React.Component {
   render () {
 
     const tweetList = this.state.tweets.map((tweet, idx) => {
-
-      if (tweet.coordinates || tweet.place) {
         return (
           <ListItem
             key={ idx }
@@ -48,11 +46,10 @@ class Sidebar extends React.Component {
             secondaryTextLines={ 2 }
             />
         );
-      }
     });
 
     return (
-      <div className='sidebar-container'>        
+      <div className='sidebar-container'>
         <aside className='sidebar'>
           <List>
             <Subheader>Most Recent</Subheader>

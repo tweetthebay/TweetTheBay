@@ -11,12 +11,13 @@
 }
 
 .sidebar-container {
-
+  width: 375px;
+  overflow-x: hidden;
 }
 
 .sidebar {
   width: 325px;
-  overflow-y: scroll;
+  position: relative;
 }
 
 .tweet-list-item {
