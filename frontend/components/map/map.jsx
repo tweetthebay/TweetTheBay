@@ -7,13 +7,18 @@ class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalOpen: false
+      modalOpen: false,
+      bounds: null,
+      lat: null,
+      lng: null
+
     };
     this.getLocation = this.getLocation.bind(this);
     this.addTweet = this.addTweet.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.geocodeAddress = this.geocodeAddress.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
 
@@ -45,6 +50,7 @@ class Map extends React.Component {
       this.props.tweets.forEach(tweet => {
         this.addTweet(tweet);
       });
+      this.map.fitBounds(this.bounds);
     }
   }
 
@@ -62,16 +68,22 @@ class Map extends React.Component {
       newProps.tweets.forEach(tweet => {
         this.addTweet(tweet);
       });
+      this.map.fitBounds(this.bounds);
     }
   }
 
   getLocation (map) {
-    map.addListener('click', (event) => {
+    map.addListener('dragend', (event) => {
+
       const bounds = map.getBounds();
       const centerLat = map.getCenter().lat();
       const centerLng = map.getCenter().lng();
-      const lat = event.latLng.lat();
-      const lng = event.latLng.lng();
+
+      this.setState({bounds: bounds, lat: centerLat, lng: centerLng});
+
+      // const lat = event.latLng.lat();
+      // const lng = event.latLng.lng();
+
       //we can return anything we want from here.
     });
   }
@@ -90,10 +102,7 @@ class Map extends React.Component {
         map: this.map
       });
       this.bounds.extend(marker.position);
-      marker.addListener('click', () => {
-        that.tweet = tweet;
-        that.openModal();
-      });
+      this.handleClick(marker, tweet);
     } else if (tweet.place_name === "" || typeof tweet.place_name === 'undefined') {
       return;
     } else {
@@ -114,14 +123,20 @@ class Map extends React.Component {
           position: position
         });
         this.bounds.extend(marker.position);
-        marker.addListener('click', () => {
-          that.tweet = tweet;
-          this.openModal();
-        });
+        this.handleClick(marker, tweet);
         return marker
       } else {
         return;
       }
+    });
+  }
+
+  handleClick (marker, tweet) {
+    let that = this;
+    marker.addListener('click', () => {
+      that.map.setCenter(this.position)
+      that.tweet = tweet;
+      that.openModal();
     });
   }
 
