@@ -163,7 +163,7 @@ class Map extends React.Component {
   }
   };
     return(
-      <div className='map-container'>
+      <div>
         <div className="map" id='map' ref='map'>Map</div>
           <Modal
                 contentLabel='Modal'

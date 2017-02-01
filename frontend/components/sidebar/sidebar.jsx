@@ -8,9 +8,15 @@ class Sidebar extends React.Component {
   render () {
 
     return (
-      <aside className="sidebar">
-        <div></div>
-        <div></div>
+      <aside className='sidebar'>
+        <ul>
+          <li className='tweet-list-item'>
+
+          </li>
+          <li className='tweet-list-item'>
+
+          </li>
+        </ul>
       </aside>
     );
   }

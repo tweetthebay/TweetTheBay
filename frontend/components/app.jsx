@@ -4,7 +4,7 @@ import SearchContainer from './search/search_container';
 import SidebarContainer from './sidebar/sidebar_container';
 
 const App = ({ children }) => (
-  <div>
+  <div className='root-div'>
     <SearchContainer />
     <main className='index-body'>
       <SidebarContainer />
