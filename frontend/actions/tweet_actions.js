@@ -9,7 +9,6 @@ export const fetchTweets = (query) => dispatch => (
     err => dispatch(receiveTweetErrors(err.responseJSON)))
 );
 
-
 export const receiveTweets = tweets => ({
   type: RECEIVE_TWEETS,
   tweets
