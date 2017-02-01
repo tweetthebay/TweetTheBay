@@ -51,6 +51,12 @@ class Map extends React.Component {
       });
       this.map.fitBounds(this.bounds);
     }
+    let that = this;
+    google.maps.event.addDomListener(window, "resize", function() {
+      let center = that.map.getCenter();
+      google.maps.event.trigger(that.map, "resize");
+      that.map.setCenter(center);
+    });
   }
 
   componentWillReceiveProps(newProps) {
@@ -112,7 +118,6 @@ class Map extends React.Component {
 
         that.bounds.extend(marker.getPosition());
         that.handleClick(marker, tweet);
-        return marker
       } else {
         return;
       }
