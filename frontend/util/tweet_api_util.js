@@ -1,8 +1,8 @@
-export const searchTweets = query => (
+export const searchTweets = (query, location) => (
   $.ajax({
     method: 'GET',
     url: 'api/tweets',
-    data: { query }
+    data: { query, location },
   })
 );
 
