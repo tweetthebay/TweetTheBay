@@ -3,29 +3,22 @@ import ReactDOM from 'react-dom';
 import {Link} from 'react-router';
 import Modal from 'react-modal';
 
-let dummyTweets = [
-  {
-    content: 'hey',
-    coordinates: {coordinates: [-122.43129699999997, 37.773972]}
-  },
-  {
-    content: 'hop',
-    coordinates: {coordinates: [-122.43129699999999, 37.71370248522799]}
-  }
-];
-
-
 class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalOpen: false
+      modalOpen: false,
+      bounds: null,
+      lat: null,
+      lng: null
+
     };
     this.getLocation = this.getLocation.bind(this);
     this.addTweet = this.addTweet.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.geocodeAddress = this.geocodeAddress.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
 
@@ -42,8 +35,6 @@ class Map extends React.Component {
     let lat = 37.773972;
     let lng =  -122.431297;
 
-    // this.tweets = this.props.fetchTweets();
-
     const map = (this.refs.map);
     this.map = new google.maps.Map(map, {
       center: {lat, lng},
@@ -53,38 +44,33 @@ class Map extends React.Component {
     this.geocoder = new google.maps.Geocoder;
     this.infowindow = new google.maps.InfoWindow;
     this.bounds = new google.maps.LatLngBounds;
+
     if (this.props.tweets) {
       this.props.tweets.forEach(tweet => {
         this.addTweet(tweet);
       });
+      this.map.fitBounds(this.bounds);
     }
   }
 
   componentWillReceiveProps(newProps) {
-    let lat = 37.773972;
-    let lng = -122.431297;
-    const map = (this.refs.map);
-    this.map = new google.maps.Map(map, {
-      center: {lat: lat, lng: lng},
-      zoom: 11
-    });
 
     this.getLocation(this.map);
+
     if (newProps.tweets) {
       newProps.tweets.forEach(tweet => {
         this.addTweet(tweet);
       });
+      this.map.fitBounds(this.bounds);
     }
   }
 
   getLocation (map) {
-    map.addListener('click', (event) => {
+    map.addListener('dragend', (event) => {
       const bounds = map.getBounds();
       const centerLat = map.getCenter().lat();
       const centerLng = map.getCenter().lng();
-      const lat = event.latLng.lat();
-      const lng = event.latLng.lng();
-      //we can return anything we want from here.
+      this.setState({bounds: bounds, lat: centerLat, lng: centerLng});
     });
   }
 
@@ -101,15 +87,12 @@ class Map extends React.Component {
         position: pos,
         map: this.map
       });
-      this.bounds.extend(marker.position);
-      marker.addListener('click', () => {
-        that.tweet = tweet;
-        that.openModal();
-      });
-    } else if (tweet.place_name === "" || typeof tweet.place_name === 'undefined') {
+      this.bounds.extend(marker.getPosition());
+      this.handleClick(marker, tweet);
+    } else if (typeof tweet.place === 'undefined' ) {
       return;
     } else {
-      this.geocodeAddress(that.geocoder, that.map, tweet.place_name, tweet);
+      this.geocodeAddress(that.geocoder, that.map, tweet.place.full_name, tweet);
     }
   }
 
@@ -118,22 +101,30 @@ class Map extends React.Component {
     geocoder.geocode({'address': address}, (results, status) => {
       if (status === 'OK') {
         let random = 0.01 * Math.random()
+        let factor = random <= 0.005 ? 1 : -1;
         let position = new google.maps.LatLng(
-          results[0].geometry.location.lat()+random,
-          results[0].geometry.location.lng()+random);
+          results[0].geometry.location.lat()+random*factor,
+          results[0].geometry.location.lng()+random*factor);
         let marker = new google.maps.Marker({
           map: resultsMap,
           position: position
         });
-        this.bounds.extend(marker.position);
-        marker.addListener('click', () => {
-          that.tweet = tweet;
-          this.openModal();
-        });
+
+        that.bounds.extend(marker.getPosition());
+        that.handleClick(marker, tweet);
         return marker
       } else {
         return;
       }
+    });
+  }
+
+  handleClick (marker, tweet) {
+    let that = this;
+    marker.addListener('click', () => {
+      that.map.setCenter(this.position)
+      that.tweet = tweet;
+      that.openModal();
     });
   }
 
