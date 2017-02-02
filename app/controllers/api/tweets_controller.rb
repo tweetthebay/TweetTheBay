@@ -9,7 +9,7 @@ class Api::TweetsController < ApplicationController
 
    @limits = Twitter::REST::Request.new(@client, :get, 'https://api.twitter.com/1.1/application/rate_limit_status.json', resources: "search").perform
    @remaining_requests = @limits[:resources][:search][:"/search/tweets"][:remaining]
-  
+
 
     if params[:query] && @remaining_requests > 0
      @tweets = @client.search("#{params[:query]}", geocode: "#{params[:location][:lat]},#{params[:location][:lng]},#{params[:location][:radius]}mi").attrs[:statuses]
