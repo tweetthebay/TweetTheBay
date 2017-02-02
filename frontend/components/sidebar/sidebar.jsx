@@ -16,7 +16,8 @@ class searchSidebar extends React.Component {
 
     this.state = {
       trends: [],
-      tweets: []
+      tweets: [],
+      currentSearch: ""
     };
 
     this.setState = this.setState.bind(this);
@@ -31,8 +32,6 @@ class searchSidebar extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    // console.log(this.state.tweets);
-    console.log(newProps.tweets.tweets);
     if (newProps.trends) {
       this.setState({trends: newProps.currentTrends });
     }
@@ -50,7 +49,11 @@ class searchSidebar extends React.Component {
           <div>
             <ListItem
               key={ idx }
-              onClick={() => this.props.searchTweets(`${trend.name}`, this.props.location)}
+              onClick={() => this.props.searchTweets(`${trend.name}`, this.props.location)
+                              .then(() => {
+                                this.setState({
+                                currentAlbum: this.props.currentAlbum});
+                              })}
               primaryText={`${trend.name}`}
               secondaryText={
                 <p>
