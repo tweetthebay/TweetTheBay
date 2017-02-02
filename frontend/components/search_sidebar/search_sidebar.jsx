@@ -40,17 +40,20 @@ class searchSidebar extends React.Component {
       if (trend.volume !== "null") {
         trendPlaceCount += 1;
         return (
-          <ListItem
-            key={ idx }
-            onClick={() => this.props.searchTweets(`${trend.name}`, this.props.location)}
-            primaryText={`${trend.name}`}
-            secondaryText={
-              <p>
-                {trend.volume} people are tweeting about this
-              </p>
-            }
-            secondaryTextLines={ 1 }
-            />
+          <div>
+            <ListItem
+              key={ idx }
+              onClick={() => this.props.searchTweets(`${trend.name}`, this.props.location)}
+              primaryText={`${trend.name}`}
+              secondaryText={
+                <p>
+                  {trend.volume} people are tweeting about this
+                </p>
+              }
+              secondaryTextLines={ 1 }
+              />
+            <Divider inset={true} />
+          </div>
         );
       }
     });
@@ -59,18 +62,21 @@ class searchSidebar extends React.Component {
         const id = tweet.id;
 
         return (
-          <ListItem
-            key={ idx }
-            onClick={() => this.props.setCurrentTweet({id})}
-            leftAvatar= {<img src={`${tweet.user_image}`} />}
-            primaryText={`${tweet.user_name}`}
-            secondaryText={
-              <p>
-                {tweet.text}
-              </p>
-            }
-            secondaryTextLines={ 2 }
-            />
+          <div>
+            <ListItem
+              key={ idx }
+              onClick={() => this.props.setCurrentTweet({id})}
+              leftAvatar= {<img src={`${tweet.user_image}`} />}
+              primaryText={`${tweet.user_name}`}
+              secondaryText={
+                <p>
+                  {tweet.text}
+                </p>
+              }
+              secondaryTextLines={ 2 }
+              />
+            <Divider inset={true} />
+          </div>
         );
     });
 
@@ -83,12 +89,17 @@ class searchSidebar extends React.Component {
                 <ListItem
                   primaryText= "Unsure of what to search?"
                   secondaryText= "Try one of these trending topics:"
-                  disabled= {true}
+                  disabled = { true }
                   />
                 { trendList }
               </div>
             ) : (
               <div>
+                <ListItem
+                  primaryText = {`Current Search: searchTerm`}
+                  disabled = { true }
+                  />
+                <Divider />
                 <Subheader>Most Recent</Subheader>
                 { tweetList }
               </div>
@@ -97,7 +108,7 @@ class searchSidebar extends React.Component {
           { this.state.tweets.tweets.length === 0 ? (
             <div className='search-disclaimer'>
               <p className='search-disclaimer-text'>
-                <strong>disclaimer:</strong> Only ~3% of tweets have geolocation data, so results may be sparse
+                <strong>disclaimer:</strong> only ~3% of tweets have geolocation data, so results may be sparse
               </p>
             </div>
           ) : ""}
