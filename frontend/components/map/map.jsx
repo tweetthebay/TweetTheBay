@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Link} from 'react-router';
 import Modal from 'react-modal';
 
+
 class Map extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +20,7 @@ class Map extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.geocodeAddress = this.geocodeAddress.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.markers = [];
   }
 
 
@@ -43,9 +45,10 @@ class Map extends React.Component {
     this.getLocation(this.map);
     this.geocoder = new google.maps.Geocoder;
     this.infowindow = new google.maps.InfoWindow;
+    this.infowindow.setOptions({maxWidth: '300'});
     this.bounds = new google.maps.LatLngBounds;
-
-    if (this.props.tweets) {
+    debugger;
+    if (this.props.tweets.length > 0) {
       this.props.tweets.forEach(tweet => {
         this.addTweet(tweet);
       });
@@ -61,6 +64,12 @@ class Map extends React.Component {
   componentWillReceiveProps(newProps) {
 
     this.getLocation(this.map);
+
+    if (newProps !== this.props) {
+      for (let i = 0; i < this.markers.length; i++) {
+        this.markers[i].setMap(null);
+      }
+    }
 
     if (newProps.tweets) {
       newProps.tweets.forEach(tweet => {
@@ -98,7 +107,21 @@ class Map extends React.Component {
         position: pos,
         map: this.map
       });
-      this.bounds.extend(marker.getPosition());
+      if (this.props.currentTweet && tweet.id === this.props.currentTweet) {
+        this.map.setCenter(marker.position);
+        this.infowindow.setContent(
+          `<div class='info-window'>
+            <img class='info-window-image' src='${tweet.user_image}' />
+            <div>
+              <div class='info-window-item weight'>${tweet.user_name}</div>
+              <div class='info-window-item'>${tweet.text}</div>
+            </div>
+
+          </div>`
+        );
+        this.infowindow.open(that.map, marker);
+      }
+      this.markers.push(marker)
       this.handleClick(marker, tweet);
     } else if (typeof tweet.place === 'undefined' ) {
       return;
@@ -120,8 +143,7 @@ class Map extends React.Component {
           map: resultsMap,
           position: position
         });
-
-        that.bounds.extend(marker.getPosition());
+        this.markers.push(marker);
         that.handleClick(marker, tweet);
       } else {
         return;
@@ -132,50 +154,30 @@ class Map extends React.Component {
   handleClick (marker, tweet) {
     let that = this;
     marker.addListener('click', () => {
-      that.map.setCenter(this.position)
-      that.tweet = tweet;
-      that.openModal();
+      // that.tweet = tweet;
+      // that.openModal();
+      that.map.setCenter(this.position);
+      that.infowindow.setContent(
+        `<div class='info-window'>
+          <img class='info-window-image' src='${tweet.user_image}' />
+          <div>
+            <div class='info-window-item weight'>${tweet.user_name}</div>
+            <div class='info-window-item'>${tweet.text}</div>
+          </div>
+
+        </div>`
+      );
+      that.infowindow.open(that.map, marker);
     });
   }
 
   render() {
-    const ModalStyle = {
-  overlay : {
-    position          : 'fixed',
-    top               : '0px',
-    left              : 0,
-    right             : 0,
-    bottom            : 0,
-    backgroundColor   : 'rgba(0,0,0,0.6)',
-    transition: 'all 0.5s'
-  },
-  content : {
-    padding: '0',
-    boxShadow: "20px 20px 20px",
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : 'auto',
-    transform             : 'translate(-50%, -50%)',
-    borderRadius          : '20px',
-    backgroundColor : '#EDE5E2'
-  }
-  };
     return(
       <div className='map-container'>
         <div className="map" id='map' ref='map'>Map</div>
-          <Modal
-                contentLabel='Modal'
-                isOpen={this.state.modalOpen}
-                onRequestClose={this.closeModal}
-                style={ModalStyle}>
-                {(this.tweet) ? <p>{this.tweet.text}</p> : null }
-             <br/><br/>
-              </Modal>
+
       </div>
     );
   }
 }
-
 export default Map;
