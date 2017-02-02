@@ -47,7 +47,7 @@ class Map extends React.Component {
     this.infowindow = new google.maps.InfoWindow;
     this.infowindow.setOptions({maxWidth: '300'});
     this.bounds = new google.maps.LatLngBounds;
-
+    debugger;
     if (this.props.tweets.length > 0) {
       this.props.tweets.forEach(tweet => {
         this.addTweet(tweet);
@@ -119,7 +119,6 @@ class Map extends React.Component {
 
           </div>`
         );
-        // this.infowindow.
         this.infowindow.open(that.map, marker);
       }
       this.markers.push(marker)
@@ -173,29 +172,6 @@ class Map extends React.Component {
   }
 
   render() {
-  //   const ModalStyle = {
-  // overlay : {
-  //   position          : 'fixed',
-  //   top               : '0px',
-  //   left              : 0,
-  //   right             : 0,
-  //   bottom            : 0,
-  //   backgroundColor   : 'rgba(0,0,0,0.6)',
-  //   transition: 'all 0.5s'
-  // },
-  // content : {
-  //   padding: '0',
-  //   boxShadow: "20px 20px 20px",
-  //   top                   : '50%',
-  //   left                  : '50%',
-  //   right                 : 'auto',
-  //   bottom                : 'auto',
-  //   marginRight           : 'auto',
-  //   transform             : 'translate(-50%, -50%)',
-  //   borderRadius          : '20px',
-  //   backgroundColor : '#EDE5E2'
-  // }
-  // };
     return(
       <div className='map-container'>
         <div className="map" id='map' ref='map'>Map</div>
@@ -204,14 +180,4 @@ class Map extends React.Component {
     );
   }
 }
-
-// <Modal
-//       contentLabel='Modal'
-//       isOpen={this.state.modalOpen}
-//       onRequestClose={this.closeModal}
-//       style={ModalStyle}>
-//       {(this.tweet) ? <p>{this.tweet.text}</p> : null }
-//    <br/><br/>
-//     </Modal>
-
 export default Map;

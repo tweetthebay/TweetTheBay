@@ -1,7 +1,7 @@
 import merge from 'lodash/merge';
 import { RECEIVE_TWEETS} from '../actions/tweet_actions.js';
 
-const TweetReducer = (state = {}, action) => {
+const TweetReducer = (state = {tweets: []}, action) => {
   Object.freeze(state);
   switch(action.type){
     case RECEIVE_TWEETS:
