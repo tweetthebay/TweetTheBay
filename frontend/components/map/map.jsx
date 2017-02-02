@@ -47,7 +47,6 @@ class Map extends React.Component {
     this.infowindow = new google.maps.InfoWindow;
     this.infowindow.setOptions({maxWidth: '300'});
     this.bounds = new google.maps.LatLngBounds;
-    debugger;
     if (this.props.tweets.length > 0) {
       this.props.tweets.forEach(tweet => {
         this.addTweet(tweet);
@@ -107,7 +106,7 @@ class Map extends React.Component {
         position: pos,
         map: this.map
       });
-      if (this.props.currentTweet && tweet.id === this.props.currentTweet) {
+      if (this.props.currentTweet && tweet.id === this.props.currentTweet.id) {
         this.map.setCenter(marker.position);
         this.infowindow.setContent(
           `<div class='info-window'>
