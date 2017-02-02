@@ -49,7 +49,6 @@ class Map extends React.Component {
       this.props.tweets.forEach(tweet => {
         this.addTweet(tweet);
       });
-      this.map.fitBounds(this.bounds);
     }
     let that = this;
     google.maps.event.addDomListener(window, "resize", function() {
@@ -67,7 +66,6 @@ class Map extends React.Component {
       newProps.tweets.forEach(tweet => {
         this.addTweet(tweet);
       });
-      this.map.fitBounds(this.bounds);
     }
   }
 

@@ -7,7 +7,11 @@ class Api::TweetsController < ApplicationController
     config.access_token_secret = ENV['ACCESS_TOKEN_SECRET']
    end
 
-   if params[:query]
+   @limits = Twitter::REST::Request.new(@client, :get, 'https://api.twitter.com/1.1/application/rate_limit_status.json', resources: "search").perform
+   @remaining_requests = @limits[:resources][:search][:"/search/tweets"][:remaining]
+  
+
+    if params[:query] && @remaining_requests > 0
      @tweets = @client.search("#{params[:query]}", geocode: "#{params[:location][:lat]},#{params[:location][:lng]},#{params[:location][:radius]}mi").attrs[:statuses]
      @place_tweets = @tweets.select { |tweet| tweet[:coordinates] != nil }
      @geo_tweets = @tweets.select { |tweet| tweet[:place] != nil }
@@ -17,12 +21,7 @@ class Api::TweetsController < ApplicationController
        tweet[:place] == nil
      end
      render :tweets
-   else
-     @trends = @client.trends(id = 2487956).take(10)
-     first_trend = @trends.first.name.to_s
-     @tweets = @client.search(first_trend, geocode: "37.754880,-122.410066,5mi", count: 100)
-     render :index
-   end
+    end
 
  end
 
