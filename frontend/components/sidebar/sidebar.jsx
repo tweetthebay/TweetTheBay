@@ -29,13 +29,15 @@ class Sidebar extends React.Component {
   }
 
 
-
   render () {
 
     const tweetList = this.state.tweets.map((tweet, idx) => {
+        const id = tweet.id;
+
         return (
           <ListItem
             key={ idx }
+            onClick={() => this.props.setCurrentTweet({id})}
             leftAvatar= {<img src={`${tweet.user_image}`} />}
             primaryText={`${tweet.user_name}`}
             secondaryText={
