@@ -53,7 +53,7 @@ class Sidebar extends React.Component {
         <aside className='sidebar'>
           <List>
             <Subheader>Most Recent</Subheader>
-            { tweetList }
+            { this.state.tweets === [] ? "" : tweetList }
           </List>
         </aside>
       </div>
