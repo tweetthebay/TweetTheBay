@@ -15,37 +15,30 @@ class searchSidebar extends React.Component {
     super(props);
 
     this.state = {
-      trends: [],
-      tweets: []
+      tweets: {
+        trends: [],
+        tweets: []
+      }
     };
 
     this.setState = this.setState.bind(this);
   }
 
-  componentWillMount () {
-    this.props.fetchCurrentTrends()
-      .then(() => {
-          this.setState({
-            trends: this.props.currentTrends});
-        });
-  }
-
   componentWillReceiveProps(newProps) {
-    // console.log(this.state.tweets);
-    console.log(newProps.tweets.tweets);
-    if (newProps.trends) {
-      this.setState({trends: newProps.currentTrends });
-    }
-    else if (newProps.tweets) {
-      this.setState({ tweets: newProps.tweets.tweets });
+    if (newProps.tweets) {
+      this.setState({ tweets: newProps.tweets });
+      console.log(newProps);
     }
   }
 
   render () {
 
-    const trendList = this.state.trends.slice(0,5).map((trend, idx) => {
+    let trendPlaceCount = 1;
+
+    const trendList = this.state.tweets.trends.slice(0,5).map((trend, idx) => {
       const id = trend.id;
       if (trend.volume !== "null") {
+        trendPlaceCount += 1;
         return (
           <div>
             <ListItem
@@ -65,7 +58,7 @@ class searchSidebar extends React.Component {
       }
     });
 
-    const tweetList = this.state.tweets.map((tweet, idx) => {
+    const tweetList = this.state.tweets.tweets.map((tweet, idx) => {
         const id = tweet.id;
 
         return (
@@ -91,7 +84,7 @@ class searchSidebar extends React.Component {
       <div className='sidebar-container'>
         <aside className='sidebar'>
           <List>
-            { this.state.tweets.length === 0 ? (
+            { this.state.tweets.tweets.length === 0 ? (
               <div>
                 <ListItem
                   primaryText= "Unsure of what to search?"
@@ -112,7 +105,7 @@ class searchSidebar extends React.Component {
               </div>
             )}
           </List>
-          { this.state.tweets.length === 0 ? (
+          { this.state.tweets.tweets.length === 0 ? (
             <div className='search-disclaimer'>
               <p className='search-disclaimer-text'>
                 <strong>disclaimer:</strong> only ~3% of tweets have geolocation data, so results may be sparse

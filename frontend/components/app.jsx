@@ -3,6 +3,7 @@ import MapContainer from './map/map_container';
 import HeaderContainer from './header/header_container';
 import SidebarContainer from './sidebar/sidebar_container';
 
+//support for Material UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const App = ({ children }) => (

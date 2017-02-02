@@ -1,4 +1,4 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Search from './search';
 import {fetchTweets} from '../../actions/tweet_actions';
 import { setCurrentTweet } from '../../actions/current_tweet_actions';
