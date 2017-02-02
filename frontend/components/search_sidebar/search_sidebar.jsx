@@ -10,7 +10,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 
-class Sidebar extends React.Component {
+class searchSidebar extends React.Component {
   constructor(props) {
     super(props);
 
@@ -24,7 +24,7 @@ class Sidebar extends React.Component {
   componentWillReceiveProps(newProps) {
     if (newProps.tweets) {
       this.setState({ tweets: newProps.tweets });
-      console.log(newProps.tweets);
+      console.log(newProps);
     }
   }
 
@@ -63,4 +63,4 @@ class Sidebar extends React.Component {
   }
 }
 
-export default Sidebar;
+export default searchSidebar;
