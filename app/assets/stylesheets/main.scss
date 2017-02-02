@@ -36,3 +36,27 @@
   width: 100%;
   height: 100%;
 }
+
+.info-window {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items:flex-start;
+}
+
+.info-window-item {
+  margin: 10px;
+  color: #02344A;
+  font-family: "Open Sans", "Arial", sans-serif;
+}
+
+.info-window-image {
+  height: 50px;
+  width: auto;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.weight {
+  font-weight: 700;
+}

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Link} from 'react-router';
 import Modal from 'react-modal';
 
+
 class Map extends React.Component {
   constructor(props) {
     super(props);
@@ -105,6 +106,20 @@ class Map extends React.Component {
         position: pos,
         map: this.map
       });
+      if (tweet.id === this.props.tweet.id) {
+        this.map.setCenter(marker.position);
+        this.infowindow.setContent(
+          `<div class='info-window'>
+            <img class='info-window-image' src='${tweet.user_image}' />
+            <div>
+              <div class='info-window-item weight'>${tweet.user_name}</div>
+              <div class='info-window-item'>${tweet.text}</div>
+            </div>
+
+          </div>`
+        );
+        this.infowindow.open(that.map, marker);
+      }
       this.markers.push(marker)
       this.handleClick(marker, tweet);
     } else if (typeof tweet.place === 'undefined' ) {
@@ -141,49 +156,60 @@ class Map extends React.Component {
       // that.tweet = tweet;
       // that.openModal();
       that.map.setCenter(this.position);
-      that.infowindow.setContent(`${tweet.text}`);
+      that.infowindow.setContent(
+        `<div class='info-window'>
+          <img class='info-window-image' src='${tweet.user_image}' />
+          <div>
+            <div class='info-window-item weight'>${tweet.user_name}</div>
+            <div class='info-window-item'>${tweet.text}</div>
+          </div>
+
+        </div>`
+      );
       that.infowindow.open(that.map, marker);
     });
   }
 
   render() {
-    const ModalStyle = {
-  overlay : {
-    position          : 'fixed',
-    top               : '0px',
-    left              : 0,
-    right             : 0,
-    bottom            : 0,
-    backgroundColor   : 'rgba(0,0,0,0.6)',
-    transition: 'all 0.5s'
-  },
-  content : {
-    padding: '0',
-    boxShadow: "20px 20px 20px",
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : 'auto',
-    transform             : 'translate(-50%, -50%)',
-    borderRadius          : '20px',
-    backgroundColor : '#EDE5E2'
-  }
-  };
+  //   const ModalStyle = {
+  // overlay : {
+  //   position          : 'fixed',
+  //   top               : '0px',
+  //   left              : 0,
+  //   right             : 0,
+  //   bottom            : 0,
+  //   backgroundColor   : 'rgba(0,0,0,0.6)',
+  //   transition: 'all 0.5s'
+  // },
+  // content : {
+  //   padding: '0',
+  //   boxShadow: "20px 20px 20px",
+  //   top                   : '50%',
+  //   left                  : '50%',
+  //   right                 : 'auto',
+  //   bottom                : 'auto',
+  //   marginRight           : 'auto',
+  //   transform             : 'translate(-50%, -50%)',
+  //   borderRadius          : '20px',
+  //   backgroundColor : '#EDE5E2'
+  // }
+  // };
     return(
       <div className='map-container'>
         <div className="map" id='map' ref='map'>Map</div>
-          <Modal
-                contentLabel='Modal'
-                isOpen={this.state.modalOpen}
-                onRequestClose={this.closeModal}
-                style={ModalStyle}>
-                {(this.tweet) ? <p>{this.tweet.text}</p> : null }
-             <br/><br/>
-              </Modal>
+
       </div>
     );
   }
 }
+
+// <Modal
+//       contentLabel='Modal'
+//       isOpen={this.state.modalOpen}
+//       onRequestClose={this.closeModal}
+//       style={ModalStyle}>
+//       {(this.tweet) ? <p>{this.tweet.text}</p> : null }
+//    <br/><br/>
+//     </Modal>
 
 export default Map;
