@@ -18,7 +18,7 @@ class Map extends React.Component {
     this.addTweet = this.addTweet.bind(this);
     this.geocodeAddress = this.geocodeAddress.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.markers = {};
+    this.markers = [];
   }
 
   componentDidMount() {
@@ -54,14 +54,16 @@ class Map extends React.Component {
     that.getLocation(that.map);
 
     if (newProps.tweets !== this.props.tweets) {
-      Object.keys(that.markers).forEach((tweet_id) => {
-        that.markers[tweet_id].setMap(null);
-      });
-      this.markers = {};
+      for (let i = 0; i < that.markers.length; i++) {
+        that.markers[i].setMap(null);
+      }
+      that.markers = [];
     }
     if (newProps.tweets) {
       newProps.tweets.forEach(tweet => {
-        this.addTweet(tweet);
+        if (!this.markers[tweet.id]) {
+          this.addTweet(tweet);
+        }
         if (newProps.currentTweet && tweet.id === newProps.currentTweet.id) {
           let marker = that.markers[newProps.currentTweet.id];
           that.map.setCenter(marker.position);
@@ -78,10 +80,7 @@ class Map extends React.Component {
         that.infowindow.open(that.map, marker);
       }
     });
-
     }
-
-
   }
 
   getLocation (map) {
@@ -108,10 +107,10 @@ class Map extends React.Component {
         map: this.map
       });
       this.handleClick(this.marker, tweet);
-    } else if (typeof tweet.place === 'undefined' ) {
-      return;
-    } else {
+    } else if (typeof tweet.place !== 'undefined' ) {
       this.marker = this.geocodeAddress(that.geocoder, that.map, tweet.place.full_name, tweet);
+    } else {
+      return;
     }
   }
 
@@ -139,8 +138,6 @@ class Map extends React.Component {
   handleClick (marker, tweet) {
     let that = this;
     marker.addListener('click', () => {
-      // that.tweet = tweet;
-      // that.openModal();
       that.map.setCenter(this.position);
       that.infowindow.setContent(
         `<div class='info-window'>
@@ -157,15 +154,10 @@ class Map extends React.Component {
     this.markers[tweet.id] = marker;
   }
 
-  setInfoWindow () {
-
-  }
-
   render() {
     return(
       <div className='map-container'>
         <div className="map" id='map' ref='map'>Map</div>
-
       </div>
     );
   }
