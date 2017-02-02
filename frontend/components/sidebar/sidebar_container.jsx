@@ -5,8 +5,8 @@ import { fetchCurrentTrends } from '../../actions/current_trend_actions';
 import { fetchTweets } from '../../actions/tweet_actions';
 
 const mapStateToProps = state => ({
-  tweets: state.tweets.tweets,
-  currentTrends: state.currentTrends,
+  tweets: state.tweets,
+  currentTrends: state.currentTrends.trends,
   location: state.mapPosition
 });
 

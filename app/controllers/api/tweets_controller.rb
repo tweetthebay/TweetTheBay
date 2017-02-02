@@ -19,8 +19,6 @@ class Api::TweetsController < ApplicationController
     # @tweets = Twitter::REST::Request.new(@client, :get, 'https://api.twitter.com/1.1/search/tweets.json?src=typd&q=arrow%20place%3A5a110d312052166f', resources: "search").perform
 
       @geo_tweets = @tweets.select { |tweet| tweet[:coordinates] != nil || tweet[:place] != nil}
-    else
-      @trends = @client.trends(id = 2487956, options = {})
     end
 
     render :tweets
