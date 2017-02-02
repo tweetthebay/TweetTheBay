@@ -12,6 +12,9 @@ class Api::TweetsController < ApplicationController
 
 
     if params[:query] && @remaining_requests > 0
+
+      # @tweets = Twitter::REST::Request.new(client, :get, '', resources: "search").perform
+
      @tweets = @client.search("#{params[:query]}", geocode: "#{params[:location][:lat]},#{params[:location][:lng]},#{params[:location][:radius]}mi").attrs[:statuses]
 
      @geo_tweets = @tweets.select { |tweet| tweet[:coordinates] != nil || tweet[:place] != nil}
