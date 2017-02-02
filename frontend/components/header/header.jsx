@@ -8,6 +8,8 @@ class Header extends React.Component {
     this.state = {};
 
     this.handleToggle = this.handleToggle.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   handleToggle(){
@@ -17,6 +19,20 @@ class Header extends React.Component {
     } else {
       search.style.visibility = "hidden";
     }
+  }
+
+  openModal(){
+    $(".modal").css("display","block");
+
+    $(window).click( event => {
+      if(event.target.className === "modal"){
+        $(".modal").css("display","none");
+      }
+    });
+  }
+
+  closeModal(){
+    $(".modal").css("display","none");
   }
 
 
@@ -40,6 +56,17 @@ class Header extends React.Component {
             <input type="checkbox" onClick={this.handleToggle}/>
             <div className="slider round"></div>
           </label>
+        <div id="myModal" className="modal">
+	         <div className="modal-content">
+	            <span className="close"
+                onClick={this.closeModal}>&times;</span>
+			          <div>
+	    	          <p>Instructions</p>
+			          </div>
+	          </div>
+	      </div>
+        <button onClick={this.openModal}
+          className="instructions-button">Instructions</button>
         </div>
       </div>
     );
