@@ -10,6 +10,10 @@ class Search extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentWillMount () {
+    this.props.searchTweets();
+  }
+
   update(e) {
     this.setState({ ['searchParams']: e.target.value });
   }

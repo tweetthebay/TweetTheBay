@@ -15,7 +15,10 @@ class searchSidebar extends React.Component {
     super(props);
 
     this.state = {
-      tweets: []
+      tweets: {
+        trends: [],
+        tweets: []
+      }
     };
 
     this.setState = this.setState.bind(this);
@@ -28,10 +31,31 @@ class searchSidebar extends React.Component {
     }
   }
 
-
   render () {
 
-    const tweetList = this.state.tweets.map((tweet, idx) => {
+    let trendPlaceCount = 1;
+
+    const trendList = this.state.tweets.trends.slice(0,5).map((trend, idx) => {
+      const id = trend.id;
+      if (trend.volume !== "null") {
+        trendPlaceCount += 1;
+        return (
+          <ListItem
+            key={ idx }
+            onClick={() => this.props.searchTweets(`${trend.name}`, this.props.location)}
+            primaryText={`${trend.name}`}
+            secondaryText={
+              <p>
+                {trend.volume} people are tweeting about this
+              </p>
+            }
+            secondaryTextLines={ 1 }
+            />
+        );
+      }
+    });
+
+    const tweetList = this.state.tweets.tweets.map((tweet, idx) => {
         const id = tweet.id;
 
         return (
@@ -54,9 +78,29 @@ class searchSidebar extends React.Component {
       <div className='sidebar-container'>
         <aside className='sidebar'>
           <List>
-            <Subheader>Most Recent</Subheader>
-            { this.state.tweets === [] ? "" : tweetList }
+            { this.state.tweets.tweets.length === 0 ? (
+              <div>
+                <ListItem
+                  primaryText= "Unsure of what to search?"
+                  secondaryText= "Try one of these trending topics:"
+                  disabled= {true}
+                  />
+                { trendList }
+              </div>
+            ) : (
+              <div>
+                <Subheader>Most Recent</Subheader>
+                { tweetList }
+              </div>
+            )}
           </List>
+          { this.state.tweets.tweets.length === 0 ? (
+            <div className='search-disclaimer'>
+              <p className='search-disclaimer-text'>
+                <strong>disclaimer:</strong> Only ~3% of tweets have geolocation data, so results may be sparse
+              </p>
+            </div>
+          ) : ""}
         </aside>
       </div>
     );

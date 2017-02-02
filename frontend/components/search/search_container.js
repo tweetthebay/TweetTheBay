@@ -1,6 +1,6 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Search from './search';
-import {fetchTweets} from '../../actions/tweet_actions';
+import { fetchTweets } from '../../actions/tweet_actions';
 
 const mapStateToProps = state => ({
   location: state.mapPosition

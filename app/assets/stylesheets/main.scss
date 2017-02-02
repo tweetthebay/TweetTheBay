@@ -9,18 +9,6 @@
   justify-content: flex-start;
 }
 
-.sidebar-container {
-  width: 320px;
-  overflow-x: hidden;
-}
-
-.sidebar {
-  width: 318px;
-  height: 100%;
-  position: absolute;
-  overflow-y: scroll;
-}
-
 .tweet-list-item {
   border: 1px solid black;
   height: 100px;
