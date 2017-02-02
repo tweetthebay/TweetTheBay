@@ -10,8 +10,7 @@ class Api::TweetsController < ApplicationController
    if params[:query]
      @tweets = @client.search("#{params[:query]}", geocode: "#{params[:location][:lat]},#{params[:location][:lng]},#{params[:location][:radius]}mi").attrs[:statuses]
 
-     @place_tweets = @tweets.select { |tweet| tweet[:coordinates] != nil }
-     @geo_tweets = @tweets.select { |tweet| tweet[:place] != nil }
+     @geo_tweets = @tweets.select { |tweet| tweet[:coordinates] != nil || tweet[:place] != nil}
 
      render :tweets
    else
