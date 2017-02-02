@@ -6,6 +6,17 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+
+    this.handleToggle = this.handleToggle.bind(this);
+  }
+
+  handleToggle(){
+    var search = document.querySelector(".search-container");
+    if(search.style.visibility === "hidden"){
+      search.style.visibility = "visible";
+    } else {
+      search.style.visibility = "hidden";
+    }
   }
 
 
@@ -25,6 +36,10 @@ class Header extends React.Component {
           <div className="search-container">
             <SearchContainer/>
           </div>
+          <label className="switch">
+            <input type="checkbox" onClick={this.handleToggle}/>
+            <div className="slider round"></div>
+          </label>
         </div>
       </div>
     );
