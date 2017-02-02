@@ -45,6 +45,7 @@ class Map extends React.Component {
     this.getLocation(this.map);
     this.geocoder = new google.maps.Geocoder;
     this.infowindow = new google.maps.InfoWindow;
+    this.infowindow.setOptions({maxWidth: '300'});
     this.bounds = new google.maps.LatLngBounds;
 
     if (this.props.tweets.length > 0) {
@@ -106,7 +107,7 @@ class Map extends React.Component {
         position: pos,
         map: this.map
       });
-      if (tweet.id === this.props.tweet.id) {
+      if (this.props.currentTweet && tweet.id === this.props.currentTweet) {
         this.map.setCenter(marker.position);
         this.infowindow.setContent(
           `<div class='info-window'>
@@ -118,6 +119,7 @@ class Map extends React.Component {
 
           </div>`
         );
+        // this.infowindow.
         this.infowindow.open(that.map, marker);
       }
       this.markers.push(marker)
