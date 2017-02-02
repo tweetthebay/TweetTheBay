@@ -16,6 +16,7 @@ class Search extends React.Component {
 
   handleSubmit (e) {
     e.preventDefault();
+    this.props.setCurrentTweet(null);
     this.props.searchTweets(this.state.searchParams, this.props.location);
   }
 

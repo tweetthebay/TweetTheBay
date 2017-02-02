@@ -65,6 +65,8 @@ class Map extends React.Component {
           this.addTweet(tweet);
         }
         if (newProps.currentTweet && tweet.id === newProps.currentTweet.id) {
+          console.log(that.markers);
+          console.log(newProps.currentTweet.id);
           let marker = that.markers[newProps.currentTweet.id];
           that.map.setCenter(marker.position);
           that.infowindow.setContent(
@@ -87,10 +89,10 @@ class Map extends React.Component {
 
     let that = this;
     map.addListener('idle', (event) => {
-      const bounds = map.getBounds();
+      const bounds = that.map.getBounds();
       const radius = Math.abs(bounds.f.b - bounds.f.f) * 34.5;
-      const centerLat = map.getCenter().lat();
-      const centerLng = map.getCenter().lng();
+      const centerLat = that.map.getCenter().lat();
+      const centerLng = that.map.getCenter().lng();
       that.props.setMapPosition({radius: radius, lat: centerLat, lng: centerLng});
     });
   }
@@ -138,7 +140,7 @@ class Map extends React.Component {
   handleClick (marker, tweet) {
     let that = this;
     marker.addListener('click', () => {
-      that.map.setCenter(this.position);
+      that.map.setCenter(marker.position);
       that.infowindow.setContent(
         `<div class='info-window'>
           <img class='info-window-image' src='${tweet.user_image}' />
