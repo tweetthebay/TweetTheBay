@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Root from './components/root';
 import configureStore from './store/store';
 import Modal from 'react-modal';
-import { setMapPosition } from './actions/map_actions';
+import { fetchCurrentTrends } from './actions/current_trend_actions';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   store = configureStore();
   Modal.setAppElement(document.body);
   window.store = store;
-  window.setMapPosition = setMapPosition;
+  window.fetchCurrentTrends = fetchCurrentTrends;
 
   injectTapEventPlugin();
 

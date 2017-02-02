@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :tweets, only: [:index, :show]
     resources :streams, only: [:index]
+    resources :trends, only: [:index]
   end
 end
