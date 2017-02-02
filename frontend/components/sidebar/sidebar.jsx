@@ -29,13 +29,15 @@ class Sidebar extends React.Component {
   }
 
 
-
   render () {
 
     const tweetList = this.state.tweets.map((tweet, idx) => {
+        const id = tweet.id;
+
         return (
           <ListItem
             key={ idx }
+            onClick={() => this.props.setCurrentTweet({id})}
             leftAvatar= {<img src={`${tweet.user_image}`} />}
             primaryText={`${tweet.user_name}`}
             secondaryText={
@@ -53,7 +55,7 @@ class Sidebar extends React.Component {
         <aside className='sidebar'>
           <List>
             <Subheader>Most Recent</Subheader>
-            { tweetList }
+            { this.state.tweets === [] ? "" : tweetList }
           </List>
         </aside>
       </div>
