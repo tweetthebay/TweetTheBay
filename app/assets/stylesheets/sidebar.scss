@@ -1,11 +1,11 @@
 .sidebar-container {
-  width: 320px;
+  min-width: 280px;
   overflow-x: hidden;
   font-family: 'Roboto:300', 'Open Sans', sans-serif;
 }
 
 .sidebar {
-  width: 318px;
+  width: 278px;
   height: 100%;
   position: absolute;
   overflow-y: scroll;

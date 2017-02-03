@@ -1,0 +1,28 @@
+.footer {
+  background-color: #0084b4;
+  color: white;
+  font-family: "Open Sans", "Arial", sans-serif;
+  display: flex;
+  align-items: center;
+  padding-left: 35px;
+}
+
+.footer-brand {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.copyright {
+  display: inline-block;
+  vertical-align: center;
+  margin: 0;
+  padding-left: 20px;
+  font-size: 14px;
+}
+
+.icon {
+  font-size: 20px;
+}

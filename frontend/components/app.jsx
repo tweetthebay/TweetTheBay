@@ -1,6 +1,7 @@
 import React from 'react';
 import MapContainer from './map/map_container';
 import HeaderContainer from './header/header_container';
+import FooterContainer from './footer/footer_container';
 import SidebarContainer from './sidebar/sidebar_container';
 
 //support for Material UI
@@ -15,6 +16,7 @@ const App = ({ children }) => (
         <MapContainer />
       </main>
       {children}
+      <FooterContainer />
     </div>
   </MuiThemeProvider>
 );
