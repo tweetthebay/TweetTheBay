@@ -63,7 +63,8 @@ class Header extends React.Component {
                                 color: "white"
                               }}/>}
             iconElementRight={<Help
-                              style={helpStyle}/>}
+                              style={helpStyle}
+                              onClick={() => this.openModal()}/>}
             children={<div className="header-children">
                         <div className="search-container">
                           <SearchContainer />
@@ -82,6 +83,16 @@ class Header extends React.Component {
               paddingLeft: "70px"
             }}
           />
+          <div id="myModal" className="modal">
+  	         <div className="modal-content">
+  	            <span className="close"
+                  onClick={this.closeModal}>&times;</span>
+  			          <div>
+  	    	          <p>Instructions</p>
+  			          </div>
+  	          </div>
+  	      </div>
+
       </div>
     );
   }
