@@ -156,7 +156,9 @@ class Map extends React.Component {
 
   render() {
     return(
-        <div className="map" id='map' ref='map'>Maph</div>
+      <div className='map-container'>
+        <div className="map" id='map' ref='map'>Map</div>
+      </div>
     );
   }
 }

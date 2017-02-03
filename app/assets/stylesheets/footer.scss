@@ -1,13 +1,14 @@
 .footer {
-  background-color: #02344A;
+  background-color: #0084b4;
   color: white;
   font-family: "Open Sans", "Arial", sans-serif;
-  padding: 15px;
   display: flex;
   align-items: center;
+  padding-left: 35px;
 }
 
 .footer-brand {
+  margin: 10px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
