@@ -35,8 +35,17 @@ class searchSidebar extends React.Component {
     if (newProps.trends) {
       this.setState({trends: newProps.currentTrends });
     }
-    else if (newProps.tweets) {
-      this.setState({ tweets: newProps.tweets.tweets });
+
+    if (newProps.tweets.tweets) {
+      if (newProps.tweets.tweets.length > 0) {
+        this.setState({ tweets: newProps.tweets.tweets });
+      }
+    }
+
+    if (newProps.stream.tweets) {
+      if (newProps.stream.tweets.length > 0) {
+        this.setState({ tweets: newProps.stream.tweets });
+      }
     }
   }
 
@@ -74,8 +83,8 @@ class searchSidebar extends React.Component {
           <div key={ tweet.text }>
             <ListItem
               onClick={() => this.props.setCurrentTweet({id})}
-              leftAvatar= {<img src={`${tweet.user_image}`} />}
-              primaryText={`${tweet.user_name}`}
+              leftAvatar= {<img src={`${tweet.profile_picture}`} />}
+              primaryText={`${tweet.screen_name}`}
               secondaryText={
                 <p>
                   {tweet.text}
