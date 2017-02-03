@@ -27,5 +27,8 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "webpack": "^1.14.0"
+  },
+  "devDependencies": {
+    "webpack-notifier": "^1.5.0"
   }
 }
