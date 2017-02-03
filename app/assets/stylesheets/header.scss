@@ -1,16 +1,15 @@
 .header{
   background-color: #02344A;
   color: white;
-  font-family: "Open Sans", "Arial", sans-serif;
-  padding-left: 15px;
-  padding-right: 15px;
-
+  font-family: 'Roboto', 'Open Sans', sans-serif;
 }
 
 .header-container{
-  // box-shadow: 1px 1px 1px;
-  // margin-right: auto;
-  // margin-left: auto;
+  box-shadow: 1px 1px 1px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .header-brand{
@@ -18,8 +17,22 @@
   display: inline-block;
 }
 
+.fa-twitter-square {
+
+}
+
 .fa-twitter-square:before{
   margin-right: 20px;
+}
+
+.header-children {
+  position: absolute;
+  margin-left: 245px;
+  margin-top: 21px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 215px;
 }
 
 .logo{
@@ -39,12 +52,7 @@
 }
 
 .search-container{
-  display: inline-block;
-  vertical-align: center;
-  margin-left: 40px;
-  vertical-align: middle;
   position: relative;
-  bottom: 11px;
 }
 
 .search-input{

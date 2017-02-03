@@ -1,3 +1,5 @@
+var WebpackNotifierPlugin = require('webpack-notifier');
+
 module.exports = {
   context: __dirname,
   entry: "./frontend/SFTweets.jsx",
@@ -17,6 +19,9 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new WebpackNotifierPlugin({alwaysNotify: true}),
+  ],
   devtool: 'source-maps',
   resolve: {
     extensions: ["", ".js", ".jsx"]

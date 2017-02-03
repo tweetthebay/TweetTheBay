@@ -1,0 +1,28 @@
+.sidebar-container {
+  width: 320px;
+  overflow-x: hidden;
+  font-family: 'Roboto:300', 'Open Sans', sans-serif;
+}
+
+.sidebar {
+  width: 318px;
+  height: 100%;
+  position: absolute;
+  overflow-y: scroll;
+}
+
+.search-disclaimer {
+  width: 80%;
+  padding: 0;
+  position: relative;
+  left: 16px;
+  top: 25px;
+}
+
+.search-disclaimer-text {
+  text-align: center;
+}
+
+.search-disclaimer-text strong {
+  font-weight: bold;
+}

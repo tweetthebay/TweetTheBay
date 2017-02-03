@@ -10,43 +10,81 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 
-class Sidebar extends React.Component {
+class searchSidebar extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      tweets: []
+      trends: [],
+      tweets: [],
+      currentSearch: ""
     };
 
     this.setState = this.setState.bind(this);
   }
 
+  componentWillMount () {
+    this.props.fetchCurrentTrends()
+      .then(() => {
+          this.setState({
+            trends: this.props.currentTrends});
+        });
+  }
+
   componentWillReceiveProps(newProps) {
-    if (newProps.tweets) {
-      this.setState({ tweets: newProps.tweets });
-      console.log(newProps.tweets);
+    if (newProps.trends) {
+      this.setState({trends: newProps.currentTrends });
+    }
+    else if (newProps.tweets) {
+      this.setState({ tweets: newProps.tweets.tweets });
     }
   }
 
-
   render () {
+
+    const trendList = this.state.trends.slice(0,5).map((trend, idx) => {
+      const id = trend.id;
+      if (trend.volume !== "null") {
+        return (
+          <div key={ trend.name }>
+            <ListItem
+              onClick={() => this.props.searchTweets(`${trend.name}`, this.props.location)
+                              .then(() => {
+                                this.setState({
+                                currentSearch: `${trend.name}`});
+                              })}
+              primaryText={`${trend.name}`}
+              secondaryText={
+                <p>
+                  {trend.volume} people are tweeting about this
+                </p>
+              }
+              secondaryTextLines={ 1 }
+              />
+            <Divider inset={true} />
+          </div>
+        );
+      }
+    });
 
     const tweetList = this.state.tweets.map((tweet, idx) => {
         const id = tweet.id;
 
         return (
-          <ListItem
-            key={ idx }
-            onClick={() => this.props.setCurrentTweet({id})}
-            leftAvatar= {<img src={`${tweet.user_image}`} />}
-            primaryText={`${tweet.user_name}`}
-            secondaryText={
-              <p>
-                {tweet.text}
-              </p>
-            }
-            secondaryTextLines={ 2 }
-            />
+          <div key={ tweet.text }>
+            <ListItem
+              onClick={() => this.props.setCurrentTweet({id})}
+              leftAvatar= {<img src={`${tweet.user_image}`} />}
+              primaryText={`${tweet.user_name}`}
+              secondaryText={
+                <p>
+                  {tweet.text}
+                </p>
+              }
+              secondaryTextLines={ 2 }
+              />
+            <Divider inset={true} />
+          </div>
         );
     });
 
@@ -54,13 +92,39 @@ class Sidebar extends React.Component {
       <div className='sidebar-container'>
         <aside className='sidebar'>
           <List>
-            <Subheader>Most Recent</Subheader>
-            { this.state.tweets === [] ? "" : tweetList }
+            { this.state.tweets.length === 0 ? (
+              <div>
+                <a onClick={() => this.setState({ tweets: [] })} />
+                <ListItem
+                  primaryText= "Unsure of what to search?"
+                  secondaryText= "Try one of these trending topics:"
+                  disabled = { true }
+                  />
+                { trendList }
+              </div>
+            ) : (
+              <div>
+                <ListItem
+                  primaryText = {`Current Search: ${this.state.currentSearch}`}
+                  disabled = { true }
+                  />
+                <Divider />
+                <Subheader>Most Recent</Subheader>
+                { tweetList }
+              </div>
+            )}
           </List>
+          { this.state.tweets.length === 0 ? (
+            <div className='search-disclaimer'>
+              <p className='search-disclaimer-text'>
+                <strong>disclaimer:</strong> only ~3% of tweets have geolocation data, so results may be sparse
+              </p>
+            </div>
+          ) : ""}
         </aside>
       </div>
     );
   }
 }
 
-export default Sidebar;
+export default searchSidebar;

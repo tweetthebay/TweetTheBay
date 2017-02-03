@@ -2,6 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import SearchContainer from '../search/search_container';
 
+import AppBar from 'material-ui/AppBar';
+import FontIcon from 'material-ui/FontIcon';
+import Toggle from 'material-ui/Toggle';
+import Help from 'material-ui/svg-icons/action/help';
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -37,37 +42,46 @@ class Header extends React.Component {
 
 
   render() {
+
+    const helpStyle = {
+      color: "white",
+      marginRight: "25px",
+      marginTop: "14px"
+    };
+
     return(
       <div className="header">
-
-          <div className="header-brand">
-            <i className="fa fa-twitter-square fa-3x" aria-hidden="true"></i>
-            <h1 className="logo">SFTweets</h1>
-          </div>
-          <p className="website-description">
-            A Cool Website
-          <br></br>
-            For Cool People
-          </p>
-          <div className="search-container">
-            <SearchContainer/>
-          </div>
-          <label className="switch">
-            <input type="checkbox" onClick={this.handleToggle}/>
-            <div className="slider round"></div>
-          </label>
-        <div id="myModal" className="modal">
-	         <div className="modal-content">
-	            <span className="close"
-                onClick={this.closeModal}>&times;</span>
-			          <div>
-	    	          <p>Instructions</p>
-			          </div>
-	          </div>
-	      </div>
-        <button onClick={this.openModal}
-          className="instructions-button">Instructions</button>
-
+        <AppBar
+            title="Tweet The Bay"
+            titleStyle={{marginTop: "6px", }}
+            iconElementLeft={<FontIcon
+                              className="fa fa-twitter-square"
+                              style={{
+                                fontSize: "55px",
+                                marginBottom: "9px",
+                                ariaHidden: "true",
+                                color: "white"
+                              }}/>}
+            iconElementRight={<Help
+                              style={helpStyle}/>}
+            children={<div className="header-children">
+                        <div className="search-container">
+                          <SearchContainer />
+                        </div>
+                        <Toggle
+                          label="Streaming/Search"
+                          labelPosition="right"
+                          labelStyle={{ color: "white" }}
+                          style={{
+                            width: "0px",
+                            marginTop: "4px",
+                          }} />
+                      </div>}
+            style={{
+              backgroundColor: '#0084b4',
+              paddingLeft: "70px"
+            }}
+          />
       </div>
     );
   }

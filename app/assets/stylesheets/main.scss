@@ -9,19 +9,6 @@
   justify-content: flex-start;
 }
 
-.sidebar-container {
-  width: 320px;
-  height: 85%;
-  overflow-x: hidden;
-}
-
-.sidebar {
-  width: 318px;
-  height: 85%;
-  position: absolute;
-  overflow-y: scroll;
-}
-
 .tweet-list-item {
   border: 1px solid black;
   height: 100px;
@@ -43,7 +30,7 @@
 .info-window-item {
   margin: 10px;
   color: #02344A;
-  font-family: "Open Sans", "Arial", sans-serif;
+  font-family: 'Roboto', 'Open Sans', sans-serif;
 }
 
 .info-window-image {
