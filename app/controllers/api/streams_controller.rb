@@ -7,7 +7,7 @@ class Api::StreamsController < ApplicationController
      config.access_token_secret = ENV['ACCESS_TOKEN_SECRET']
     end
 
-    @tweets = Tweet.last(1000)
+    @tweets = Tweet.last(100)
     render :index
   end
 end
