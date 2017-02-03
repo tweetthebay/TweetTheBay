@@ -12,27 +12,29 @@ class Stream extends React.Component {
   }
 
   componentDidMount() {
-    this.startStreaming();
+    this.props.clearTweets();
+    this.props.fetchStream();
+    let that = this;
+    setTimeout(function() {
+      that.startStreaming();
+    }, 1000);
   }
 
   startStreaming() {
     let that = this;
-    console.log("fetch");
-    console.log(store.getState());
+    let lastTweetId;
     this.timer = setInterval(function(){
       that.props.fetchStream();
     }, 5000);
   }
 
   stopStreaming() {
-    console.log("fetch");
-    console.log(store.getState());
     clearInterval(this.timer);
   }
 
   componentWillUnmount() {
-    this.stopStreaming();
     this.props.clearStream();
+    this.stopStreaming();
   }
 
   render() {

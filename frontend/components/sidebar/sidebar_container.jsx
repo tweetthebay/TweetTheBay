@@ -7,7 +7,8 @@ import { fetchTweets } from '../../actions/tweet_actions';
 const mapStateToProps = state => ({
   tweets: state.tweets,
   currentTrends: state.currentTrends.trends,
-  location: state.mapPosition
+  location: state.mapPosition,
+  stream: state.stream
 });
 
 const mapDispatchToProps = dispatch => ({
