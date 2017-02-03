@@ -39,6 +39,10 @@ class Map extends React.Component {
       this.props.tweets.forEach(tweet => {
         this.addTweet(tweet);
       });
+    } else if (this.props.stream.length > 0) {
+      this.props.stream.forEach(tweet => {
+        this.addTweet(tweet);
+      });
     }
     let that = this;
     google.maps.event.addDomListener(window, "resize", function() {
@@ -53,14 +57,27 @@ class Map extends React.Component {
 
     that.getLocation(that.map);
 
-    if (newProps.tweets !== this.props.tweets) {
+    if (newProps.tweets !== this.props.tweets || newProps.stream !== this.props.stream) {
       for (let i = 0; i < that.markers.length; i++) {
         that.markers[i].setMap(null);
       }
       that.markers = [];
     }
+
+    let tweetType = "undefined";
     if (newProps.tweets) {
-      newProps.tweets.forEach(tweet => {
+      if (newProps.tweets.length > 0) {
+        tweetType = "tweets";
+      }
+    }
+
+    if (newProps.stream) {
+      if (newProps.stream.length > 0) {
+        tweetType = "stream";
+      }
+    }
+    if (tweetType !== "undefined") {
+      newProps[tweetType].forEach(tweet => {
         if (!this.markers[tweet.id]) {
           this.addTweet(tweet);
         }
@@ -69,9 +86,9 @@ class Map extends React.Component {
           that.map.setCenter(marker.position);
           that.infowindow.setContent(
             `<div class='info-window'>
-            <img class='info-window-image' src=${tweet.user_image} />
+            <img class='info-window-image' src=${tweet.profile_picture} />
             <div>
-              <div class='info-window-item weight'>${tweet.user_name}</div>
+              <div class='info-window-item weight'>${tweet.screen_name}</div>
               <div class='info-window-item'>${tweet.text}</div>
             </div>
 
@@ -97,11 +114,20 @@ class Map extends React.Component {
 
   addTweet (tweet) {
     let that = this;
+    let pos;
     if (tweet.coordinates) {
-      let pos = new google.maps.LatLng(
-        tweet.coordinates.coordinates[1],
-        tweet.coordinates.coordinates[0]
-      );
+      if (typeof tweet.coordinates === "string") {
+        let coords = tweet.coordinates.slice(32, -2).split(", ");
+        pos = new google.maps.LatLng(
+          parseFloat(coords[1]),
+          parseFloat(coords[0])
+        );
+      } else {
+        pos = new google.maps.LatLng(
+          tweet.coordinates.coordinates[1],
+          tweet.coordinates.coordinates[0]
+        );
+      }
       this.marker = new google.maps.Marker({
         position: pos,
         map: this.map
@@ -141,9 +167,9 @@ class Map extends React.Component {
       that.map.setCenter(marker.position);
       that.infowindow.setContent(
         `<div class='info-window'>
-          <img class='info-window-image' src='${tweet.user_image}' />
+          <img class='info-window-image' src='${tweet.profile_picture}' />
           <div>
-            <div class='info-window-item weight'>${tweet.user_name}</div>
+            <div class='info-window-item weight'>${tweet.screen_name}</div>
             <div class='info-window-item'>${tweet.text}</div>
           </div>
 
