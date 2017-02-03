@@ -39,7 +39,7 @@ class Header extends React.Component {
   render() {
     return(
       <div className="header">
-        <div className="header-container">
+
           <div className="header-brand">
             <i className="fa fa-twitter-square fa-3x" aria-hidden="true"></i>
             <h1 className="logo">SFTweets</h1>
@@ -67,7 +67,7 @@ class Header extends React.Component {
 	      </div>
         <button onClick={this.openModal}
           className="instructions-button">Instructions</button>
-        </div>
+
       </div>
     );
   }
