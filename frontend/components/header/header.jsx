@@ -10,19 +10,27 @@ import Help from 'material-ui/svg-icons/action/help';
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      toggleText: "Search"
+    };
 
     this.handleToggle = this.handleToggle.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
-  handleToggle(){
+  handleToggle() {
     var search = document.querySelector(".search-container");
-    if(search.style.visibility === "hidden"){
-      search.style.visibility = "visible";
-    } else {
+    if (this.state.toggleText === "Search") {
+      $(".header > div").css("background-color", "#7B1FA2");
+      $("label").text("Tweet Stream");
+      this.setState({toggleText: "Tweet Stream"});
       search.style.visibility = "hidden";
+    } else {
+      $(".header > div").css("background-color", "rgb(0, 132, 180)");
+      $("label").text("Search");
+      this.setState({toggleText: "Search"});
+      search.style.visibility = "visible";
     }
   }
 
@@ -39,7 +47,6 @@ class Header extends React.Component {
   closeModal(){
     $(".modal").css("display","none");
   }
-
 
   render() {
 
@@ -63,15 +70,19 @@ class Header extends React.Component {
                                 color: "white"
                               }}/>}
             iconElementRight={<Help
-                              style={helpStyle}/>}
+                              style={helpStyle}
+                              className="help-button"
+                              onClick={() => this.openModal()}/>}
             children={<div className="header-children">
                         <div className="search-container">
                           <SearchContainer />
                         </div>
                         <Toggle
-                          label="Streaming/Search"
+                          className="toggle"
+                          label="Search"
                           labelPosition="right"
                           labelStyle={{ color: "white" }}
+                          onToggle={() => this.handleToggle()}
                           style={{
                             width: "0px",
                             marginTop: "4px",
@@ -82,6 +93,16 @@ class Header extends React.Component {
               paddingLeft: "70px"
             }}
           />
+          <div id="myModal" className="modal">
+  	         <div className="modal-content">
+  	            <span className="close"
+                  onClick={this.closeModal}>&times;</span>
+  			          <div>
+  	    	          <p>Instructions</p>
+  			          </div>
+  	          </div>
+  	      </div>
+
       </div>
     );
   }
