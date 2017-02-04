@@ -82,8 +82,6 @@ class Map extends React.Component {
           this.addTweet(tweet);
         }
         if (newProps.currentTweet && tweet.id === newProps.currentTweet.id) {
-          console.log(that.markers);
-          console.log(newProps.currentTweet.id);
           let marker = that.markers[newProps.currentTweet.id];
           that.map.setCenter(marker.position);
           that.infowindow.setContent(
