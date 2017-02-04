@@ -25,6 +25,13 @@
   margin-right: 20px;
 }
 
+.logo{
+  display: inline-block;
+  position: relative;
+  bottom: 5px;
+  margin: 0;
+}
+
 .header-children {
   position: absolute;
   margin-left: 245px;
@@ -35,20 +42,8 @@
   width: 215px;
 }
 
-.logo{
-  display: inline-block;
-  position: relative;
-  bottom: 5px;
-  margin: 0;
-}
-
-.website-description{
-  display: inline-block;
-  vertical-align: center;
-  margin: 0;
-  padding: 5px 0px 5px 20px;
-  border-left: 2px solid #f0f0f0;
-  line-height: 20px;
+.help-button:hover {
+  cursor: pointer;
 }
 
 .search-container{
@@ -74,18 +69,6 @@
 Slider
 
 */
-
-.switch {
-  position: relative;
-  display: inline-block;
-  margin-left: 20px;
-  width: 60px;
-  height: 34px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {display:none;}
-
 /* The slider */
 .slider {
   position: absolute;

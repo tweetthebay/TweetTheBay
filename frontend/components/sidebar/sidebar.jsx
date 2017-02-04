@@ -17,10 +17,11 @@ class searchSidebar extends React.Component {
     this.state = {
       trends: [],
       tweets: [],
-      currentSearch: ""
+      searchTerm: ""
     };
 
     this.setState = this.setState.bind(this);
+    this.sidebarSearch = this.sidebarSearch.bind(this);
   }
 
   componentWillMount () {
@@ -33,26 +34,42 @@ class searchSidebar extends React.Component {
 
   componentWillReceiveProps(newProps) {
     if (newProps.trends) {
-      this.setState({trends: newProps.currentTrends });
+      this.setState({ trends: newProps.currentTrends });
     }
-    else if (newProps.tweets) {
-      this.setState({ tweets: newProps.tweets.tweets });
+
+    if (newProps.tweets.tweets) {
+      if (newProps.tweets.tweets.length > 0) {
+        this.setState({ tweets: newProps.tweets.tweets });
+      }
     }
+
+    if (newProps.stream.tweets) {
+      if (newProps.stream.tweets.length > 0) {
+        this.setState({ tweets: newProps.stream.tweets });
+      }
+    }
+
+    if (newProps.searchTerm) {
+      this.setState({ searchTerm: newProps.searchTerm });
+    }
+  }
+
+  sidebarSearch(searchInput, location) {
+    this.props.searchTweets(searchInput, location)
+      .then(() => {this.setState({ searchTerm: searchInput });
+    });
+    this.props.setSearchQuery(searchInput);
   }
 
   render () {
 
-    const trendList = this.state.trends.slice(0,5).map((trend, idx) => {
+    const trendList = this.state.trends.slice(0,7).map((trend, idx) => {
       const id = trend.id;
       if (trend.volume !== "null") {
         return (
           <div key={ trend.name }>
             <ListItem
-              onClick={() => this.props.searchTweets(`${trend.name}`, this.props.location)
-                              .then(() => {
-                                this.setState({
-                                currentSearch: `${trend.name}`});
-                              })}
+              onClick={() => this.sidebarSearch(`${trend.name}`, this.props.location)}
               primaryText={`${trend.name}`}
               secondaryText={
                 <p>
@@ -74,8 +91,8 @@ class searchSidebar extends React.Component {
           <div key={ tweet.text }>
             <ListItem
               onClick={() => this.props.setCurrentTweet({id})}
-              leftAvatar= {<img src={`${tweet.user_image}`} />}
-              primaryText={`${tweet.user_name}`}
+              leftAvatar= {<img src={`${tweet.profile_picture}`} />}
+              primaryText={`${tweet.screen_name}`}
               secondaryText={
                 <p>
                   {tweet.text}
@@ -105,7 +122,7 @@ class searchSidebar extends React.Component {
             ) : (
               <div>
                 <ListItem
-                  primaryText = {`Current Search: ${this.state.currentSearch}`}
+                  primaryText = {`Current Search: "${this.state.searchTerm}"`}
                   disabled = { true }
                   />
                 <Divider />
