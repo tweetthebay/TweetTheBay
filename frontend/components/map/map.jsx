@@ -74,7 +74,7 @@ class Map extends React.Component {
             <img class='info-window-image' src=${tweet.user_image} />
             <div>
               <div class='info-window-item weight'>${tweet.user_name}</div>
-              <div class='info-window-item'>${tweet.text}</div>
+              <div class='info-window-item'>${this.handleTweetText(tweet.text)}</div>
             </div>
 
           </div>`
@@ -137,6 +137,18 @@ class Map extends React.Component {
     });
   }
 
+  handleTweetText(text){
+    if(text.indexOf("https") !== -1){
+      var urlRegex = /(https?:\/\/[^\s]+)/g;
+      return text.replace(urlRegex, function(url) {
+          return '<a class="info-window-text-link" href="' + url + '">' + url + '</a>';
+      });
+    } else {
+      // text = text + '<a href="' + "https://www.google.com/" + '">google</a>';
+      return text;
+    }
+  }
+
   handleClick (marker, tweet) {
     let that = this;
     marker.addListener('click', () => {
@@ -146,7 +158,7 @@ class Map extends React.Component {
           <img class='info-window-image' src='${tweet.user_image}' />
           <div>
             <div class='info-window-item weight'>${tweet.user_name}</div>
-            <div class='info-window-item'>${tweet.text}</div>
+            <div class='info-window-item'>${this.handleTweetText(tweet.text)}</div>
           </div>
 
         </div>`
