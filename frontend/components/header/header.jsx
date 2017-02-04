@@ -22,10 +22,12 @@ class Header extends React.Component {
   handleToggle() {
     var search = document.querySelector(".search-container");
     if (this.state.toggleText === "Search") {
-      $("label").text("Streaming");
-      this.setState({toggleText: "Streaming"});
+      $(".header > div").css("background-color", "#7B1FA2");
+      $("label").text("Tweet Stream");
+      this.setState({toggleText: "Tweet Stream"});
       search.style.visibility = "hidden";
     } else {
+      $(".header > div").css("background-color", "rgb(0, 132, 180)");
       $("label").text("Search");
       this.setState({toggleText: "Search"});
       search.style.visibility = "visible";

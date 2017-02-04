@@ -4,14 +4,22 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchParams: ''
+      searchParams: '',
     };
+
     this.update = this.update.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillMount () {
+  componentWillMount() {
     this.props.searchTweets();
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.searchTerm) {
+      console.log(`${newProps.searchTerm}`);
+      $("input:text").val(`${newProps.searchTerm}`);
+    }
   }
 
   update(e) {
@@ -22,6 +30,7 @@ class Search extends React.Component {
     e.preventDefault();
     this.props.setCurrentTweet(null);
     this.props.searchTweets(this.state.searchParams, this.props.location);
+    this.props.setSearchQuery(this.state.searchParams);
   }
 
   render() {
