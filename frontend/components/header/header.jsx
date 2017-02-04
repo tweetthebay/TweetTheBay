@@ -10,19 +10,25 @@ import Help from 'material-ui/svg-icons/action/help';
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      toggleText: "Search"
+    };
 
     this.handleToggle = this.handleToggle.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
-  handleToggle(){
+  handleToggle() {
     var search = document.querySelector(".search-container");
-    if(search.style.visibility === "hidden"){
-      search.style.visibility = "visible";
-    } else {
+    if (this.state.toggleText === "Search") {
+      $("label").text("Streaming");
+      this.setState({toggleText: "Streaming"});
       search.style.visibility = "hidden";
+    } else {
+      $("label").text("Search");
+      this.setState({toggleText: "Search"});
+      search.style.visibility = "visible";
     }
   }
 
@@ -39,7 +45,6 @@ class Header extends React.Component {
   closeModal(){
     $(".modal").css("display","none");
   }
-
 
   render() {
 
@@ -64,15 +69,18 @@ class Header extends React.Component {
                               }}/>}
             iconElementRight={<Help
                               style={helpStyle}
+                              className="help-button"
                               onClick={() => this.openModal()}/>}
             children={<div className="header-children">
                         <div className="search-container">
                           <SearchContainer />
                         </div>
                         <Toggle
-                          label="Streaming/Search"
+                          className="toggle"
+                          label="Search"
                           labelPosition="right"
                           labelStyle={{ color: "white" }}
+                          onToggle={() => this.handleToggle()}
                           style={{
                             width: "0px",
                             marginTop: "4px",

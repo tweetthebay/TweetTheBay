@@ -51,7 +51,7 @@ class searchSidebar extends React.Component {
 
   render () {
 
-    const trendList = this.state.trends.slice(0,5).map((trend, idx) => {
+    const trendList = this.state.trends.slice(0,7).map((trend, idx) => {
       const id = trend.id;
       if (trend.volume !== "null") {
         return (
