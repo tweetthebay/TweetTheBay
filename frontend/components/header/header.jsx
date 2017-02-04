@@ -11,7 +11,7 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      toggleText: "Search"
+      toggleText: "search"
     };
 
     this.handleToggle = this.handleToggle.bind(this);
@@ -21,16 +21,15 @@ class Header extends React.Component {
 
   handleToggle() {
     var search = document.querySelector(".search-container");
-    if (this.state.toggleText === "Search") {
-      $(".header > div").css("background-color", "#7B1FA2");
-      $("label").text("Tweet Stream");
-      this.setState({toggleText: "Tweet Stream"});
+    if (this.state.toggleText === "search") {
+      $(".header > div").css("background-color", "#424874");
       search.style.visibility = "hidden";
+      this.setState({toggleText: "streaming"});
     } else {
       $(".header > div").css("background-color", "rgb(0, 132, 180)");
-      $("label").text("Search");
-      this.setState({toggleText: "Search"});
       search.style.visibility = "visible";
+      this.setState({toggleText: "search"});
+
     }
   }
 
@@ -77,16 +76,19 @@ class Header extends React.Component {
                         <div className="search-container">
                           <SearchContainer />
                         </div>
+                        <h3 className="search-toggle-text">
+                          Search
+                        </h3>
                         <Toggle
                           className="toggle"
-                          label="Search"
-                          labelPosition="right"
-                          labelStyle={{ color: "white" }}
                           onToggle={() => this.handleToggle()}
                           style={{
                             width: "0px",
                             marginTop: "4px",
                           }} />
+                        <h3 className="stream-toggle-text">
+                          Tweet Stream
+                        </h3>
                       </div>}
             style={{
               backgroundColor: '#0084b4',

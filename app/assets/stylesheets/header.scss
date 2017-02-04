@@ -34,12 +34,14 @@
 
 .header-children {
   position: absolute;
+  width: 415px;
   margin-left: 245px;
   margin-top: 21px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  width: 215px;
+  line-height: 2;
+  color: white;
 }
 
 .help-button:hover {

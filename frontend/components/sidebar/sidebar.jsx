@@ -55,9 +55,7 @@ class searchSidebar extends React.Component {
   }
 
   sidebarSearch(searchInput, location) {
-    this.props.searchTweets(searchInput, location)
-      .then(() => {this.setState({ searchTerm: searchInput });
-    });
+    this.props.searchTweets(searchInput, location);
     this.props.setSearchQuery(searchInput);
   }
 
