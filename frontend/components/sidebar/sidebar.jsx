@@ -30,6 +30,16 @@ class searchSidebar extends React.Component {
           this.setState({
             trends: this.props.currentTrends});
         });
+
+    $( document ).ajaxStart(function() {
+      $(".spinner").show();
+      $(".sidebar").hide();
+    });
+
+    $( document ).ajaxComplete(function() {
+      $(".spinner").hide();
+      $(".sidebar").show();
+    });
   }
 
   componentWillReceiveProps(newProps) {
@@ -105,6 +115,9 @@ class searchSidebar extends React.Component {
 
     return (
       <div className='sidebar-container'>
+        <div id="spinner" className="spinner">
+          <img id="img-spinner" src={window.assets.loader} alt="Loading"/>
+        </div>
         <aside className='sidebar'>
           <List>
             { this.state.tweets.length === 0 ? (
@@ -129,13 +142,15 @@ class searchSidebar extends React.Component {
               </div>
             )}
           </List>
-          { this.state.tweets.length === 0 ? (
+          { this.props.searchTerm === null ? (
             <div className='search-disclaimer'>
               <p className='search-disclaimer-text'>
                 <strong>disclaimer:</strong> only ~3% of tweets have geolocation data, so results may be sparse
               </p>
             </div>
-          ) : ""}
+          ) : (
+            ""
+          )}
         </aside>
       </div>
     );
