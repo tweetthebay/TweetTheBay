@@ -1,106 +1,53 @@
-# SFTweets
+# Tweet The Bay
 
-### Background
+[Live App][live]
+
+[live]: http://baytweets.herokuapp.com/
+
+A Twitter mapping project by [Michael Altamirano][michael], [Nico Geraldo][nico], [Adrian Lobdill][adrian],  and [Elif Sezgin][elif].
+
+[michael]: https://github.com/mjaltamirano
+[adrian]: https://github.com/slolobdill44
+[nico]: https://github.com/ngeeraldo
+[elif]: https://github.com/elifsezgin
+
 
 Wouldn’t you like to know where people are tweeting about tacos?
 
-Twitter has some search features, but not a great way to geolocate them. SFTweets will take any search query and place tweets matching that query on a map, in addition to supporting livestreaming of tweets by given coordinates and/or search term. This adds a visual component and a geographical complement to geolocated tweets.
+Twitter has some search features, but not a great way to geolocate tweets. Thanks to Tweet The Bay, you can now see a stream of tweets mapped out live as they are tweeted, or search by keyword in order to geolocate tweets from the last 7 days.
 
+[screenshot/gif here]
 
-### Functionality & MVP
+* **Frontend:** React.js/Redux/JQuery/Google Maps API/Material UI
+* **Backend:** Ruby on Rails/Twitter API
+* **Database:** PostgreSQL
 
-Users will be able to:
+## Features & Implementation
 
-- [ ] Use search to interact with the twitter API
-- [ ] See search results mapped out by coordinates within a given radius
-- [ ] See search results displayed in a dynamic, interactive side column
-- [ ] Click on any tweet on the map and bring up a modal with tweet details
-- [ ] Access a livestream of tweet data overlaid on the map
+### Streaming
 
+Tweet The Bay
 
-### Wireframes
+### Search
 
-![frame1](docs/MainPage.png)
+When first entering search mode, the sidebar lists a few of the top currently trending topics in the Bay Area as a suggestion.
 
-![frame2](docs/TweetShowModal.png)
+When searching, the app takes the bounding-box coordinates of the current map area and sends a request to the Twitter API to send back results within those coordinates. Rails processes the results and sends them to Redux containers on the front-end to be displayed in the map and sidebar.
 
-### Technologies & Technical Challenges
+Due to the limitations of the Twitter API, the search function can only return 100 results from the last 7 days of Twitter history. Since only about ~3% of tweets have exact geolocation data, sometimes only a handful of results can be mapped out.
 
-This app will utilize React.js, Redux, Twitter API, Twitter API Ruby Gem (https://github.com/sferik/twitter), Google Maps API, Rails 5, HTML, CSS.
+After searching, the sidebar populates with search results that can be clicked on to focus the map on that particular tweet.
 
-React will store the current state of the tweets we are placing using the search request. The whole front-end will be built using a Redux architecture. A search query will run through a Rails RESTful API in order to render results, and all the results will be displayed using JS, HTML, and CSS. Additionally, a search query through the livestream function will maintain a low-level, persistent connection with the Twitter API, displaying live results as they are received.
+## Future directions for the project
 
-The primary challenges will be:
+### Expand streaming to more cities/areas
 
-- [ ] Interacting with the Twitter API. The documentation is just okay and there will be a lot of learning to do
-- [ ] Plotting tweets on Google Maps. Not every tweet has an exact geographic location (some users restrict access).
-- [ ] Managing the Twitter API Rate Limits. Twitter will blacklist dev accounts with too many REST requests, so we must ensure that we never exceed those limits.
-- [ ] Incorporating Twitter's streaming API. The streaming API is an essentially infinitely long HTTP request, and it is uncertain if standard Rails architecture (or Twitter gem we are using) will suffice to implement such functionality. Additionally, we will need to design the streaming feature in such a way that it adds to the user experience without friction rather than existing as a hard-to-use feature, given rate and connection limits.
+Due to limitations in the Twitter API, we currently only support streaming in the greater Bay Area. We would like to add more cities in the future, and have a dropdown menu from which a different city/area can be selected.
 
+### Search by user/media
 
-### Group Members & Work Breakdown
+We would like to implement search for more than just keywords. If a Twitter account could be searched for, users could see their own tweets mapped out. If we implemented a search for media, we would display that particular media in the sidebar, and support playing videos in the modal.
 
-Our group has 4 members: Elif Sezgin, Nico Giraldo, Michael Altamirano, and Adrian Lobdill.
+### Twitter authentication and tweeting from our own app
 
-
-Elif’s primary responsibilities will be:
-
-- Building a display modal for individual tweets
--  Assist Nico with any Google Maps challenges
-
-
-Nico’s primary responsibilities will be:
-
-- Building out Redux cycle for parsing search results
-- Mapping tweets using the Google Maps API
-
-
-Michael's primary responsibilities will be:
-
-- Processing Twitter API results
-- Git captain. He will help manage merge conflicts and oversee app architecture
-
-
-Adrian's primary responsibilities will be:
-
-- Building out sidebar column component for displaying tweets
-- Assist Mike with any Twitter API challenges
-
-
-### Implementation Timeline
-
-**Day 1**: A basic Redux structure built and the ability to make Twitter requests using Ruby/Rails:
-
-- Twitter requests should be returning good data
-- Maps should be able to render and markers can be rendered on the map
-- All team members are on board with workflow and have working copies of the repo
-
-**Day 2**: App should have some basic visual functionality, but components do not necessarily work together
-
-- Twitter requests should return good data in Views via JBuilder
-- Map and sidebar should be able to read data from Twitter requests
-- A bug list will be hosted on Trello
-
-**Day 3**: Maps and sidebar will be able to work together concurrently, as well as basic modal functionality
-
-- Clicking on a sidebar result will focus the map on that tweet
-- Search component will be started on, and returns some amount of information based on search query
-- Start incorporating streaming data into frontend components
-
-**Day 4**: Search will be refined and should populate the map and column with search results
-
-- The project should be hosted on Heroku and a team member will be dedicated as the live build master
-- Continue incorporating streaming data into frontend components
-- Everything else in the project should work together tightly and our Git workflow should be in place.
-
-**Day 5**: This day will be dedicated to error handling, nailing down any remaining bugs, and finalizing site design.
-
-- We will have a meeting about where any errors should be handled and ensure that they are being thrown properly
-- In the same meeting we will discuss any remaining bugs and which of them need to be fixed before release
-- Finalize streaming data inclusion into frontend components 
-
-### Bonus Features
-
-- Search by user. Clicking on a button will cause the search to only search for users rather than keyword in tweets.
-- Expand map. Should be able to scroll around the map anywhere in the world and search for keywords.
-- Tweets by neighborhood. A checkbox list will allow users to only see tweets within a certain neighborhood in San Francisco.
+It would be awesome if a user could log in to Twitter within our app, send a tweet out, and see it mapped live. One limitation to the Twitter Streaming API is that it only grabs ~1% of all tweets being sent out, so an exact implementation would probably require enterprise-level access to the Twitter API.
