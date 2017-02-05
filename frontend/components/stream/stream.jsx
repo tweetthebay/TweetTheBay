@@ -13,18 +13,15 @@ class Stream extends React.Component {
 
   componentDidMount() {
     this.props.clearTweets();
-    this.props.fetchStream();
-    let that = this;
-    setTimeout(function() {
-      that.startStreaming();
-    }, 1000);
+    let timeNowUTC = Date.now() - 10000;
+    this.props.fetchStreamSince(timeNowUTC);
+    this.startStreaming(timeNowUTC);
   }
 
-  startStreaming() {
+  startStreaming(timeNowUTC) {
     let that = this;
-    let lastTweetId;
     this.timer = setInterval(function(){
-      that.props.fetchStream();
+      that.props.fetchStreamSince(timeNowUTC);
     }, 5000);
   }
 

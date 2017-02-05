@@ -7,7 +7,8 @@ import { setCurrentTweet } from '../../actions/current_tweet_actions';
 const mapStateToProps = state => ({
   tweets: state.tweets.tweets,
   currentTweet: state.currentTweet,
-  stream: state.stream.tweets
+  stream: state.stream.tweets,
+  searchQuery: state.searchQuery
 });
 
 const mapDispatchToProps = dispatch => ({
