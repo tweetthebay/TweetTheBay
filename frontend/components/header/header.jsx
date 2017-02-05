@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import SearchContainer from '../search/search_container';
 
 import AppBar from 'material-ui/AppBar';
-import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
+import Dialog from 'material-ui/Dialog';
 import FontIcon from 'material-ui/FontIcon';
 import Toggle from 'material-ui/Toggle';
 import Help from 'material-ui/svg-icons/action/help';
@@ -14,28 +14,12 @@ class Header extends React.Component {
     super(props);
     this.state = {
       toggleText: "search",
-      open: true
+      open: false
     };
 
-    this.handleRequestClose = this.handleRequestClose.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-  }
-
-  // handleTouchTap(e) {
-  //   e.preventDefault();
-  //
-  //   this.setState({
-  //     open: true,
-  //     anchorEl: event.currentTarget,
-  //   });
-  // }
-
-  handleRequestClose() {
-    this.setState({
-      open: false
-    });
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   handleToggle() {
@@ -54,18 +38,12 @@ class Header extends React.Component {
     }
   }
 
-  openModal(){
-    $(".modal").css("display","block");
-
-    $(window).click( event => {
-      if(event.target.className === "modal"){
-        $(".modal").css("display","none");
-      }
-    });
+  handleOpen(){
+    this.setState({open: true});
   }
 
-  closeModal(){
-    $(".modal").css("display","none");
+  handleClose(){
+    this.setState({open: false});
   }
 
   render() {
@@ -95,21 +73,19 @@ class Header extends React.Component {
       <div className="header">
         <AppBar
             title="Tweet The Bay"
-            titleStyle={{marginTop: "6px", }}
+            titleStyle={{marginTop: "6px"}}
             iconElementLeft={<FontIcon
                               className="fa fa-twitter-square"
                               style={logoStyle}/>}
             iconElementRight={<Help
                               style={helpStyle}
                               className="help-button"
-                              onClick={() => this.openModal()}/>}
+                              onTouchTap={() => this.handleOpen()}/>}
             children={<div className="header-children">
                         <div className="search-container">
                           <SearchContainer />
                         </div>
-                        <h3 className="search-toggle-text"
-                          onTouchTap={this.handleTouchTap}>Search
-
+                        <h3 className="search-toggle-text">Search
                         </h3>
                         <Toggle
                           className="toggle"
@@ -127,6 +103,42 @@ class Header extends React.Component {
                         <h3 className="stream-toggle-text">
                           Tweet Stream
                         </h3>
+                        <Dialog
+                          title="Welcome to Tweet The Bay!"
+                          modal={false}
+                          open={this.state.open}
+                          onRequestClose={() => this.handleClose()}
+                          autoDetectWindowHeight={true}
+                          bodyStyle={{
+                            color: "#393A3E"
+                          }}>
+                          <p>
+                            Switch between <strong>Live Tweet Streaming</strong> and <strong>Search</strong> functions by <strong>clicking</strong> on the <strong>toggle switch</strong> in the navigation bar:
+                            <br /><br />
+                            <Toggle
+                              className="toggle"
+                              thumbStyle={{
+                                backgroundColor: "#3F477F"
+                              }}
+                              trackStyle={{
+                                backgroundColor: "#9EA4D1"
+                              }}/>
+                          </p>
+                          <p>
+                            <strong>When streaming:</strong>
+                          </p>
+                          <p>
+                            The feed will update every 5 seconds with new tweets. These tweets are a 1% sampling of all messages being tweeted in the greater SF Bay Area. Click on any tweet to see details.
+                          </p>
+                          <p>
+                            <strong>When searching:</strong>
+                          </p>
+                          <p>
+                            Enter any search term and press the <strong>Enter</strong> key to search for that term wherever the map is positioned. Any trending topic can also be selected as a search term.
+                            <br /><br />
+                            <strong>Note:</strong> the map can be moved to search anywhere in the world!
+                          </p>
+                        </Dialog>
                       </div>}
 
             style={{
@@ -134,16 +146,6 @@ class Header extends React.Component {
               paddingLeft: "70px"
             }}
           />
-          <div id="myModal" className="modal">
-  	         <div className="modal-content">
-  	            <span className="close"
-                  onClick={this.closeModal}>&times;</span>
-  			          <div>
-  	    	          <p>Instructions</p>
-  			          </div>
-  	          </div>
-  	      </div>
-
       </div>
     );
   }
