@@ -31,7 +31,7 @@ class Header extends React.Component {
       this.setState({toggleText: "streaming"});
     } else {
       $(".header > div").css("background-color", "rgb(0, 132, 180)");
-      $(".footer").css("background-color", "#02344A");
+      $(".footer").css("background-color", "rgb(0, 132, 180)");
       search.style.visibility = "visible";
       this.setState({toggleText: "search"});
 
