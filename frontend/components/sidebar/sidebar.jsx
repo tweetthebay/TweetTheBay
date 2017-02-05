@@ -10,6 +10,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 
+
 class searchSidebar extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +23,7 @@ class searchSidebar extends React.Component {
 
     this.setState = this.setState.bind(this);
     this.sidebarSearch = this.sidebarSearch.bind(this);
+    this.backToTrendingTopics = this.backToTrendingTopics.bind(this);
   }
 
   componentWillMount () {
@@ -48,9 +50,7 @@ class searchSidebar extends React.Component {
     }
 
     if (newProps.tweets.tweets) {
-      if (newProps.tweets.tweets.length > 0) {
         this.setState({ tweets: newProps.tweets.tweets });
-      }
     }
 
     if (newProps.stream.tweets) {
@@ -67,6 +67,10 @@ class searchSidebar extends React.Component {
   sidebarSearch(searchInput, location) {
     this.props.searchTweets(searchInput, location);
     this.props.setSearchQuery(searchInput);
+  }
+
+  backToTrendingTopics(){
+    this.props.setSearchQuery(null);
   }
 
   render () {
@@ -120,7 +124,7 @@ class searchSidebar extends React.Component {
         </div>
         <aside className='sidebar'>
           <List>
-            { this.state.tweets.length === 0 ? (
+            { (this.state.tweets.length === 0 && this.props.searchTerm === null) ? (
               <div>
                 <a onClick={() => this.setState({ tweets: [] })} />
                 <ListItem
@@ -145,11 +149,18 @@ class searchSidebar extends React.Component {
           { this.props.searchTerm === null ? (
             <div className='search-disclaimer'>
               <p className='search-disclaimer-text'>
-                <strong>disclaimer:</strong> only ~3% of tweets have geolocation data, so results may be sparse
+                <strong>Disclaimer:</strong> only ~3% of tweets have geolocation data, so results may be sparse
               </p>
             </div>
           ) : (
-            ""
+            this.state.tweets.length === 0 ? (
+              <div>
+                <p className="no-tweets-found-message">There are currently no tweets that mention your search.</p>
+                <button onClick={this.backToTrendingTopics} label="Go Back to Trending Topics"></button>
+              </div>
+            ) : (
+              ""
+            )
           )}
         </aside>
       </div>
