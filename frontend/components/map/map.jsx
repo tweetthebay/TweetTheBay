@@ -37,7 +37,12 @@ class Map extends React.Component {
     const map = (this.refs.map);
     this.map = new google.maps.Map(map, {
       center: {lat, lng},
-      zoom: 9
+      zoom: 9,
+      mapTypeControl: true,
+      mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+        position: google.maps.ControlPosition.TOP_RIGHT
+      }
     });
     this.getLocation(this.map);
     this.geocoder = new google.maps.Geocoder;
