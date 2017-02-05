@@ -62,17 +62,16 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    let that = this;
 
     this.getLocation(this.map);
-
-    if (newProps.tweets !== this.props.tweets || newProps.stream !== this.props.stream) {
+    if (newProps.tweets !== this.props.tweets || newProps.stream !== this.props.stream || this.props.searchQuery !== newProps.searchQuery) {
       for (let i = 0; i < this.markers.length; i++) {
         this.markers[i].setMap(null);
       }
 
       this.markers = [];
     }
+    let that = this;
 
     let tweetType = "undefined";
     if (newProps.tweets) {
