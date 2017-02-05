@@ -8,7 +8,6 @@
   box-shadow: 1px 1px 1px;
   margin-right: auto;
   margin-left: auto;
-  padding-left: 15px;
   padding-right: 15px;
 }
 
@@ -110,14 +109,17 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
+/* tooltip */
 
-.slider.round:before {
-  border-radius: 50%;
-}
+// .tooltip {
+//   width: 80px;
+//   height: 30px;
+//
+//   position: fixed;
+//   left: 450px;
+//   z-index: 3;
+// }
+
 
 /*
 
@@ -125,6 +127,10 @@ Modal
 
 
 */
+
+p strong {
+  font-weight: 800
+}
 
 .modal {
     display: none;
