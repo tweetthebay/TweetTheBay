@@ -19,6 +19,15 @@ class Map extends React.Component {
     this.geocodeAddress = this.geocodeAddress.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.markers = [];
+    let pinColor = "0084b4";
+    this.pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0,0),
+        new google.maps.Point(10, 34));
+    this.pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+        new google.maps.Size(40, 37),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(12, 35));
   }
 
   componentDidMount() {
@@ -55,13 +64,14 @@ class Map extends React.Component {
   componentWillReceiveProps(newProps) {
     let that = this;
 
-    that.getLocation(that.map);
+    this.getLocation(this.map);
 
     if (newProps.tweets !== this.props.tweets || newProps.stream !== this.props.stream) {
-      for (let i = 0; i < that.markers.length; i++) {
-        that.markers[i].setMap(null);
+      for (let i = 0; i < this.markers.length; i++) {
+        this.markers[i].setMap(null);
       }
-      that.markers = [];
+
+      this.markers = [];
     }
 
     let tweetType = "undefined";
@@ -132,11 +142,14 @@ class Map extends React.Component {
       }
       this.marker = new google.maps.Marker({
         position: pos,
-        map: this.map
+        map: this.map,
+        icon: this.pinImage,
+        shadow: this.pinShadow
       });
       this.handleClick(this.marker, tweet);
     } else if (typeof tweet.place !== 'undefined' ) {
-      this.marker = this.geocodeAddress(that.geocoder, that.map, tweet.place.full_name, tweet);
+      this.geocodeAddress(that.geocoder, that.map, tweet.place.full_name, tweet);
+      // this.markers[tweet.id] = this.marker;
     } else {
       return;
     }
@@ -153,10 +166,11 @@ class Map extends React.Component {
           results[0].geometry.location.lng()+random*factor);
         let marker = new google.maps.Marker({
           map: resultsMap,
-          position: position
+          position: position,
+          icon: that.pinImage,
+          shadow: that.pinShadow
         });
         that.handleClick(marker, tweet);
-        return marker;
       } else {
         return;
       }
@@ -191,7 +205,7 @@ class Map extends React.Component {
       );
       that.infowindow.open(that.map, marker);
     });
-    this.markers[tweet.id] = marker;
+    this.markers.push(marker);
   }
 
   render() {
