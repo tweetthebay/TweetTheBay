@@ -26,3 +26,17 @@
 .search-disclaimer-text strong {
   font-weight: bold;
 }
+
+.spinner {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 100px;
+    // margin-left: -50px; /* half width of the spinner gif */
+    // margin-top: -50px; /* half height of the spinner gif */
+    // text-align:center;
+    z-index:2;
+    overflow: auto;
+    width: 100px; /* width of the spinner gif */
+    height: 102px; /*hight of the spinner gif +2px to fix IE8 issue */
+}
