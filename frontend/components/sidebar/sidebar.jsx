@@ -50,6 +50,8 @@ class searchSidebar extends React.Component {
     if (newProps.tweets.tweets) {
       if (newProps.tweets.tweets.length > 0) {
         this.setState({ tweets: newProps.tweets.tweets });
+      } else {
+        this.setState({ tweets: []});
       }
     }
 
