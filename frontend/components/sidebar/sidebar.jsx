@@ -51,6 +51,9 @@ class searchSidebar extends React.Component {
 
     if (newProps.tweets.tweets) {
         this.setState({ tweets: newProps.tweets.tweets });
+
+      } else {
+        this.setState({ tweets: []});
     }
 
     if (newProps.stream.tweets) {
@@ -156,7 +159,7 @@ class searchSidebar extends React.Component {
             this.state.tweets.length === 0 ? (
               <div>
                 <p className="no-tweets-found-message">There are currently no tweets that mention your search.</p>
-                <button onClick={this.backToTrendingTopics} label="Go Back to Trending Topics"></button>
+                <button onClick={this.backToTrendingTopics}>"Go Back to Trending Topics"</button>
               </div>
             ) : (
               ""
