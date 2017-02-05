@@ -20,9 +20,9 @@ Users will be able to:
 
 ### Wireframes
 
-![frame1](docs/MainPage.png)
+![frame1](MainPage.png)
 
-![frame2](docs/TweetShowModal.png)
+![frame2](TweetShowModal.png)
 
 ### Technologies & Technical Challenges
 
