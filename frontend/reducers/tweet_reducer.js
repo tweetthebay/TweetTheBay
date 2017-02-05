@@ -7,7 +7,7 @@ const TweetReducer = (state = {tweets: [], searchTerm: null}, action) => {
   Object.freeze(state);
   switch(action.type){
     case RECEIVE_TWEETS:
-      return merge({}, state, {tweets: action.tweets});
+      return merge({}, {tweets: action.tweets});
     case RECEIVE_SEARCH_QUERY:
       return merge({}, state, {searchTerm: action.query});
     case CLEAR_TWEETS:
