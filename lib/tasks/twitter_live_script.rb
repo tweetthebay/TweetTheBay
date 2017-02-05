@@ -52,7 +52,8 @@ newclient.filter(locations: "-123.632497,36.9476967925,-121.4099121094,38.528830
       retweet_count: tweet.retweet_count,
       favorite_count: tweet.favorite_count,
       tweet_id: tweet.to_h[:id_str],
-      tweet_created_at: tweet.to_h[:created_at]
+      tweet_created_at: tweet.to_h[:created_at],
+      time_utc: (Time.now.to_i * 1000)
       )
       puts tweet
 

@@ -7,7 +7,8 @@ class Api::StreamsController < ApplicationController
      config.access_token_secret = ENV['ACCESS_TOKEN_SECRET']
     end
 
-    @streamTweets = Tweet.last(100).reverse
+    timeMountUTC = params[:timeNowUTC].to_i
+    @streamTweets = Tweet.where("time_utc > #{timeMountUTC}").limit(250).reverse
     render :index
   end
 end

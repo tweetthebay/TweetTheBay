@@ -11,7 +11,8 @@ const mapStateToProps = ({ stream }) => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchStream: () => dispatch(fetchStream()),
-  fetchStreamSince: (lastTweetId) => dispatch(fetchStreamSince(lastTweetId)),
+  fetchStreamSince: (timeNowUTC) =>
+    dispatch(fetchStreamSince(timeNowUTC)),
   clearStream: () => dispatch(clearStream()),
   clearTweets: () => dispatch(clearStream())
 });
