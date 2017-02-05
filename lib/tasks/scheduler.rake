@@ -1,6 +1,6 @@
 desc "This task is called by the Heroku scheduler add-on"
 
-task :clear_database => :production do
+task :clear_database => :environment do
   Tweet.delete_all
 end
 
