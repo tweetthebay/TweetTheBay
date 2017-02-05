@@ -1,22 +1,30 @@
 {
   "name": "SFTweets",
   "version": "1.0.0",
-  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "description": "www.tweetthebay.com",
   "main": "index.js",
   "directories": {
+    "doc": "docs",
     "test": "test"
   },
   "engines": {
     "node": "6.2.1",
     "npm": "4.0.5"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tweetthebay/SFTweets"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "./node_modules/.bin/webpack"
+    "heroku-postbuild": "webpack --config webpack.config.prod.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tweetthebay/SFTweets"
+  },
+  "homepage": "https://github.com/tweetthebay/SFTweets#readme",
   "dependencies": {
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
