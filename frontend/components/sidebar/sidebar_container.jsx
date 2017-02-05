@@ -6,7 +6,7 @@ import { fetchTweets, setSearchQuery } from '../../actions/tweet_actions';
 
 const mapStateToProps = state => ({
   tweets: state.tweets,
-  searchTerm: state.tweets.searchTerm,
+  searchTerm: state.searchQuery,
   currentTrends: state.currentTrends.trends,
   location: state.mapPosition,
   stream: state.stream
