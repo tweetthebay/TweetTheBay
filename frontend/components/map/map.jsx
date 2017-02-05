@@ -67,11 +67,12 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-
-    console.log(this.markers);
+    let that = this;
     this.getLocation(this.map);
 
-    if (newProps.searchQuery !== this.props.searchQuery || newProps.tweets !== this.props.tweets || newProps.stream !== this.props.stream) {
+    if (newProps.searchQuery !== this.props.searchQuery ||
+      newProps.tweets !== this.props.tweets ||
+      newProps.stream !== this.props.stream) {
       for (let i = 0; i < this.markers.length; i++) {
         this.markers[i].setMap(null);
       }
@@ -79,15 +80,12 @@ class Map extends React.Component {
       this.markers = [];
 
       if (!newProps.stream) {
-        if (newProps.searchQuery !== this.props.searchQuery || newProps.tweets == this.props.tweets) {
+        if (newProps.searchQuery !== this.props.searchQuery ||
+          newProps.tweets == this.props.tweets) {
           return;
         }
       }
     }
-
-    console.log(this.markers);
-
-    let that = this;
 
     let tweetType = "undefined";
     if (newProps.tweets) {
@@ -101,6 +99,7 @@ class Map extends React.Component {
         tweetType = "stream";
       }
     }
+
     if (tweetType !== "undefined") {
       newProps[tweetType].forEach(tweet => {
         if (!this.markers[tweet.id]) {
@@ -164,7 +163,6 @@ class Map extends React.Component {
       this.handleClick(this.marker, tweet);
     } else if (typeof tweet.place !== 'undefined' ) {
       this.geocodeAddress(that.geocoder, that.map, tweet.place.full_name, tweet);
-      // this.markers[tweet.id] = this.marker;
     } else {
       return;
     }
