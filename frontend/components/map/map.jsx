@@ -22,13 +22,13 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
-    let lat = 37.773972;
-    let lng =  -122.431297;
+    let lat = 37.9;
+    let lng =  -122.5;
 
     const map = (this.refs.map);
     this.map = new google.maps.Map(map, {
       center: {lat, lng},
-      zoom: 11
+      zoom: 9
     });
     this.getLocation(this.map);
     this.geocoder = new google.maps.Geocoder;
