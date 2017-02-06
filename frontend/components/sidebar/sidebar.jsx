@@ -24,6 +24,7 @@ class searchSidebar extends React.Component {
 
     this.setState = this.setState.bind(this);
     this.sidebarSearch = this.sidebarSearch.bind(this);
+    this.handleTweetText = this.handleTweetText.bind(this);
     this.backToTrendingTopics = this.backToTrendingTopics.bind(this);
   }
 
@@ -82,6 +83,17 @@ class searchSidebar extends React.Component {
     this.props.setSearchQuery(null);
   }
 
+  handleTweetText(text) {
+   if (text.indexOf("&amp;") !== -1){
+        let ampersand = /&amp;([A-Za-z]+|#x[\dA-Fa-f]+|#\d+)/;
+        return text.replace(ampersand, function(url) {
+          return '&';
+        });
+      } else {
+      return text;
+    }
+  }
+
   render () {
 
     const trendList = this.state.trends.slice(0,7).map((trend, idx) => {
@@ -119,6 +131,8 @@ class searchSidebar extends React.Component {
       tweetList = this.state.tweets.map((tweet, idx) => {
         const id = tweet.id;
 
+        const tweetText = this.handleTweetText(tweet.text);
+
         return (
           <div key={ tweet.text }>
             <ListItem
@@ -127,7 +141,7 @@ class searchSidebar extends React.Component {
               primaryText={`${tweet.screen_name}`}
               secondaryText={
                 <p>
-                  {tweet.text}
+                  {tweetText}
                 </p>
               }
               secondaryTextLines={ 2 }
