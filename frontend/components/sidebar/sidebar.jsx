@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 
 import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
@@ -201,4 +200,4 @@ class searchSidebar extends React.Component {
   }
 }
 
-export default withRouter(searchSidebar);
+export default searchSidebar;
