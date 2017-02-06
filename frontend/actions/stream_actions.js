@@ -9,6 +9,12 @@ export const fetchStream = () => dispatch => (
     err => dispatch(receiveStreamErrors(err.responseJSON)))
 );
 
+export const fetchStreamSince = (timeNowUTC) => dispatch => (
+  APIUtils.fetchStreamSince(timeNowUTC)
+    .then(data => dispatch(receiveStream(data)),
+    err => dispatch(receiveStreamErrors(err.responseJSON)))
+);
+
 export const receiveStream = (streamtweets) => ({
   type: RECEIVE_STREAM,
   streamtweets

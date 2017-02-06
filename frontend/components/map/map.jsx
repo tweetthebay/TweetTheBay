@@ -51,7 +51,12 @@ class Map extends React.Component {
     const map = (this.refs.map);
     this.map = new google.maps.Map(map, {
       center: {lat, lng},
-      zoom: 9
+      zoom: 9,
+      mapTypeControl: true,
+      mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+        position: google.maps.ControlPosition.TOP_RIGHT
+      }
     });
     this.getLocation(this.map);
     this.geocoder = new google.maps.Geocoder;
@@ -87,7 +92,6 @@ class Map extends React.Component {
       this.markers = [];
     }
     let that = this;
-
     let tweetType = "undefined";
     if (newProps.tweets) {
       if (newProps.tweets.length > 0) {
@@ -100,6 +104,7 @@ class Map extends React.Component {
         tweetType = "stream";
       }
     }
+
     if (tweetType !== "undefined") {
       newProps[tweetType].forEach(tweet => {
         if (!this.markers[tweet.id]) {
@@ -114,6 +119,8 @@ class Map extends React.Component {
             <div>
               <div class='info-window-item weight'>${tweet.screen_name}</div>
               <div class='info-window-item'>${this.handleTweetText(tweet.text)}</div>
+              <div class='info-window-created-at'>${tweet.created_at}</div>
+              <div class='info-window-link'></div>
             </div>
           </div>`
         );
@@ -160,7 +167,6 @@ class Map extends React.Component {
       this.handleClick(this.marker, tweet);
     } else if (typeof tweet.place !== 'undefined' ) {
       this.geocodeAddress(that.geocoder, that.map, tweet.place.full_name, tweet);
-      // this.markers[tweet.id] = this.marker;
     } else {
       return;
     }
@@ -198,6 +204,27 @@ class Map extends React.Component {
       // text = text + '<a href="' + "https://www.google.com/" + '">google</a>';
       return text;
     }
+  }
+
+  handleTweetDate(date) {
+    const parsedDate = new Date(
+    date.replace(/^\w+ (\w+) (\d+) ([\d:]+) \+0000 (\d+)$/,
+        "$1 $2 $4 $3 UTC"));
+
+    const monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+    const monthIndex = parsedDate.getMonth();
+    const day = parsedDate.getDay();
+    const year = parsedDate.getFullYear();
+
+    const hours = parsedDate.getHours();
+    const minutes = parsedDate.getSeconds();
+
+    return `${hours}:${minutes} ${day} ${monthNames[monthIndex]} ${year}`;
   }
 
   handleClick (marker, tweet) {

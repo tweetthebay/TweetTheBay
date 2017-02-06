@@ -8,6 +8,7 @@ import FontIcon from 'material-ui/FontIcon';
 import Toggle from 'material-ui/Toggle';
 import Help from 'material-ui/svg-icons/action/help';
 import Paper from 'material-ui/Paper';
+import { hashHistory } from 'react-router';
 
 class Header extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class Header extends React.Component {
     this.handleClose = this.handleClose.bind(this);
   }
 
+
   handleToggle() {
     var search = document.querySelector(".search-container");
     if (this.state.toggleText === "search") {
@@ -31,10 +33,15 @@ class Header extends React.Component {
       this.setState({toggleText: "streaming"});
     } else {
       $(".header > div").css("background-color", "rgb(0, 132, 180)");
-      $(".footer").css("background-color", "#02344A");
+      $(".footer").css("background-color", "rgb(0, 132, 180)");
       search.style.visibility = "visible";
       this.setState({toggleText: "search"});
 
+    }
+    if (hashHistory.getCurrentLocation().pathname === "/"){
+      hashHistory.push("/stream");
+    } else {
+      hashHistory.push("/");
     }
   }
 
@@ -76,6 +83,7 @@ class Header extends React.Component {
             titleStyle={{marginTop: "6px"}}
             iconElementLeft={<FontIcon
                               className="fa fa-twitter-square"
+                              onClick={console.log("hi")}
                               style={logoStyle}/>}
             iconElementRight={<Help
                               style={helpStyle}
@@ -89,7 +97,7 @@ class Header extends React.Component {
                         </h3>
                         <Toggle
                           className="toggle"
-                          onToggle={() => this.handleToggle()}
+                          onToggle={this.handleToggle}
                           style={{
                             width: "0px",
                             marginTop: "4px",

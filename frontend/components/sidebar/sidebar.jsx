@@ -120,6 +120,15 @@ class searchSidebar extends React.Component {
         );
     });
 
+    let primaryTextVar;
+    if (this.props.stream.tweets) {
+      if (this.props.stream.tweets.length > 0) {
+        primaryTextVar = `You are currently livestreaming!`;
+      }
+    } else {
+      primaryTextVar = `Current Search: ${this.props.searchTerm}`;
+    }
+
     return (
       <div className='sidebar-container'>
         <div id="spinner" className="spinner">
@@ -140,7 +149,7 @@ class searchSidebar extends React.Component {
             ) : (
               <div>
                 <ListItem
-                  primaryText = {`Current Search: "${this.state.searchTerm}"`}
+                  primaryText = {primaryTextVar}
                   disabled = { true }
                   />
                 <Divider />
@@ -157,9 +166,10 @@ class searchSidebar extends React.Component {
             </div>
           ) : (
             this.state.tweets.length === 0 ? (
-              <div>
+              <div className="no-tweets-container">
                 <p className="no-tweets-found-message">There are currently no tweets that mention your search.</p>
-                <button onClick={this.backToTrendingTopics}>"Go Back to Trending Topics"</button>
+                <button className="return-trending-button"
+                  onClick={this.backToTrendingTopics}>Go Back to Trending Topics</button>
               </div>
             ) : (
               ""
