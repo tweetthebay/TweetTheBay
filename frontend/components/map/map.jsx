@@ -115,6 +115,8 @@ class Map extends React.Component {
 
               <div class='info-window-item weight'>${tweet.screen_name}</div>
               <div class='info-window-item'>${this.handleTweetText(tweet.text)}</div>
+              <div class='info-window-created-at'>${tweet.created_at}</div>
+              <div class='info-window-link'></div>
 
             </div>
 
@@ -200,6 +202,27 @@ class Map extends React.Component {
       // text = text + '<a href="' + "https://www.google.com/" + '">google</a>';
       return text;
     }
+  }
+
+  handleTweetDate(date) {
+    const parsedDate = new Date(
+    date.replace(/^\w+ (\w+) (\d+) ([\d:]+) \+0000 (\d+)$/,
+        "$1 $2 $4 $3 UTC"));
+
+    const monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+    const monthIndex = parsedDate.getMonth();
+    const day = parsedDate.getDay();
+    const year = parsedDate.getFullYear();
+
+    const hours = parsedDate.getHours();
+    const minutes = parsedDate.getSeconds();
+
+    return `${hours}:${minutes} ${day} ${monthNames[monthIndex]} ${year}`;
   }
 
   handleClick (marker, tweet) {

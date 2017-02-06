@@ -63,6 +63,7 @@ class searchSidebar extends React.Component {
     }
 
     if (newProps.searchTerm) {
+      console.log(newProps.searchTerm);
       this.setState({ searchTerm: newProps.searchTerm });
     }
   }
@@ -140,7 +141,7 @@ class searchSidebar extends React.Component {
             ) : (
               <div>
                 <ListItem
-                  primaryText = {`Current Search: "${this.state.searchTerm}"`}
+                  primaryText = {`Current Search: "${this.props.searchTerm}"`}
                   disabled = { true }
                   />
                 <Divider />
