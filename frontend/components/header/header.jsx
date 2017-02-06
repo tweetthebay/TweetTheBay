@@ -120,24 +120,27 @@ class Header extends React.Component {
                         <div className="search-container">
                           <SearchContainer />
                         </div>
-                        <RaisedButton
-                          className='search-button'
-                          label="Search"
-                          icon={<Search />}
-                          backgroundColor="#5CB0CF"
-                          onTouchTap={() => this.setSearch()}
-                          style={{
-                            width: "117px",
-                            bottom: "14px"
-                          }} />
+                        <div className="header-buttons">
+                          <RaisedButton
+                            className='search-button'
+                            label="Search"
+                            icon={<Search />}
+                            backgroundColor="#5CB0CF"
+                            onTouchTap={() => this.setSearch()}
+                            style={{
+                              width: "117px",
+                              bottom: "14px"
+                            }} />
+                          <h3 className='or-text'>OR</h3>
                           <RaisedButton
                             className='stream-button'
-                            label="Tweet Stream"
+                            label="Stream Tweets"
                             icon={<RssFeed />}
                             onTouchTap={() => this.setStream()}
                             style={{
-                              width: "167px"
+                              width: "175px"
                             }} />
+                        </div>
                         <Dialog
                           title="Welcome to Tweet The Bay!"
                           modal={false}
@@ -150,11 +153,11 @@ class Header extends React.Component {
                             <br /><br />
                           </div>
                           <RaisedButton
-                            label="Tweet Stream"
+                            label="Stream Tweets"
                             backgroundColor="#9EA4D1"
                             icon={<RssFeed />}
                             style={{
-                              width: "167px"
+                              width: "175px"
                             }} />
                           <p>
                             When streaming, the feed will update every 5 seconds with new tweets. These tweets are a 1% sampling of all messages being tweeted in the greater SF Bay Area. Click on any tweet to see details.
