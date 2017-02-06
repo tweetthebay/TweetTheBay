@@ -1,6 +1,6 @@
 require 'twitter'
 
-newclient = Twitter::Streaming::Client.new do |config|
+stream = Twitter::Streaming::Client.new do |config|
   config.consumer_key        = ENV['CONSUMER_API_KEY']
   config.consumer_secret     = ENV['CONSUMER_API_SECRET']
   config.access_token        = ENV['ACCESS_TOKEN']
@@ -27,7 +27,7 @@ job_posting_blacklist = ["See our latest", "We're #hiring!",
   "Can you recommend anyone for this", "Want to work at",
   "If you're looking for work in"]
 
-newclient.filter(locations: "-123.632497,36.9476967925,-121.4099121094,38.5288302896") do |tweet|
+stream.filter(locations: "-123.632497,36.9476967925,-121.4099121094,38.5288302896") do |tweet|
   if tweet.attrs[:coordinates]
     unless job_posting_blacklist.any? { |phrase| tweet.text.include?(phrase) } ||
       screen_name_blacklist.any? { |term| tweet.user.screen_name.include?(term) } ||
