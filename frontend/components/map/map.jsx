@@ -98,8 +98,6 @@ class Map extends React.Component {
       this.markers = [];
     }
 
-    debugger;
-
     let that = this;
     let tweetType = "undefined";
 
