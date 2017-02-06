@@ -150,7 +150,6 @@ class Header extends React.Component {
                             <br /><br />
                           </div>
                           <RaisedButton
-                            className='stream-button'
                             label="Tweet Stream"
                             backgroundColor="#9EA4D1"
                             icon={<RssFeed />}
@@ -161,7 +160,6 @@ class Header extends React.Component {
                             When streaming, the feed will update every 5 seconds with new tweets. These tweets are a 1% sampling of all messages being tweeted in the greater SF Bay Area. Click on any tweet to see details.
                           </p>
                           <RaisedButton
-                            className='search-button'
                             label="Search"
                             icon={<Search />}
                             backgroundColor="#5CB0CF"
