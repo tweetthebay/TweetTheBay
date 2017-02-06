@@ -83,6 +83,7 @@ class Header extends React.Component {
             titleStyle={{marginTop: "6px"}}
             iconElementLeft={<FontIcon
                               className="fa fa-twitter-square"
+                              onClick={console.log("hi")}
                               style={logoStyle}/>}
             iconElementRight={<Help
                               style={helpStyle}
