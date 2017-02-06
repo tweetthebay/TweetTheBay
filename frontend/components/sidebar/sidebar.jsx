@@ -140,13 +140,14 @@ class searchSidebar extends React.Component {
     }
 
     let primaryTextVar;
-    if (this.props.stream.tweets) {
-      if (this.props.stream.tweets.length > 0) {
-        primaryTextVar = `You are currently livestreaming!`;
-      }
+    if (this.props.stream.tweets.length > 0) {
+      primaryTextVar = `You are currently livestreaming!`;
     } else {
+      console.log(this.props.stream.tweets);
+
       primaryTextVar = `Current Search: ${this.props.searchTerm}`;
     }
+    console.log(primaryTextVar);
 
     return (
       <div className='sidebar-container'>

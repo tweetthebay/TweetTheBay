@@ -43,16 +43,14 @@
   color: white;
 }
 
-@-webkit-keyframes purplePulse {
-  from { background-color: white; -webkit-box-shadow: 0 0 9px #333; }
-  50% { background-color: #7485FF; -webkit-box-shadow: 0 0 18px #9AA0CC; }
-  to { background-color: white; -webkit-box-shadow: 0 0 9px #333; }
+.header-buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 380px;
 }
 
-.stream-button button {
-  -webkit-animation-name: purplePulse;
-  -webkit-animation-duration: 1.75s;
-  -webkit-animation-iteration-count: 2;
+.or-text {
+  margin-top: 3px;
 }
 
 .help-button:hover {
