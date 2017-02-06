@@ -2,6 +2,7 @@ count = 0
 
 json.array! @geo_tweets do |tweet|
   json.id count
+  json.tweet_id tweet[:id_str]
   json.text tweet[:text]
   json.coordinates tweet[:coordinates]
   json.created_at tweet[:created_at]
