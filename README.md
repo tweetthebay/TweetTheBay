@@ -80,6 +80,10 @@ Due to the limitations of the Twitter API, the search function can only return 1
 
 After searching, the sidebar populates with search results that can be clicked on to focus the map on that particular tweet.
 
+### Maps
+
+Maps is the backbone of the Tweet The Bay. Google Maps Javascript API is used for displaying the tweets with a location data on the map. For the tweets that has the coordinates data, the maps locates them according to the given coordinates. The tweets that have the location data such as address or city name are geocoded first and the resulting coordinates are marked as a pin for the tweet. 
+
 ## Future directions for the project
 
 ### Expand streaming to more cities/areas
