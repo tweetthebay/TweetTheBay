@@ -97,10 +97,13 @@ class Map extends React.Component {
       }
       this.markers = [];
     }
+
+    debugger;
+
     let that = this;
     let tweetType = "undefined";
 
-    if (newProps.tweets) {
+    if (newProps.tweets && this.props.router.routes.length < 2) {
       if (newProps.tweets.length > 0) {
         tweetType = "tweets";
       }

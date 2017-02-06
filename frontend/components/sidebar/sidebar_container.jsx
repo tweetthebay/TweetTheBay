@@ -8,14 +8,14 @@ const mapStateToProps = state => ({
   tweets: state.tweets,
   searchTerm: state.searchQuery,
   currentTrends: state.currentTrends.trends,
-  location: state.mapPosition,
+  myLocation: state.mapPosition,
   stream: state.stream
 });
 
 const mapDispatchToProps = dispatch => ({
   setCurrentTweet: tweet => dispatch(setCurrentTweet(tweet)),
   fetchCurrentTrends: () => dispatch(fetchCurrentTrends()),
-  searchTweets: (searchInput, location) => dispatch(fetchTweets(searchInput, location)),
+  searchTweets: (searchInput, myLocation) => dispatch(fetchTweets(searchInput, myLocation)),
   setSearchQuery: searchInput => dispatch(setSearchQuery(searchInput))
 });
 

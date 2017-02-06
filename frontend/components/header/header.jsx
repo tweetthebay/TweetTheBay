@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { hashHistory } from 'react-router';
+import { hashHistory, withRouter } from 'react-router';
 import SearchContainer from '../search/search_container';
 
 import AppBar from 'material-ui/AppBar';
@@ -34,7 +34,7 @@ class Header extends React.Component {
     $(".stream-button > button").css("background-color", "white");
     $(".search-button > button").css("background-color", "#5CB0CF");
 
-    hashHistory.push("/");
+    this.props.router.push("/");
 
     $(".header > div").css("background-color", "rgb(0, 132, 180)");
     $(".footer").css("background-color", "rgb(0, 132, 180)");
@@ -47,7 +47,7 @@ class Header extends React.Component {
     $(".search-button > button").css("background-color", "white");
     $(".stream-button > button").css("background-color", "#9EA4D1");
 
-    hashHistory.push("/stream");
+    this.props.router.push("/stream");
 
 
     $(".header > div").css("background-color", "#424874");
@@ -188,4 +188,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default withRouter(Header);

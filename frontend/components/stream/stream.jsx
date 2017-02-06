@@ -20,6 +20,7 @@ class Stream extends React.Component {
 
   startStreaming(timeNowUTC) {
     let that = this;
+    this.props.fetchStreamSince(timeNowUTC);
     this.timer = setInterval(function(){
       that.props.fetchStreamSince(timeNowUTC);
     }, 5000);

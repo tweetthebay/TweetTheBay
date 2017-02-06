@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 
 import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
@@ -72,8 +73,8 @@ class searchSidebar extends React.Component {
     }
   }
 
-  sidebarSearch(searchInput, location) {
-    this.props.searchTweets(searchInput, location);
+  sidebarSearch(searchInput, myLocation) {
+    this.props.searchTweets(searchInput, myLocation);
     this.props.setSearchQuery(searchInput);
   }
 
@@ -89,7 +90,7 @@ class searchSidebar extends React.Component {
         return (
           <div key={ trend.name }>
             <ListItem
-              onClick={() => this.sidebarSearch(`${trend.name}`, this.props.location)}
+              onClick={() => this.sidebarSearch(`${trend.name}`, this.props.myLocation)}
               primaryText={`${trend.name}`}
               secondaryText={
                 <p>
@@ -140,14 +141,11 @@ class searchSidebar extends React.Component {
     }
 
     let primaryTextVar;
-    if (this.props.stream.tweets.length > 0) {
+    if (this.props.routes.length > 1) {
       primaryTextVar = `You are currently livestreaming!`;
     } else {
-      console.log(this.props.stream.tweets);
-
       primaryTextVar = `Current Search: ${this.props.searchTerm}`;
     }
-    console.log(primaryTextVar);
 
     return (
       <div className='sidebar-container'>
@@ -201,4 +199,4 @@ class searchSidebar extends React.Component {
   }
 }
 
-export default searchSidebar;
+export default withRouter(searchSidebar);
