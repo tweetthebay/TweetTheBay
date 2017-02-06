@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {Link} from 'react-router';
 import Modal from 'react-modal';
 
-
 class Map extends React.Component {
   constructor(props) {
     super(props);
@@ -20,6 +19,7 @@ class Map extends React.Component {
     this.handleTweetDate = this.handleTweetDate.bind(this);
     this.parseTweetLink = this.parseTweetLink.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.tweetsAreSame = this.tweetsAreSame.bind(this);
     this.markers = [];
     let pinColor = "0084b4";
     this.pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
@@ -30,6 +30,20 @@ class Map extends React.Component {
         new google.maps.Size(40, 37),
         new google.maps.Point(0, 0),
         new google.maps.Point(12, 35));
+  }
+
+  tweetsAreSame (x, y) {
+    if (x.length !== y.length ) {
+     return false;
+    }
+    let areSame = true;
+    for (let i = 0; i < x.length; i++) {
+      if(x[i].text !== y[i].text) {
+        areSame = false;
+        break;
+      }
+    }
+    return areSame;
   }
 
   componentDidMount() {
@@ -69,26 +83,17 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    let that = this;
     this.getLocation(this.map);
-
-    if (newProps.searchQuery !== this.props.searchQuery ||
-      newProps.tweets !== this.props.tweets ||
-      newProps.stream !== this.props.stream) {
+    if (this.props.searchQuery !== newProps.searchQuery) {
+      return;
+    }
+    if (!this.tweetsAreSame(newProps.tweets, this.props.tweets) || !this.tweetsAreSame(newProps.stream, this.props.stream || this.props.searchQuery !== newProps.searchQuery)) {
       for (let i = 0; i < this.markers.length; i++) {
         this.markers[i].setMap(null);
       }
-
       this.markers = [];
-
-      if (!newProps.stream) {
-        if (newProps.searchQuery !== this.props.searchQuery ||
-          newProps.tweets == this.props.tweets) {
-          return;
-        }
-      }
     }
-
+    let that = this;
     let tweetType = "undefined";
     if (newProps.tweets) {
       if (newProps.tweets.length > 0) {
@@ -200,7 +205,7 @@ class Map extends React.Component {
 
   handleTweetText(text){
     if(text.indexOf("https") !== -1){
-      var urlRegex = /(https?:\/\/[^\s]+)/g;
+      let urlRegex = /(https?:\/\/[^\s]+)/g;
       return text.replace(urlRegex, function(url) {
           return '<a class="info-window-text-link" href="' + url + '" target="_blank">' + url + '</a>';
       });
