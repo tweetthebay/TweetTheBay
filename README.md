@@ -53,20 +53,21 @@ stream.filter(locations: "-123.632497,36.9476967925,-121.4099121094,38.528830289
 Once through these filters, the tweets are then saved to a database. The livestream component of the website periodically queries the database for tweets that were created shortly before the user first visits the livestream page. By default, if there are no tweets yet, the page will offer up the last tweet in the database, providing the user with immediate feedback after switching from the search component to the streaming component, and alerting them that more tweets are incoming.
 
 ```Ruby
-
 class Api::StreamsController < ApplicationController
   def index
-    timeMountUTC = params[:timeNowUTC].to_i
-    if Tweet.where("time_utc > #{timeMountUTC}").empty?
+    time_mount_utc = params[:timeNowUTC].to_i
+    if Tweet.where("time_utc > #{time_mount_utc}").empty?
       @streamTweets = Tweet.last(1)
     else
-      @streamTweets = Tweet.where("time_utc > #{timeMountUTC}").limit(250).reverse
+      @streamTweets = Tweet
+        .where("time_utc > #{time_mount_utc}")
+        .last(250)
+        .reverse
     end
 
     render :index
   end
 end
-
 ```
 
 ### Search
