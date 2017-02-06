@@ -17,7 +17,10 @@ Wouldn’t you like to know where people are tweeting about tacos?
 
 Twitter has some search features, but not a great way to geolocate tweets. Thanks to Tweet The Bay, you can now see a stream of tweets mapped out live as they are tweeted, or search by keyword in order to geolocate tweets from the last 7 days.
 
-[gif here]
+![Livestream][livestream]
+[livestream]: ./docs/tweetthebaylivestream.gif "Livestream"
+
+(Note: this gif compresses ~17 minutes of content into ~95 frames)
 
 * **Frontend:** React.js/Redux/JQuery/Google Maps API/Material UI
 * **Backend:** Ruby on Rails/Twitter API
@@ -82,7 +85,7 @@ After searching, the sidebar populates with search results that can be clicked o
 
 ### Maps
 
-Maps is the backbone of the Tweet The Bay. Google Maps Javascript API is used for displaying the tweets with a location data on the map. For the tweets that has the coordinates data, the maps locates them according to the given coordinates. The tweets that have the location data such as address or city name are geocoded first and the resulting coordinates are marked as a pin for the tweet. 
+Maps is the backbone of the Tweet The Bay. Google Maps Javascript API is used for displaying the tweets with a location data on the map. For the tweets that has the coordinates data, the maps locates them according to the given coordinates. The tweets that have the location data such as address or city name are geocoded first and the resulting coordinates are marked as a pin for the tweet.
 
 ## Future directions for the project
 
