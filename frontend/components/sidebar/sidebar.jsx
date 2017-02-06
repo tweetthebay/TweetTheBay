@@ -63,7 +63,6 @@ class searchSidebar extends React.Component {
     }
 
     if (newProps.searchTerm) {
-      console.log(newProps.searchTerm);
       this.setState({ searchTerm: newProps.searchTerm });
     }
   }
@@ -121,6 +120,15 @@ class searchSidebar extends React.Component {
         );
     });
 
+    let primaryTextVar;
+    if (this.props.stream.tweets) {
+      if (this.props.stream.tweets.length > 0) {
+        primaryTextVar = `You are currently livestreaming!`;
+      }
+    } else {
+      primaryTextVar = `Current Search: ${this.props.searchTerm}`;
+    }
+
     return (
       <div className='sidebar-container'>
         <div id="spinner" className="spinner">
@@ -141,7 +149,7 @@ class searchSidebar extends React.Component {
             ) : (
               <div>
                 <ListItem
-                  primaryText = {`Current Search: "${this.props.searchTerm}"`}
+                  primaryText = {primaryTextVar}
                   disabled = { true }
                   />
                 <Divider />
