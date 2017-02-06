@@ -1,10 +1,11 @@
 # Tweet The Bay
 
+A Twitter mapping project by [Michael Altamirano][michael], [Nico Geraldo][nico], [Adrian Lobdill][adrian],  and [Elif Sezgin][elif].
+
 [Live App][live]
 
 [live]: http://baytweets.herokuapp.com/
 
-A Twitter mapping project by [Michael Altamirano][michael], [Nico Geraldo][nico], [Adrian Lobdill][adrian],  and [Elif Sezgin][elif].
 
 [michael]: https://github.com/mjaltamirano
 [adrian]: https://github.com/slolobdill44
