@@ -13,7 +13,7 @@ class Header extends React.Component {
         <div className="footer-brand">
           <a href="https://github.com/mjaltamirano/SFTweets"><i className="fa fa-github-square fa-2x" aria-hidden="true"></i></a>
           <div className='copyright'>
-            © 2017 SFTweets. All rights reserved.
+            © 2017 Tweet the Bay. All rights reserved.
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ A Twitter mapping project by [Michael Altamirano][michael], [Nico Geraldo][nico]
 
 [Live App][live]
 
-[live]: http://baytweets.herokuapp.com/
+[live]: http://www.tweetthebay.com/
 
 
 [michael]: https://github.com/mjaltamirano
