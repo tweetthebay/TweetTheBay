@@ -159,7 +159,7 @@ class searchSidebar extends React.Component {
           ) : (
             this.state.tweets.length === 0 ? (
               <div>
-                <p className="no-tweets-found-message">There are currently no tweets that mention your search.</p>
+                <p className="no-tweets-found-message">Sorry, we couldn't geolocate any tweets matching that search term. Please try another search</p>
                 <button onClick={this.backToTrendingTopics}>"Go Back to Trending Topics"</button>
               </div>
             ) : (

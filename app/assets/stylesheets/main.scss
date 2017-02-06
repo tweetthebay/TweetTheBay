@@ -50,10 +50,23 @@
   margin: 10px;
 }
 
+.info-window-text a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .weight {
   font-weight: 700;
 }
 
 .info-window-text-link{
   color: blue;
+}
+
+.info-window-twitter-link {
+  margin-top: 13px;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #02344A;
+  font-family: 'Roboto', 'Open Sans', sans-serif;
 }

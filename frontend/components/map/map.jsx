@@ -17,6 +17,8 @@ class Map extends React.Component {
     this.getLocation = this.getLocation.bind(this);
     this.addTweet = this.addTweet.bind(this);
     this.geocodeAddress = this.geocodeAddress.bind(this);
+    this.handleTweetDate = this.handleTweetDate.bind(this);
+    this.parseTweetLink = this.parseTweetLink.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.markers = [];
     let pinColor = "0084b4";
@@ -110,17 +112,21 @@ class Map extends React.Component {
           that.map.setCenter(marker.position);
           that.infowindow.setContent(
             `<div class='info-window'>
-            <img class='info-window-image' src=${tweet.profile_picture} />
-            <div>
+              <img class='info-window-image' src=${tweet.profile_picture} />
+              <div class='info-window-text'>
 
-              <div class='info-window-item weight'>${tweet.screen_name}</div>
-              <div class='info-window-item'>${this.handleTweetText(tweet.text)}</div>
-              <div class='info-window-created-at'>${tweet.created_at}</div>
-              <div class='info-window-link'></div>
+                <div class='info-window-item weight'>
+                  <a href="https://www.twitter.com/${tweet.screen_name}" target="_blank">${tweet.screen_name}</a>
+                </div>
+                <div class='info-window-item'>${this.handleTweetText(tweet.text)}</div>
+                <div class='info-window-item'>${this.handleTweetDate(tweet.created_at)}</div>
+                <div class='info-window-twitter-link'>
+                  <a href="https://www.twitter.com/statuses/${tweet.tweet_id}" target="_blank">View Full Tweet</a>
+                </div>
 
-            </div>
+              </div>
 
-          </div>`
+            </div>`
         );
         that.infowindow.open(that.map, marker);
       }
@@ -196,7 +202,7 @@ class Map extends React.Component {
     if(text.indexOf("https") !== -1){
       var urlRegex = /(https?:\/\/[^\s]+)/g;
       return text.replace(urlRegex, function(url) {
-          return '<a class="info-window-text-link" href="' + url + '">' + url + '</a>';
+          return '<a class="info-window-text-link" href="' + url + '" target="_blank">' + url + '</a>';
       });
     } else {
       // text = text + '<a href="' + "https://www.google.com/" + '">google</a>';
@@ -209,6 +215,19 @@ class Map extends React.Component {
     date.replace(/^\w+ (\w+) (\d+) ([\d:]+) \+0000 (\d+)$/,
         "$1 $2 $4 $3 UTC"));
 
+    let hours = parsedDate.getHours();
+    let minutes = parsedDate.getSeconds();
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+
+    if (hours > 12) {
+      hours = (hours % 12);
+      minutes = minutes + " PM";
+    } else {
+      minutes = minutes + "AM";
+    }
+
     const monthNames = [
       "January", "February", "March",
       "April", "May", "June", "July",
@@ -216,13 +235,15 @@ class Map extends React.Component {
       "November", "December"
     ];
     const monthIndex = parsedDate.getMonth();
-    const day = parsedDate.getDay();
+    const day = parsedDate.getDate();
     const year = parsedDate.getFullYear();
 
-    const hours = parsedDate.getHours();
-    const minutes = parsedDate.getSeconds();
 
-    return `${hours}:${minutes} ${day} ${monthNames[monthIndex]} ${year}`;
+    return `${hours}:${minutes} - ${day} ${monthNames[monthIndex]} ${year}`;
+  }
+
+  parseTweetLink(username, id) {
+    return `https://twitter.com/${username}/status/${id}`;
   }
 
   handleClick (marker, tweet) {
@@ -231,10 +252,18 @@ class Map extends React.Component {
       that.map.setCenter(marker.position);
       that.infowindow.setContent(
         `<div class='info-window'>
-          <img class='info-window-image' src='${tweet.profile_picture}' />
-          <div>
-            <div class='info-window-item weight'>${tweet.screen_name}</div>
+          <img class='info-window-image' src=${tweet.profile_picture} />
+          <div class='info-window-text'>
+
+            <div class='info-window-item weight'>
+              <a href="https://www.twitter.com/${tweet.screen_name}" target="_blank">${tweet.screen_name}</a>
+            </div>
             <div class='info-window-item'>${this.handleTweetText(tweet.text)}</div>
+            <div class='info-window-item'>${this.handleTweetDate(tweet.created_at)}</div>
+            <div class='info-window-twitter-link'>
+              <a href="https://www.twitter.com/statuses/${tweet.tweet_id}" target="_blank">View Full Tweet</a>
+            </div>
+
           </div>
 
         </div>`
