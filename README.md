@@ -33,11 +33,11 @@ Tweet The Bay utilizes the [Twitter Streaming API][twitterlink] in order to prov
 
 A script establishes and maintains a long-term connection with the Twitter Streaming API, collecting all geolocated tweets that are within a given bounding box, set roughly to the coordinates of the San Francisco Bay Area. The coordinates used for this initial filter are between 36.9477-38.5288° N and 121.4099-123.6325° W.
 
-Twitter's tweets are geolocated either by a tweet's actual location coordinates, or, if present, the "place" with which an account was created (e.g. San Francisco, Chicago). (For more detail, see: [Twitter Streaming API Request Parameters][locationparameters]) In order to most accurately depict geolocation for our livestream, we parse the tweets for those that have true coordinates associated with the tweet instead of just place. We also ran a second filter through our results to guarantee that the coordinates were located in the Bay Area, as sometimes tweets based in Southern California, Yosemite, and Tahoe made it through Twitter's location filter.
+Twitter's tweets are geolocated either by a tweet's actual location coordinates, or, if present, the "place" coordinates where the account was created, like "San Francisco" or "Chicago."" (For more detail, see: [Twitter Streaming API Request Parameters][locationparameters].) In order to most accurately depict geolocation for our livestream, we parse the tweets for those that have true coordinates associated with the tweet instead of just place. We also ran a second filter through our results to guarantee that the coordinates were located in the Bay Area, as sometimes tweets based in Southern California, Yosemite, and Tahoe made it through Twitter's location filter.
 
 [locationparameters]:https://dev.twitter.com/streaming/overview/request-parameters#locations
 
-At this point it was necessary to establish secondary filters to eliminate spam data. The majority of this data is job postings, but we also discovered a grouping of spam accounts located in the Farallon Islands, so those specific coordinates needed to be blacklisted, too. The code for the aforementioned steps is as follows:
+At this point it was necessary to establish secondary filters to eliminate spam data. A large amount of the data we were receiving was job postings, but we also discovered a grouping of spam accounts located in the Farallon Islands, so those specific coordinates needed to be blacklisted, too. The code for all the filters is as follows:
 
 ```Ruby
 
@@ -47,11 +47,6 @@ stream.filter(locations: "-123.632497,36.9476967925,-121.4099121094,38.528830289
       screen_name_blacklist.any? { |term| tweet.user.screen_name.include?(term) } ||
       farallon_islands_spam?(tweet.attrs[:coordinates]) ||
       not_bay_area_coordinates?(tweet.attrs[:coordinates])
-
-      ...
-    ...
-  ...
-...
 
 ```
 
