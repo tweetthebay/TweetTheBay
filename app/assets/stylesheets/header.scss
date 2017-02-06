@@ -33,14 +33,26 @@
 
 .header-children {
   position: absolute;
-  width: 415px;
+  width: 615px;
   margin-left: 245px;
-  margin-top: 21px;
+  margin-top: 18px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   line-height: 2;
   color: white;
+}
+
+@-webkit-keyframes purplePulse {
+  from { background-color: white; -webkit-box-shadow: 0 0 9px #333; }
+  50% { background-color: #7485FF; -webkit-box-shadow: 0 0 18px #9AA0CC; }
+  to { background-color: white; -webkit-box-shadow: 0 0 9px #333; }
+}
+
+.stream-button button {
+  -webkit-animation-name: purplePulse;
+  -webkit-animation-duration: 1.75s;
+  -webkit-animation-iteration-count: 2;
 }
 
 .help-button:hover {
@@ -49,6 +61,7 @@
 
 .search-container{
   position: relative;
+  top: 3px
 }
 
 .search-input{
