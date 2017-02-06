@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 
 import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
@@ -45,6 +46,7 @@ class searchSidebar extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
+
     if (newProps.trends) {
       this.setState({ trends: newProps.currentTrends });
     }
@@ -54,6 +56,10 @@ class searchSidebar extends React.Component {
 
       } else {
         this.setState({ tweets: []});
+    }
+
+    if (newProps.stream !== this.props.stream) {
+      this.setState({ tweets: newProps.stream.tweets });
     }
 
     if (newProps.stream.tweets) {
@@ -99,7 +105,18 @@ class searchSidebar extends React.Component {
       }
     });
 
-    const tweetList = this.state.tweets.map((tweet, idx) => {
+    let tweetsPresent = false;
+    if (this.state.tweets) {
+      if (this.state.tweets.length > 0) {
+        tweetsPresent = true;
+      } else {
+        tweetsPresent = false;
+      }
+    }
+
+    let tweetList;
+    if (tweetsPresent) {
+      tweetList = this.state.tweets.map((tweet, idx) => {
         const id = tweet.id;
 
         return (
@@ -118,7 +135,10 @@ class searchSidebar extends React.Component {
             <Divider inset={true} />
           </div>
         );
-    });
+      });
+    } else {
+      tweetList = "";
+    }
 
     let primaryTextVar;
     if (this.props.stream.tweets) {
@@ -136,7 +156,7 @@ class searchSidebar extends React.Component {
         </div>
         <aside className='sidebar'>
           <List>
-            { (this.state.tweets.length === 0 && this.props.searchTerm === null) ? (
+            { ( tweetsPresent === false && this.props.searchTerm === null) ? (
               <div>
                 <a onClick={() => this.setState({ tweets: [] })} />
                 <ListItem
@@ -165,7 +185,7 @@ class searchSidebar extends React.Component {
               </p>
             </div>
           ) : (
-            this.state.tweets.length === 0 ? (
+            tweetsPresent === false ? (
               <div className="no-tweets-container">
                 <p className="no-tweets-found-message">Sorry, we couldn't geolocate any tweets matching that search term. Please try another search.</p>
                 <button className="return-trending-button"
@@ -181,4 +201,4 @@ class searchSidebar extends React.Component {
   }
 }
 
-export default searchSidebar;
+export default withRouter(searchSidebar);

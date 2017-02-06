@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Link} from 'react-router';
+import { Link, withRouter } from 'react-router';
 import Modal from 'react-modal';
 
 class Map extends React.Component {
@@ -87,7 +87,11 @@ class Map extends React.Component {
     if (this.props.searchQuery !== newProps.searchQuery) {
       return;
     }
-    if (!this.tweetsAreSame(newProps.tweets, this.props.tweets) || !this.tweetsAreSame(newProps.stream, this.props.stream || this.props.searchQuery !== newProps.searchQuery)) {
+
+    if (!this.tweetsAreSame(newProps.tweets, this.props.tweets) ||
+      newProps.stream !== this.props.stream ||
+      this.props.searchQuery !== newProps.searchQuery ||
+      this.props.routes !== newProps.routes ) {
       for (let i = 0; i < this.markers.length; i++) {
         this.markers[i].setMap(null);
       }
@@ -95,6 +99,7 @@ class Map extends React.Component {
     }
     let that = this;
     let tweetType = "undefined";
+
     if (newProps.tweets) {
       if (newProps.tweets.length > 0) {
         tweetType = "tweets";
@@ -107,7 +112,16 @@ class Map extends React.Component {
       }
     }
 
-    if (tweetType !== "undefined") {
+    let createMarkers = false;
+    if (newProps[tweetType]) {
+      if (newProps[tweetType].length > 0) {
+        createMarkers = true;
+      } else {
+        createMarkers = false;
+      }
+    }
+
+    if (createMarkers) {
       newProps[tweetType].forEach(tweet => {
         if (!this.markers[tweet.id]) {
           this.addTweet(tweet);
@@ -203,14 +217,13 @@ class Map extends React.Component {
     });
   }
 
-  handleTweetText(text){
-    if(text.indexOf("https") !== -1){
+  handleTweetText(text) {
+    if (text.indexOf("https") !== -1) {
       let urlRegex = /(https?:\/\/[^\s]+)/g;
       return text.replace(urlRegex, function(url) {
-          return '<a class="info-window-text-link" href="' + url + '" target="_blank">' + url + '</a>';
+        return '<a class="info-window-text-link" href="' + url + '" target="_blank">' + url + '</a>';
       });
     } else {
-      // text = text + '<a href="' + "https://www.google.com/" + '">google</a>';
       return text;
     }
   }
@@ -286,4 +299,4 @@ class Map extends React.Component {
     );
   }
 }
-export default Map;
+export default withRouter(Map);

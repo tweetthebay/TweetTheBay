@@ -17,7 +17,6 @@ class Search extends React.Component {
 
   componentWillReceiveProps(newProps) {
     if (newProps.searchTerm) {
-      console.log(`${newProps.searchTerm}`);
       $("input:text").val(`${newProps.searchTerm}`);
     }
   }
