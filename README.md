@@ -77,11 +77,22 @@ end
 
 When first entering search mode, the sidebar lists a few of the top currently trending topics in the Bay Area as a suggestion.
 
-When searching, the app takes the bounding-box coordinates of the current map area and sends a request to the Twitter API to send back results within those coordinates. Rails processes the results and sends them to Redux containers on the front-end to be displayed in the map and sidebar.
+When searching, the app takes the bounding-box coordinates of the current map area and sends a request to the Twitter API to send back results within those coordinates. The request sent to Twitter is:
 
-Due to the limitations of the Twitter API, the search function can only return 100 results from the last 7 days of Twitter history. Since only about ~3% of tweets have exact geolocation data, sometimes only a handful of results can be mapped out.
+```Ruby
+@tweets = @client.search("#{params[:query]}",
+                        geocode: "#{params[:location][:lat]},#{params[:location][:lng]},#{params[:location][:radius]}mi",
+                        result_type: "recent").attrs[:statuses]
+```
 
-After searching, the sidebar populates with search results that can be clicked on to focus the map on that particular tweet.
+As with streaming tweets, many results simply have a "place name" associated with them, and not coordinates. in order to filter these results out, our final tweets result array selects only those tweets with coordinates:
+
+```Ruby
+@geo_tweets = @tweets.select { |tweet| tweet[:coordinates] != nil || tweet[:place_coordinates] != nil}
+```
+Tweets with [:coordinates] contain the exact coordinates of where the tweet came from, whereas [:place_coordinates] provides a coordinates bounding-box for the tweet. Due to the limitations of the Twitter API, the search function can only return 100 results from the last 7 days of Twitter history. Since only about ~3% of tweets have exact geolocation data, sometimes only a handful of results can be mapped out.
+
+Rails processes @geo_tweets and sends it as a View to Redux containers to be displayed in the map and sidebar. The sidebar populates with search results that can be clicked on to focus the map on that particular tweet.
 
 ### Maps
 
