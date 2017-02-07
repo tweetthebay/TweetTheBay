@@ -1,6 +1,6 @@
 # Tweet The Bay
 
-A Twitter mapping project by [Michael Altamirano][michael], [Nico Geraldo][nico], [Adrian Lobdill][adrian],  and [Elif Sezgin][elif].
+A Twitter mapping project by [Michael Altamirano][michael], [Nico Giraldo][nico], [Adrian Lobdill][adrian],  and [Elif Sezgin][elif].
 
 [Live App][live]
 
