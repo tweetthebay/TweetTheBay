@@ -15,9 +15,6 @@ class Api::TweetsController < ApplicationController
                               geocode: "#{params[:location][:lat]},#{params[:location][:lng]},#{params[:location][:radius]}mi",
                               result_type: "recent").attrs[:statuses]
 
-    ### attempted search using Request object (currently not any better than the above search)
-    # @tweets = Twitter::REST::Request.new(@client, :get, 'https://api.twitter.com/1.1/search/tweets.json?src=typd&q=arrow%20place%3A5a110d312052166f', resources: "search").perform
-
       @geo_tweets = @tweets.select { |tweet| tweet[:coordinates] != nil || tweet[:place] != nil}
     end
 
