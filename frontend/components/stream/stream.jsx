@@ -13,7 +13,7 @@ class Stream extends React.Component {
 
   componentDidMount() {
     this.props.clearTweets();
-    let timeNowUTC = Date.now() - 10000;
+    let timeNowUTC = Date.now() - 25000;
     this.props.fetchStreamSince(timeNowUTC);
     this.startStreaming(timeNowUTC);
   }
@@ -23,7 +23,7 @@ class Stream extends React.Component {
     this.props.fetchStreamSince(timeNowUTC);
     this.timer = setInterval(function(){
       that.props.fetchStreamSince(timeNowUTC);
-    }, 5000);
+    }, 6000);
   }
 
   stopStreaming() {

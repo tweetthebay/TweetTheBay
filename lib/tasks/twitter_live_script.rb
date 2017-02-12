@@ -34,7 +34,7 @@ stream.filter(locations: "-123.632497,36.9476967925,-121.4099121094,38.528830289
       farallon_islands_spam?(tweet.attrs[:coordinates]) ||
       not_bay_area_coordinates?(tweet.attrs[:coordinates])
 
-      Tweet.create!(
+      cache_tweet = Tweet.create!(
       text: tweet.text,
       name: tweet.user.name,
       screen_name: tweet.user.screen_name,
@@ -49,6 +49,9 @@ stream.filter(locations: "-123.632497,36.9476967925,-121.4099121094,38.528830289
       tweet_created_at: tweet.to_h[:created_at],
       time_utc: (Time.now.to_i * 1000)
       )
+
+      Rails.cache.write(cache_tweet.id, cache_tweet)
+
       puts tweet
 
     end

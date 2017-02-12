@@ -1,13 +1,11 @@
 class Api::StreamsController < ApplicationController
   def index
     time_mount_utc = params[:timeNowUTC].to_i
-    if Tweet.where("time_utc > #{time_mount_utc}").empty?
-      @streamTweets = Tweet.last(1)
-    else
-      @streamTweets = Tweet
-        .where("time_utc > #{time_mount_utc}")
-        .last(250)
-        .reverse
+
+    @streamTweets = []
+
+    Rails.cache.data.keys.sort.last(100).reverse.each do |key|
+      @streamTweets << Rails.cache.read(key) if Rails.cache.read(key).time_utc > time_mount_utc
     end
 
     render :index

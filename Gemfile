@@ -30,6 +30,11 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+# Use redis for caching
+gem 'redis-rails'
+gem 'redis'
+gem 'rack-mini-profiler'
+
 gem 'twitter'
 
 gem "figaro"
