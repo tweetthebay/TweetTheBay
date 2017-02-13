@@ -84,12 +84,14 @@ class searchSidebar extends React.Component {
   }
 
   handleTweetText(text) {
-   if (text.indexOf("&amp;") !== -1){
-        let ampersand = /&amp;([A-Za-z]+|#x[\dA-Fa-f]+|#\d+)/;
-        return text.replace(ampersand, function(url) {
+    console.log("building tweet text");
+    if (text.indexOf("&amp;") !== -1){
+        let ampersand = /&amp;/g;
+        return text.replace(ampersand, function() {
+          console.log("editing ampersand");
           return '&';
         });
-      } else {
+    } else {
       return text;
     }
   }
