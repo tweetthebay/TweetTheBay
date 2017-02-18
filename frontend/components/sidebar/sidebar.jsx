@@ -84,16 +84,28 @@ class searchSidebar extends React.Component {
   }
 
   handleTweetText(text) {
-    console.log("building tweet text");
     if (text.indexOf("&amp;") !== -1){
         let ampersand = /&amp;/g;
         return text.replace(ampersand, function() {
-          console.log("editing ampersand");
           return '&';
         });
-    } else {
-      return text;
     }
+
+    if (text.indexOf("&gt;") !== -1){
+      let rightCaret = /&gt;/g;
+      return text.replace(rightCaret, function() {
+        return '>';
+      });
+    }
+
+    if (text.indexOf("&lt;") !== -1){
+      let leftCaret = /&lt;/g;
+      return text.replace(leftCaret, function() {
+        return '<';
+      });
+    }
+
+    return text;
   }
 
   render () {
