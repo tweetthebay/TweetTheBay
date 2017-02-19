@@ -159,7 +159,7 @@ class Header extends React.Component {
                               width: "175px"
                             }} />
                           <p>
-                            When streaming, the feed will update every 5 seconds with new tweets. These tweets are a 1% sampling of all messages being tweeted in the greater SF Bay Area. Click on any tweet to see details.
+                            When streaming, the feed will update every 6 seconds with new tweets. These tweets are a 1% sampling of all messages being tweeted in the greater SF Bay Area. Click on any tweet to see details.
                           </p>
                           <RaisedButton
                             label="Search"
