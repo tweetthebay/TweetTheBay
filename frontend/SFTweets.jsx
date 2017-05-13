@@ -8,16 +8,11 @@ import { fetchCurrentTrends } from './actions/current_trend_actions';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 document.addEventListener('DOMContentLoaded', () => {
-  let store;
-  store = configureStore();
+  let store = configureStore();
   Modal.setAppElement(document.body);
-  window.store = store;
-  window.fetchCurrentTrends = fetchCurrentTrends;
 
   injectTapEventPlugin();
 
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store}/>, root);
-
-  window.store = store;
 });
