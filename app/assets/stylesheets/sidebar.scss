@@ -52,3 +52,16 @@
 .return-trending-button{
   margin: 0 auto;
 }
+
+.clear-tweets-button {
+  height: 100%;
+  position: relative;
+  right: 1em;
+  align-self: center;
+}
+
+.tweets-subheader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

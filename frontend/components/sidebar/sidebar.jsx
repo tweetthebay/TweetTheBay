@@ -26,6 +26,7 @@ class searchSidebar extends React.Component {
     this.sidebarSearch = this.sidebarSearch.bind(this);
     this.handleTweetText = this.handleTweetText.bind(this);
     this.backToTrendingTopics = this.backToTrendingTopics.bind(this);
+    this.handleClearSearch = this.handleClearSearch.bind(this);
   }
 
   componentWillMount () {
@@ -106,6 +107,18 @@ class searchSidebar extends React.Component {
     }
 
     return text;
+  }
+
+  handleClearSearch() {
+    this.setState({
+      trends: this.props.currentTrends,
+      tweets: [],
+      searchTerm: ""
+    });
+
+    this.props.setSearchQuery(null);
+
+    this.props.clearTweets();
   }
 
   render () {
@@ -199,7 +212,10 @@ class searchSidebar extends React.Component {
                   disabled = { true }
                   />
                 <Divider />
-                <Subheader>Most Recent</Subheader>
+                <Subheader className='tweets-subheader'>
+                  Most Recent
+                  <button className='clear-tweets-button' onClick={this.handleClearSearch}>Clear Tweets</button>
+                </Subheader>
                 { tweetList }
               </div>
             )}

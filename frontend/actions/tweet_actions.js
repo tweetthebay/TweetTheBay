@@ -10,7 +10,7 @@ export const fetchTweets = (query, location) => dispatch => {
   .then(data => {
     dispatch(receiveTweets(data));
   }),
-  err => dispatch(receiveTweetErrors(err.responseJSON))
+  err => dispatch(receiveTweetErrors(err.responseJSON));
 };
 
 export const setSearchQuery = query => ({
