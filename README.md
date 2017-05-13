@@ -17,8 +17,7 @@ Wouldn’t you like to know where people are tweeting about tacos?
 
 Twitter has some search features, but not a great way to geolocate tweets. Thanks to Tweet The Bay, you can now see a stream of tweets mapped out live as they are tweeted, or search by keyword in order to geolocate tweets from the last 7 days.
 
-![Livestream][livestream]
-[livestream]: ./docs/tweetthebaylivestream.gif "Livestream"
+![livestream](./docs/tweetthebaylivestream.gif)
 
 (Note: this gif compresses ~17 minutes of content into ~95 frames)
 
