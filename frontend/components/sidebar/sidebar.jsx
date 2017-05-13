@@ -182,10 +182,16 @@ class searchSidebar extends React.Component {
     }
 
     let primaryTextVar;
+    let clearTweetsButton;
     if (this.props.routes.length > 1) {
       primaryTextVar = `You are currently livestreaming!`;
     } else {
       primaryTextVar = `Current Search: ${this.props.searchTerm}`;
+      clearTweetsButton =
+      <button className='clear-tweets-button'
+              onClick={this.handleClearSearch}>
+              Clear Tweets
+      </button>;
     }
 
     return (
@@ -214,7 +220,7 @@ class searchSidebar extends React.Component {
                 <Divider />
                 <Subheader className='tweets-subheader'>
                   Most Recent
-                  <button className='clear-tweets-button' onClick={this.handleClearSearch}>Clear Tweets</button>
+                  {clearTweetsButton}
                 </Subheader>
                 { tweetList }
               </div>
