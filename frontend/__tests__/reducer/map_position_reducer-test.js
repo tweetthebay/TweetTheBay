@@ -40,7 +40,7 @@ describe('Reducers', () => {
         };
       });
 
-      it('should replace the state with the setMapAction\'s streams', () => {
+      it('should replace the state with the action\'s map', () => {
         const state = MapPositionReducer(undefined, setMapAction);
         expect(state).toEqual(mapPosition);
       });

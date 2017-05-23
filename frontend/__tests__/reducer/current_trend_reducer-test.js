@@ -54,7 +54,7 @@ describe('Reducers', () => {
         };
       });
 
-      it('should replace the state with the receiveCurrentTrendsAction\'s currentTrends', () => {
+      it('should replace the state with the action\'s currentTrends', () => {
         const state = CurrentTrendReducer(undefined, receiveCurrentTrendsAction);
         expect(state).toEqual(currentTrends);
       });

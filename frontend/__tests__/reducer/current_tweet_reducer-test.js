@@ -32,7 +32,7 @@ describe('Reducers', () => {
         };
       });
 
-      it('should replace the state with the setCurrentTweetAction\'s tweet', () => {
+      it('should replace the state with the action\'s tweet', () => {
         const state = CurrentTweetReducer(undefined, setCurrentTweetAction);
         expect(state).toEqual(currentTweet);
       });

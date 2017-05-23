@@ -25,7 +25,7 @@ describe('Reducers', () => {
       expect(typeof StreamReducer).toEqual('function');
     });
 
-    it('should initialize with an empty tweets array as the default state', () => {
+    it('should initialize with an empty "tweets" array as the default state', () => {
       expect(StreamReducer(undefined, {})).toEqual(_defaultState);
     });
 
@@ -56,7 +56,7 @@ describe('Reducers', () => {
         };
       });
 
-      it('should replace the state with the receiveStreamAction\'s streams', () => {
+      it('should replace the state with the action\'s streamtweets', () => {
         const state = StreamReducer(undefined, receiveStreamAction);
         expect(state).toEqual({ tweets: streamtweets });
       });
@@ -89,7 +89,7 @@ describe('Reducers', () => {
         };
       });
 
-      it('should remove the streams from the state', () => {
+      it('should remove the streamtweets from the state', () => {
         const state = StreamReducer(_oldState, resetAction);
         expect(state).toEqual(_defaultState);
       });

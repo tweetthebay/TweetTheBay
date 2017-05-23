@@ -56,7 +56,7 @@ describe('Reducers', () => {
         };
       });
 
-      it('should replace the state with the receiveTweetsAction\'s tweets', () => {
+      it('should replace the state with the action\'s tweets', () => {
         const state = TweetReducer(undefined, receiveTweetsAction);
         expect(state).toEqual({ tweets });
       });

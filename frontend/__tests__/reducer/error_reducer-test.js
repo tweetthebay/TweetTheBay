@@ -26,7 +26,7 @@ describe('Reducers', () => {
 
     describe('handling the RECEIVE_TWEET_ERRORS action', () => {
       let errors,
-          errorAction;
+          errorsAction;
 
       beforeEach(() => {
         errors = {
@@ -36,14 +36,14 @@ describe('Reducers', () => {
           ]
         };
 
-        errorAction = {
+        errorsAction = {
           type: 'RECEIVE_TWEET_ERRORS',
           errors
         };
       });
 
-      it('should replace the state with the errorAction\'s streams', () => {
-        const state = ErrorReducer(undefined, errorAction);
+      it('should replace the state with the action\'s errors', () => {
+        const state = ErrorReducer(undefined, errorsAction);
         expect(state).toEqual(errors);
       });
 
@@ -55,7 +55,7 @@ describe('Reducers', () => {
           ]
         };
 
-        ErrorReducer(oldState, errorAction);
+        ErrorReducer(oldState, errorsAction);
         expect(oldState).toEqual(_oldState);
       });
     });
