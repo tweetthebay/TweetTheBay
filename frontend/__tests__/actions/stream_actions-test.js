@@ -50,12 +50,12 @@ describe('stream actions', () => {
         const streamtweets = {
           'tweets': [
             {
-              text: "Tacos. Tacos. Tacos!",
-              screenName: "tacoFan"
+              text: 'Tacos. Tacos. Tacos!',
+              screenName: 'tacoFan'
             },
             {
-              text: "Eating burritos until life makes more sense",
-              screenName: "burritoGuy"
+              text: 'Eating burritos until life makes more sense',
+              screenName: 'burritoGuy'
             }
           ]
         };
@@ -67,12 +67,12 @@ describe('stream actions', () => {
         const streamtweets = {
           'tweets': [
             {
-              text: "Tacos. Tacos. Tacos!",
-              screenName: "tacoFan"
+              text: 'Tacos. Tacos. Tacos!',
+              screenName: 'tacoFan'
             },
             {
-              text: "Eating burritos until life makes more sense",
-              screenName: "burritoGuy"
+              text: 'Eating burritos until life makes more sense',
+              screenName: 'burritoGuy'
             }
           ]
         };
@@ -93,12 +93,23 @@ describe('stream actions', () => {
       });
 
       it('should pass on the errors we pass in', () => {
-        const errors = { errors: ["I am an error"] };
+        const errors = {
+          errors: [
+            'I am an error',
+            'I am also an error'
+          ]
+        };
+
         expect(receiveStreamErrors(errors).errors).toEqual(errors);
       });
 
       it ('should pass on the errors we pass in (with mock store)', () => {
-        const errors = { errors: ["I am an error"] };
+        const errors = {
+          errors: [
+            'I am an error',
+            'I am also an error'
+          ]
+        };
 
         const expectedActions = [{
           type: RECEIVE_STREAM_ERRORS,
@@ -142,12 +153,12 @@ describe('stream actions', () => {
         const streamtweets = {
           'tweets': [
             {
-              text: "Tacos. Tacos. Tacos!",
-              screenName: "tacoFan"
+              text: 'Tacos. Tacos. Tacos!',
+              screenName: 'tacoFan'
             },
             {
-              text: "Eating burritos until life makes more sense",
-              screenName: "burritoGuy"
+              text: 'Eating burritos until life makes more sense',
+              screenName: 'burritoGuy'
             }
           ]
         };
@@ -157,7 +168,7 @@ describe('stream actions', () => {
         ));
 
         const expectedActions = [{
-          type: "RECEIVE_STREAM",
+          type: RECEIVE_STREAM,
           streamtweets
         }];
 
@@ -178,12 +189,12 @@ describe('stream actions', () => {
         const streamtweets = {
           'tweets': [
             {
-              text: "Tacos. Tacos. Tacos!",
-              screenName: "tacoFan"
+              text: 'Tacos. Tacos. Tacos!',
+              screenName: 'tacoFan'
             },
             {
-              text: "Eating burritos until life makes more sense",
-              screenName: "burritoGuy"
+              text: 'Eating burritos until life makes more sense',
+              screenName: 'burritoGuy'
             }
           ]
         };
@@ -193,7 +204,7 @@ describe('stream actions', () => {
         ));
 
         const expectedActions = [{
-          type: "RECEIVE_STREAM",
+          type: RECEIVE_STREAM,
           streamtweets
         }];
 

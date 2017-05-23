@@ -29,7 +29,7 @@ describe('map actions', () => {
       expect(setMapPosition().type).toEqual(SET_MAP_POSITION);
     });
 
-    it('should pass on the tweet we pass in', () => {
+    it('should pass on the map coordinates we pass in', () => {
       const mapPosition = {
         lat: 37.9,
         lng: -122.5,
@@ -39,7 +39,7 @@ describe('map actions', () => {
       expect(setMapPosition(mapPosition).mapPosition).toEqual(mapPosition);
     });
 
-    it ('should pass on the tweet we pass in (with mock store)', () => {
+    it ('should pass on the map coordinates we pass in (with mock store)', () => {
       const mapPosition = {
         lat: 37.9,
         lng: -122.5,

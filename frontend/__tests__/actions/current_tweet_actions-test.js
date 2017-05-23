@@ -26,7 +26,7 @@ describe('current tweet actions', () => {
     });
 
     it('should have a type of SET_CURRENT_TWEET', () => {
-      expect(setCurrentTweet().type).toEqual('SET_CURRENT_TWEET');
+      expect(setCurrentTweet().type).toEqual(SET_CURRENT_TWEET);
     });
 
     it('should pass on the tweet we pass in', () => {
@@ -38,7 +38,7 @@ describe('current tweet actions', () => {
       const currentTweet = { id: 2 };
 
       const expectedActions = [{
-        type: "SET_CURRENT_TWEET",
+        type: SET_CURRENT_TWEET,
         tweet: currentTweet
       }];
 

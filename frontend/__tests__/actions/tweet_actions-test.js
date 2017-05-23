@@ -20,8 +20,8 @@ import configureMockStore from 'redux-mock-store';
 const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
 
-describe('current trend actions', () => {
-  describe('current trend constants', () => {
+describe('tweet actions', () => {
+  describe('tweet constants', () => {
     it('should contain a RECEIVE_TWEETS constant', () => {
       expect(RECEIVE_TWEETS).toEqual('RECEIVE_TWEETS');
     });
@@ -43,7 +43,7 @@ describe('current trend actions', () => {
     let store;
 
     beforeEach(() => {
-      store = mockStore({ currentTweet: {} });
+      store = mockStore({ tweets: {} });
     });
 
     describe('receiveTweets', () => {
@@ -55,12 +55,12 @@ describe('current trend actions', () => {
         const tweets = {
           'tweets': [
             {
-              text: "Tacos. Tacos. Tacos!",
-              screenName: "tacoFan"
+              text: 'Tacos. Tacos. Tacos!',
+              screenName: 'tacoFan'
             },
             {
-              text: "Eating burritos until life makes more sense",
-              screenName: "burritoGuy"
+              text: 'Eating burritos until life makes more sense',
+              screenName: 'burritoGuy'
             }
           ]
         };
@@ -72,12 +72,12 @@ describe('current trend actions', () => {
         const tweets = {
           'tweets': [
             {
-              text: "Tacos. Tacos. Tacos!",
-              screenName: "tacoFan"
+              text: 'Tacos. Tacos. Tacos!',
+              screenName: 'tacoFan'
             },
             {
-              text: "Eating burritos until life makes more sense",
-              screenName: "burritoGuy"
+              text: 'Eating burritos until life makes more sense',
+              screenName: 'burritoGuy'
             }
           ]
         };
@@ -98,12 +98,23 @@ describe('current trend actions', () => {
       });
 
       it('should pass on the errors we pass in', () => {
-        const errors = { errors: ["I am an error"] };
+        const errors = {
+          errors: [
+            'I am an error',
+            'I am also an error'
+          ]
+        };
+
         expect(receiveTweetErrors(errors).errors).toEqual(errors);
       });
 
       it ('should pass on the errors we pass in (with mock store)', () => {
-        const errors = { errors: ["I am an error"] };
+        const errors = {
+          errors: [
+            'I am an error',
+            'I am also an error'
+          ]
+        };
 
         const expectedActions = [{
           type: RECEIVE_TWEET_ERRORS,
@@ -136,12 +147,12 @@ describe('current trend actions', () => {
       });
 
       it('should pass on the query we pass in', () => {
-        const query = { query: "Tacos and Burritos" };
+        const query = { query: 'Tacos and Burritos' };
         expect(setSearchQuery(query).query).toEqual(query);
       });
 
       it ('should pass on the query we pass in (with mock store)', () => {
-        const query = { query: "Tacos and Burritos" };
+        const query = { query: 'Tacos and Burritos' };
 
         const expectedActions = [{
           type: RECEIVE_SEARCH_QUERY,
