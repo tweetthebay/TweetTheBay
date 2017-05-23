@@ -7,7 +7,7 @@ const StreamReducer = (state = {tweets: []}, action) => {
     case RECEIVE_STREAM:
       return merge({}, {tweets: action.streamtweets});
     case CLEAR_STREAM:
-      return {};
+      return {tweets: []};
     default:
       return state;
   }

@@ -9,7 +9,7 @@ const TweetReducer = (state = {tweets: []}, action) => {
     case RECEIVE_TWEETS:
       return merge({}, {tweets: action.tweets});
     case CLEAR_TWEETS:
-      return merge({}, {tweets: []});
+      return {tweets: []};
     default:
       return state;
   }
