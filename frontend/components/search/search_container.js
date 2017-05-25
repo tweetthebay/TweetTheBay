@@ -5,7 +5,7 @@ import { setCurrentTweet } from '../../actions/current_tweet_actions';
 
 const mapStateToProps = state => ({
   location: state.mapPosition,
-  searchTerm: state.tweets.searchTerm
+  searchTerm: state.searchQuery
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -14,4 +14,7 @@ const mapDispatchToProps = dispatch => ({
   setSearchQuery: searchInput => dispatch(setSearchQuery(searchInput))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Search);

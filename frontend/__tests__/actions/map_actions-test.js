@@ -22,7 +22,7 @@ describe('map actions', () => {
     let store;
 
     beforeEach(() => {
-      store = mockStore({ map: {} });
+      store = mockStore({ mapPosition: {} });
     });
 
     it('should have a type of SET_MAP_POSITION', () => {

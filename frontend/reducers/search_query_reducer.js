@@ -1,4 +1,3 @@
-import merge from 'lodash/merge';
 import { RECEIVE_SEARCH_QUERY } from '../actions/tweet_actions.js';
 
 const SearchQueryReducer = (state = null, action) => {

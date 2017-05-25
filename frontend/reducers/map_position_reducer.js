@@ -1,5 +1,4 @@
 import { SET_MAP_POSITION } from '../actions/map_actions';
-import merge from 'lodash/merge';
 
 const MapPositionReducer = (state = {}, action) => {
   Object.freeze(state);
