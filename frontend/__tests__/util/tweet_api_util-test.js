@@ -5,7 +5,7 @@ import {
   fetchTweets
 } from '../../util/tweet_api_util';
 
-describe('the fetch current trends api util', () => {
+describe('the tweet api util', () => {
   beforeEach(() => {
     global.$ = require.requireMock('jquery');
     global.$.ajax = jest.fn(options => "ajax promise");

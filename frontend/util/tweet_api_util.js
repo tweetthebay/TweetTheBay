@@ -9,6 +9,6 @@ export const searchTweets = (query, location) => (
 export const fetchTweets = () => (
   $.ajax({
     method: 'GET',
-    url: '/api/tweets'
+    url: 'api/tweets'
   })
 );

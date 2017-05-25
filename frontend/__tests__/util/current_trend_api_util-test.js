@@ -2,7 +2,7 @@
 
 import { fetchCurrentTrends } from '../../util/current_trend_api_util';
 
-describe('the fetch current trends api util', () => {
+describe('the current trend api util', () => {
   beforeEach(() => {
     global.$ = require.requireMock('jquery');
     global.$.ajax = jest.fn(options => "ajax promise");
