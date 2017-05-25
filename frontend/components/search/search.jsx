@@ -39,6 +39,7 @@ class Search extends React.Component {
           <input
             className='search-input'
             type='text'
+            value={this.state.searchParams}
             placeholder='Search Tweets'
             onChange={this.update}/>
         </form>
