@@ -1,0 +1,14 @@
+machine:
+  ruby:
+    version: 2.2.6
+
+
+test:
+  override:
+    - npm test:
+      files:
+        - frontend/__tests__/actions/*.js
+        - frontend/__tests__/components/*.js
+        - frontend/__tests__/reducers/*.js
+        - frontend/__tests__/store/*.js
+        - frontend/__tests__/util/*.js
