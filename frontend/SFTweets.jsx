@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import Root from './components/root';
 import configureStore from './store/store';
 import Modal from 'react-modal';
-import { fetchCurrentTrends } from './actions/current_trend_actions';
-
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 document.addEventListener('DOMContentLoaded', () => {
