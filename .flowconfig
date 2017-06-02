@@ -1,0 +1,13 @@
+[ignore]
+
+[include]
+
+../frontend
+
+[libs]
+
+../flow-typed/npm/jquery_v3.x.xjs
+
+[options]
+
+suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
