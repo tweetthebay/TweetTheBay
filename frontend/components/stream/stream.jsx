@@ -1,10 +1,18 @@
+// frontend/components/stream/stream.jsx
+// @flow
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 import Modal from 'react-modal';
 
 class Stream extends React.Component {
-  constructor(props) {
+
+  startStreaming: Function;
+  stopStreaming: Function;
+  timer: number;
+
+  constructor(props: Object) {
     super(props);
 
     this.startStreaming = this.startStreaming.bind(this);
@@ -17,7 +25,7 @@ class Stream extends React.Component {
     this.startStreaming(timeNowUTC);
   }
 
-  startStreaming(timeNowUTC) {
+  startStreaming(timeNowUTC: string) {
     let that = this;
     this.props.fetchStreamSince(timeNowUTC);
     this.timer = setInterval(function(){

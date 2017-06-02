@@ -1,3 +1,5 @@
+// frontend/components/stream/stream_container.js
+
 import { connect } from 'react-redux';
 import { fetchStream,
          fetchStreamSince,
