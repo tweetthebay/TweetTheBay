@@ -1,3 +1,5 @@
+// frontend/components/sidebar/sidebar_container.jsx
+
 import { connect } from 'react-redux';
 import Sidebar from './sidebar';
 import { setCurrentTweet } from '../../actions/current_tweet_actions';

@@ -1,3 +1,6 @@
+// frontend/components/sidebar/sidebar.jsx
+// @flow
+
 import React from 'react';
 import { withRouter } from 'react-router';
 
@@ -11,8 +14,15 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 
-
 class searchSidebar extends React.Component {
+
+  state: Object;
+  setState: Function;
+  sidebarSearch: Function;
+  handleTweetText: Function;
+  backToTrendingTopics: Function;
+  handleClearSearch: Function;
+
   constructor(props) {
     super(props);
 
