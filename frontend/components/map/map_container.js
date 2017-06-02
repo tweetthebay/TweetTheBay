@@ -1,3 +1,5 @@
+// frontend/components/map/map_container.js
+
 import {connect} from 'react-redux';
 import Map from './map';
 import fetchTweets from '../../actions/tweet_actions';

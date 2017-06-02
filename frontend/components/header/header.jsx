@@ -1,3 +1,6 @@
+// frontend/components/header/header.jsx
+// @flow
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { hashHistory, withRouter } from 'react-router';
@@ -13,10 +16,17 @@ import RssFeed from 'material-ui/svg-icons/communication/rss-feed';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 
-
 class Header extends React.Component {
+
+  state: Object;
+  setSearch: Function;
+  setStream: Function;
+  handleOpen: Function;
+  handleClose: Function;
+
   constructor(props) {
     super(props);
+
     this.state = {
       toggleText: "search",
       open: false
@@ -38,6 +48,7 @@ class Header extends React.Component {
 
     $(".header > div").css("background-color", "rgb(0, 132, 180)");
     $(".footer").css("background-color", "rgb(0, 132, 180)");
+    // $FlowFixMe
     search.style.visibility = "visible";
     this.setState({toggleText: "search"});
   }
@@ -52,6 +63,7 @@ class Header extends React.Component {
 
     $(".header > div").css("background-color", "#424874");
     $(".footer").css("background-color", "#424874");
+    // $FlowFixMe
     search.style.visibility = "hidden";
     this.setState({toggleText: "streaming"});
   }

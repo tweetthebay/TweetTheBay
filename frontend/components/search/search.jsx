@@ -1,8 +1,17 @@
+// frontend/components/search/search.jsx
+// @flow
+
 import React from 'react';
 
 class Search extends React.Component {
-  constructor(props) {
+
+  state: Object;
+  update: Function;
+  handleSubmit: Function;
+  
+  constructor(props: Object) {
     super(props);
+
     this.state = {
       searchParams: '',
     };
@@ -15,17 +24,18 @@ class Search extends React.Component {
     this.props.searchTweets();
   }
 
-  componentWillReceiveProps(newProps) {
+  componentWillReceiveProps(newProps: Object) {
     if (newProps.searchTerm) {
       $("input:text").val(`${newProps.searchTerm}`);
     }
   }
 
-  update(e) {
+  update(e: Event) {
+    // $FlowFixMe
     this.setState({ ['searchParams']: e.target.value });
   }
 
-  handleSubmit (e) {
+  handleSubmit (e: Event) {
     e.preventDefault();
     this.props.setCurrentTweet(null);
     this.props.searchTweets(this.state.searchParams, this.props.location);

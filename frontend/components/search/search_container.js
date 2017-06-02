@@ -1,3 +1,5 @@
+// frontend/components/search/search_container.js
+
 import { connect } from 'react-redux';
 import Search from './search';
 import { fetchTweets, setSearchQuery } from '../../actions/tweet_actions';

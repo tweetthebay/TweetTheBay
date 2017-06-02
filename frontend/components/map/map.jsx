@@ -1,18 +1,40 @@
+// frontend/components/map/map.jsx
+// flow
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link, withRouter } from 'react-router';
 import Modal from 'react-modal';
 
 class Map extends React.Component {
+
+  state: Object;
+  getLocation: Function;
+  addTweet: Function;
+  geocodeAddress: Function;
+  handleTweetDate: Function;
+  parseTweetLink: Function;
+  handleClick: Function;
+  tweetsAreSame: Function;
+  markers: Array;
+  marker: Object;
+  pinImage: Object;
+  pinShadow: Object;
+  google: Object;
+  map: Object;
+  Map: Object;
+  geocoder: Object;
+
   constructor(props) {
     super(props);
+
     this.state = {
       modalOpen: false,
       bounds: null,
       lat: null,
       lng: null
-
     };
+
     this.getLocation = this.getLocation.bind(this);
     this.addTweet = this.addTweet.bind(this);
     this.geocodeAddress = this.geocodeAddress.bind(this);
@@ -20,6 +42,7 @@ class Map extends React.Component {
     this.parseTweetLink = this.parseTweetLink.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.tweetsAreSame = this.tweetsAreSame.bind(this);
+
     this.markers = [];
     let pinColor = "0084b4";
     this.pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,

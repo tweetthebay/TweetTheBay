@@ -1,8 +1,14 @@
+// frontend/components/footer/footer.jsx
+// @flow
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class Header extends React.Component {
-  constructor(props) {
+class Footer extends React.Component {
+
+  state: Object;
+  
+  constructor(props: Object) {
     super(props);
     this.state = {};
   }
@@ -21,4 +27,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default Footer;
