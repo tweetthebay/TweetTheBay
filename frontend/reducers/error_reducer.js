@@ -1,6 +1,9 @@
+// frontend/reducers/error_reducer.js
+// @flow
+
 import { RECEIVE_TWEET_ERRORS } from '../actions/tweet_actions';
 
-const ErrorReducer = (state = {}, action) => {
+const ErrorReducer = (state: Object = {}, action: Object) => {
   Object.freeze(state);
   switch(action.type){
     case RECEIVE_TWEET_ERRORS:

@@ -1,3 +1,6 @@
+// frontend/reducers/root_reducer.js
+// @flow
+
 import { combineReducers } from 'redux';
 import TweetReducer from './tweet_reducer';
 import ErrorReducer from './error_reducer';
