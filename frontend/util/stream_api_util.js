@@ -1,3 +1,6 @@
+// frontend/util/stream_api_util.js
+// @flow
+
 export const fetchStream = () => (
   $.ajax({
     method: 'GET',
@@ -5,7 +8,7 @@ export const fetchStream = () => (
   })
 );
 
-export const fetchStreamSince = (timeNowUTC) => (
+export const fetchStreamSince = (timeNowUTC: number) => (
   $.ajax({
     method: 'GET',
     url: 'api/streams',

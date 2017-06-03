@@ -1,4 +1,7 @@
-export const searchTweets = (query, location) => (
+// frontend/util/tweet_api_util.js
+// @flow
+
+export const searchTweets = (query: string, location: Object) => (
   $.ajax({
     method: 'GET',
     url: 'api/tweets',
