@@ -3,18 +3,18 @@
 
 import * as APIUtils from '../util/tweet_api_util.js';
 
-export const RECEIVE_TWEETS = "RECEIVE_TWEETS";
-export const RECEIVE_TWEET_ERRORS = "RECEIVE_TWEET_ERRORS";
-export const CLEAR_TWEETS = "CLEAR_TWEETS";
-export const RECEIVE_SEARCH_QUERY = "RECEIVE_SEARCH_QUERY";
+export const RECEIVE_TWEETS = 'RECEIVE_TWEETS';
+export const RECEIVE_TWEET_ERRORS = 'RECEIVE_TWEET_ERRORS';
+export const CLEAR_TWEETS = 'CLEAR_TWEETS';
+export const RECEIVE_SEARCH_QUERY = 'RECEIVE_SEARCH_QUERY';
 
-export const fetchTweets = (query: string, location: Object) => (dispatch: Function) => (
-  APIUtils.searchTweets(query, location).then(data => (
-    dispatch(receiveTweets(data))
-  ), err => (
-    dispatch(receiveTweetErrors(err.responseJSON))
-  ))
-);
+export const fetchTweets = (query: string, location: Object) => (
+  dispatch: Function
+) =>
+  APIUtils.searchTweets(query, location).then(
+    data => dispatch(receiveTweets(data)),
+    err => dispatch(receiveTweetErrors(err.responseJSON))
+  );
 
 export const setSearchQuery = (query: string) => ({
   type: RECEIVE_SEARCH_QUERY,
