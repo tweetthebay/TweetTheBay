@@ -1,6 +1,6 @@
 // frontend/components/map/map_container.js
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Map from './map';
 import fetchTweets from '../../actions/tweet_actions';
 import { setMapPosition } from '../../actions/map_actions';
@@ -19,7 +19,4 @@ const mapDispatchToProps = dispatch => ({
   setCurrentTweet: tweet => dispatch(setCurrentTweet(tweet))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Map);
+export default connect(mapStateToProps, mapDispatchToProps)(Map);
