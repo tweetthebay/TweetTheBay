@@ -7,7 +7,6 @@ import { Link } from 'react-router';
 import Modal from 'react-modal';
 
 class Stream extends React.Component {
-
   startStreaming: Function;
   stopStreaming: Function;
   timer: number;
@@ -28,7 +27,7 @@ class Stream extends React.Component {
   startStreaming(timeNowUTC: string) {
     let that = this;
     this.props.fetchStreamSince(timeNowUTC);
-    this.timer = setInterval(function(){
+    this.timer = setInterval(function() {
       that.props.fetchStreamSince(timeNowUTC);
     }, 6000);
   }
@@ -43,9 +42,7 @@ class Stream extends React.Component {
   }
 
   render() {
-    return (
-      <div className="stream-div"></div>
-    );
+    return <div className="stream-div" />;
   }
 }
 
