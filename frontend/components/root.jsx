@@ -8,14 +8,13 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App from './app';
 import StreamContainer from './stream/stream_container.js';
 
-const Root = ({ store }: { store: Object }) => (
-  <Provider store={ store }>
+const Root = ({ store }: { store: Object }) =>
+  <Provider store={store}>
     <Router history={hashHistory}>
-      <Route path='/' component={ App } >
-        <Route path='/stream' component={ StreamContainer } />
+      <Route path="/" component={App}>
+        <Route path="/stream" component={StreamContainer} />
       </Route>
     </Router>
-  </Provider>
-);
+  </Provider>;
 
 export default Root;
