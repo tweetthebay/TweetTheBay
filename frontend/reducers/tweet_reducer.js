@@ -2,17 +2,19 @@
 // @flow
 
 import merge from 'lodash/merge';
-import { RECEIVE_TWEETS,
-        CLEAR_TWEETS,
-        RECEIVE_SEARCH_QUERY } from '../actions/tweet_actions.js';
+import {
+  RECEIVE_TWEETS,
+  CLEAR_TWEETS,
+  RECEIVE_SEARCH_QUERY
+} from '../actions/tweet_actions.js';
 
-const TweetReducer = (state: Object = {tweets: []}, action: Object) => {
+const TweetReducer = (state: Object = { tweets: [] }, action: Object) => {
   Object.freeze(state);
-  switch(action.type){
+  switch (action.type) {
     case RECEIVE_TWEETS:
-      return merge({}, {tweets: action.tweets});
+      return merge({}, { tweets: action.tweets });
     case CLEAR_TWEETS:
-      return {tweets: []};
+      return { tweets: [] };
     default:
       return state;
   }

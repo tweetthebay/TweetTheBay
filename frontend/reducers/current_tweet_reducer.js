@@ -6,7 +6,7 @@ import merge from 'lodash/merge';
 
 const CurrentTweetReducer = (state: ?Object = null, action: Object) => {
   Object.freeze(state);
-  switch(action.type){
+  switch (action.type) {
     case SET_CURRENT_TWEET:
       return action.tweet;
     default:

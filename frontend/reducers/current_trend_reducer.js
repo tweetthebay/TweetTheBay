@@ -6,7 +6,7 @@ import merge from 'lodash/merge';
 
 const CurrentTrendReducer = (state: Array<Object> = [], action: Object) => {
   Object.freeze(state);
-  switch(action.type){
+  switch (action.type) {
     case RECEIVE_CURRENT_TRENDS:
       return action.currentTrends;
     default:

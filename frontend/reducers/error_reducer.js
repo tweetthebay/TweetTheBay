@@ -5,7 +5,7 @@ import { RECEIVE_TWEET_ERRORS } from '../actions/tweet_actions';
 
 const ErrorReducer = (state: Object = {}, action: Object) => {
   Object.freeze(state);
-  switch(action.type){
+  switch (action.type) {
     case RECEIVE_TWEET_ERRORS:
       return action.errors;
     default:
