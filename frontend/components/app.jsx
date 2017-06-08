@@ -10,18 +10,17 @@ import SidebarContainer from './sidebar/sidebar_container';
 //support for Material UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-const App = ({ children }: { children: Object }) => (
+const App = ({ children }: { children: Object }) =>
   <MuiThemeProvider>
-    <div className='root-div'>
+    <div className="root-div">
       <HeaderContainer />
-      <main className='index-body'>
+      <main className="index-body">
         <SidebarContainer />
         <MapContainer />
       </main>
       {children}
       <FooterContainer />
     </div>
-  </MuiThemeProvider>
-);
+  </MuiThemeProvider>;
 
 export default App;
