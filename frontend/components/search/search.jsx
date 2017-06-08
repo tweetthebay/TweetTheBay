@@ -4,16 +4,15 @@
 import React from 'react';
 
 class Search extends React.Component {
-
   state: Object;
   update: Function;
   handleSubmit: Function;
-  
+
   constructor(props: Object) {
     super(props);
 
     this.state = {
-      searchParams: '',
+      searchParams: ''
     };
 
     this.update = this.update.bind(this);
@@ -26,16 +25,15 @@ class Search extends React.Component {
 
   componentWillReceiveProps(newProps: Object) {
     if (newProps.searchTerm) {
-      $("input:text").val(`${newProps.searchTerm}`);
+      $('input:text').val(`${newProps.searchTerm}`);
     }
   }
 
-  update(e: Event) {
-    // $FlowFixMe
+  update(e: Event & { target: HTMLInputElement }) {
     this.setState({ ['searchParams']: e.target.value });
   }
 
-  handleSubmit (e: Event) {
+  handleSubmit(e: Event) {
     e.preventDefault();
     this.props.setCurrentTweet(null);
     this.props.searchTweets(this.state.searchParams, this.props.location);
@@ -43,18 +41,18 @@ class Search extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <div>
-        <form className='search-form' onSubmit={this.handleSubmit}>
+        <form className="search-form" onSubmit={this.handleSubmit}>
           <input
-            className='search-input'
-            type='text'
+            className="search-input"
+            type="text"
             value={this.state.searchParams}
-            placeholder='Search Tweets'
-            onChange={this.update}/>
+            placeholder="Search Tweets"
+            onChange={this.update}
+          />
         </form>
       </div>
-
     );
   }
 }

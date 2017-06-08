@@ -11,12 +11,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  searchTweets: (searchInput, location) => dispatch(fetchTweets(searchInput, location)),
+  searchTweets: (searchInput, location) =>
+    dispatch(fetchTweets(searchInput, location)),
   setCurrentTweet: tweet => dispatch(setCurrentTweet(tweet)),
   setSearchQuery: searchInput => dispatch(setSearchQuery(searchInput))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
