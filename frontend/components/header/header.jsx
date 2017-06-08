@@ -17,18 +17,18 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 
 class Header extends React.Component {
-
   state: Object;
   setSearch: Function;
   setStream: Function;
   handleOpen: Function;
   handleClose: Function;
+  search: ?Object;
 
   constructor(props) {
     super(props);
 
     this.state = {
-      toggleText: "search",
+      toggleText: 'search',
       open: false
     };
 
@@ -40,32 +40,31 @@ class Header extends React.Component {
   }
 
   setSearch() {
-    const search = document.querySelector(".search-container");
-    $(".stream-button > button").css("background-color", "white");
-    $(".search-button > button").css("background-color", "#5CB0CF");
+    const search = document.querySelector('.search-container');
+    $('.stream-button > button').css('background-color', 'white');
+    $('.search-button > button').css('background-color', '#5CB0CF');
 
-    this.props.router.push("/");
+    this.props.router.push('/');
 
-    $(".header > div").css("background-color", "rgb(0, 132, 180)");
-    $(".footer").css("background-color", "rgb(0, 132, 180)");
+    $('.header > div').css('background-color', 'rgb(0, 132, 180)');
+    $('.footer').css('background-color', 'rgb(0, 132, 180)');
     // $FlowFixMe
-    search.style.visibility = "visible";
-    this.setState({toggleText: "search"});
+    search.style.visibility = 'visible';
+    this.setState({ toggleText: 'search' });
   }
 
   setStream() {
-    const search = document.querySelector(".search-container");
-    $(".search-button > button").css("background-color", "white");
-    $(".stream-button > button").css("background-color", "#9EA4D1");
+    const search = document.querySelector('.search-container');
+    $('.search-button > button').css('background-color', 'white');
+    $('.stream-button > button').css('background-color', '#9EA4D1');
 
-    this.props.router.push("/stream");
+    this.props.router.push('/stream');
 
-
-    $(".header > div").css("background-color", "#424874");
-    $(".footer").css("background-color", "#424874");
+    $('.header > div').css('background-color', '#424874');
+    $('.footer').css('background-color', '#424874');
     // $FlowFixMe
-    search.style.visibility = "hidden";
-    this.setState({toggleText: "streaming"});
+    search.style.visibility = 'hidden';
+    this.setState({ toggleText: 'streaming' });
   }
 
   //deprecated toggle logic. if toggle is re-implemented, use this code
@@ -84,27 +83,26 @@ class Header extends React.Component {
   //   }
   // }
 
-  handleOpen(){
-    this.setState({open: true});
+  handleOpen() {
+    this.setState({ open: true });
   }
 
-  handleClose(){
-    this.setState({open: false});
+  handleClose() {
+    this.setState({ open: false });
   }
 
   render() {
-
     const logoStyle = {
-      fontSize: "55px",
-      marginBottom: "9px",
-      ariaHidden: "true",
-      color: "white"
+      fontSize: '55px',
+      marginBottom: '9px',
+      ariaHidden: 'true',
+      color: 'white'
     };
 
     const helpStyle = {
-      color: "white",
-      marginRight: "25px",
-      marginTop: "14px"
+      color: 'white',
+      marginRight: '25px',
+      marginTop: '14px'
     };
 
     const tooltipStyle = {
@@ -112,88 +110,106 @@ class Header extends React.Component {
       width: 100,
       margin: 20,
       textAlign: 'center',
-      display: 'inline-block',
+      display: 'inline-block'
     };
 
-    return(
+    return (
       <div className="header">
         <AppBar
-            title="Tweet The Bay"
-            titleStyle={{marginTop: "6px"}}
-            iconElementLeft={<FontIcon
-                              className="fa fa-twitter-square"
-                              style={logoStyle}/>}
-            iconElementRight={<Help
-                              style={helpStyle}
-                              className="help-button"
-                              onTouchTap={() => this.handleOpen()}/>}
-            children={<div className="header-children">
-                        <div className="search-container">
-                          <SearchContainer />
-                        </div>
-                        <div className="header-buttons">
-                          <RaisedButton
-                            className='search-button'
-                            label="Search"
-                            icon={<Search />}
-                            backgroundColor="#5CB0CF"
-                            onTouchTap={() => this.setSearch()}
-                            style={{
-                              width: "117px",
-                              bottom: "14px"
-                            }} />
-                          <h3 className='or-text'>OR</h3>
-                          <RaisedButton
-                            className='stream-button'
-                            label="Stream Tweets"
-                            icon={<RssFeed />}
-                            onTouchTap={() => this.setStream()}
-                            style={{
-                              width: "175px"
-                            }} />
-                        </div>
-                        <Dialog
-                          title="Welcome to Tweet The Bay!"
-                          modal={false}
-                          open={this.state.open}
-                          onRequestClose={() => this.handleClose()}
-                          bodyStyle={{
-                          }}>
-                          <div>
-                            Switch between <strong>Live Tweet Streaming</strong> and <strong>Search</strong> functions by <strong>clicking</strong> using the buttons in the navigation bar:
-                            <br /><br />
-                          </div>
-                          <RaisedButton
-                            label="Stream Tweets"
-                            backgroundColor="#9EA4D1"
-                            icon={<RssFeed />}
-                            style={{
-                              width: "175px"
-                            }} />
-                          <p>
-                            When streaming, the feed will update every 6 seconds with new tweets. These tweets are a 1% sampling of all messages being tweeted in the greater SF Bay Area. Click on any tweet to see details.
-                          </p>
-                          <RaisedButton
-                            label="Search"
-                            icon={<Search />}
-                            backgroundColor="#5CB0CF"
-                            style={{
-                              width: "117px",
-                              bottom: "14px"
-                            }} />
-                          <p>
-                            When searching, enter any search term and press the <strong>Enter</strong> key to search for that term wherever the map is positioned. Any trending topic can also be selected as a search term.
-                            <br /><br />
-                            <strong>Note:</strong> the map can be moved to search anywhere in the world!
-                          </p>
-                        </Dialog>
-                      </div>}
-
-            style={{
-              backgroundColor: '#0084b4',
-              paddingLeft: "70px"
-            }}
-          />
+          title="Tweet The Bay"
+          titleStyle={{ marginTop: '6px' }}
+          iconElementLeft={
+            <FontIcon className="fa fa-twitter-square" style={logoStyle} />
+          }
+          iconElementRight={
+            <Help
+              style={helpStyle}
+              className="help-button"
+              onTouchTap={() => this.handleOpen()}
+            />
+          }
+          children={
+            <div className="header-children">
+              <div className="search-container">
+                <SearchContainer />
+              </div>
+              <div className="header-buttons">
+                <RaisedButton
+                  className="search-button"
+                  label="Search"
+                  icon={<Search />}
+                  backgroundColor="#5CB0CF"
+                  onTouchTap={() => this.setSearch()}
+                  style={{
+                    width: '117px',
+                    bottom: '14px'
+                  }}
+                />
+                <h3 className="or-text">OR</h3>
+                <RaisedButton
+                  className="stream-button"
+                  label="Stream Tweets"
+                  icon={<RssFeed />}
+                  onTouchTap={() => this.setStream()}
+                  style={{
+                    width: '175px'
+                  }}
+                />
+              </div>
+              <Dialog
+                title="Welcome to Tweet The Bay!"
+                modal={false}
+                open={this.state.open}
+                onRequestClose={() => this.handleClose()}
+                bodyStyle={{}}
+              >
+                <div>
+                  Switch between <strong>Live Tweet Streaming</strong> and
+                  {' '}<strong>Search</strong> functions by
+                  {' '}<strong>clicking</strong> using the buttons in the
+                  navigation bar:
+                  <br /><br />
+                </div>
+                <RaisedButton
+                  label="Stream Tweets"
+                  backgroundColor="#9EA4D1"
+                  icon={<RssFeed />}
+                  style={{
+                    width: '175px'
+                  }}
+                />
+                <p>
+                  When streaming, the feed will update every 6 seconds with new
+                  tweets. These tweets are a 1% sampling of all messages being
+                  tweeted in the greater SF Bay Area. Click on any tweet to see
+                  details.
+                </p>
+                <RaisedButton
+                  label="Search"
+                  icon={<Search />}
+                  backgroundColor="#5CB0CF"
+                  style={{
+                    width: '117px',
+                    bottom: '14px'
+                  }}
+                />
+                <p>
+                  When searching, enter any search term and press the
+                  {' '}<strong>Enter</strong> key to search for that term
+                  wherever the map is positioned. Any trending topic can also be
+                  selected as a search term.
+                  <br /><br />
+                  <strong>Note:</strong> the map can be moved to search anywhere
+                  in the world!
+                </p>
+              </Dialog>
+            </div>
+          }
+          style={{
+            backgroundColor: '#0084b4',
+            paddingLeft: '70px'
+          }}
+        />
       </div>
     );
   }
