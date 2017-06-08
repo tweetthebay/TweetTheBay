@@ -4,18 +4,17 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 
-import {List, ListItem} from 'material-ui/List';
+import { List, ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
-import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
+import { grey400, darkBlack, lightBlack } from 'material-ui/styles/colors';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 
 class searchSidebar extends React.Component {
-
   state: Object;
   setState: Function;
   sidebarSearch: Function;
@@ -29,7 +28,7 @@ class searchSidebar extends React.Component {
     this.state = {
       trends: [],
       tweets: [],
-      searchTerm: ""
+      searchTerm: ''
     };
 
     this.setState = this.setState.bind(this);
@@ -39,35 +38,33 @@ class searchSidebar extends React.Component {
     this.handleClearSearch = this.handleClearSearch.bind(this);
   }
 
-  componentWillMount () {
-    this.props.fetchCurrentTrends()
-      .then(() => {
-          this.setState({
-            trends: this.props.currentTrends});
-        });
-
-    $( document ).ajaxStart(function() {
-      $(".spinner").show();
-      $(".sidebar").hide();
+  componentWillMount() {
+    this.props.fetchCurrentTrends().then(() => {
+      this.setState({
+        trends: this.props.currentTrends
+      });
     });
 
-    $( document ).ajaxComplete(function() {
-      $(".spinner").hide();
-      $(".sidebar").show();
+    $(document).ajaxStart(function() {
+      $('.spinner').show();
+      $('.sidebar').hide();
+    });
+
+    $(document).ajaxComplete(function() {
+      $('.spinner').hide();
+      $('.sidebar').show();
     });
   }
 
   componentWillReceiveProps(newProps) {
-
     if (newProps.trends) {
       this.setState({ trends: newProps.currentTrends });
     }
 
     if (newProps.tweets.tweets) {
-        this.setState({ tweets: newProps.tweets.tweets });
-
-      } else {
-        this.setState({ tweets: []});
+      this.setState({ tweets: newProps.tweets.tweets });
+    } else {
+      this.setState({ tweets: [] });
     }
 
     if (newProps.stream !== this.props.stream) {
@@ -90,26 +87,26 @@ class searchSidebar extends React.Component {
     this.props.setSearchQuery(searchInput);
   }
 
-  backToTrendingTopics(){
+  backToTrendingTopics() {
     this.props.setSearchQuery(null);
   }
 
   handleTweetText(text) {
-    if (text.indexOf("&amp;") !== -1){
-        let ampersand = /&amp;/g;
-        return text.replace(ampersand, function() {
-          return '&';
-        });
+    if (text.indexOf('&amp;') !== -1) {
+      let ampersand = /&amp;/g;
+      return text.replace(ampersand, function() {
+        return '&';
+      });
     }
 
-    if (text.indexOf("&gt;") !== -1){
+    if (text.indexOf('&gt;') !== -1) {
       let rightCaret = /&gt;/g;
       return text.replace(rightCaret, function() {
         return '>';
       });
     }
 
-    if (text.indexOf("&lt;") !== -1){
+    if (text.indexOf('&lt;') !== -1) {
       let leftCaret = /&lt;/g;
       return text.replace(leftCaret, function() {
         return '<';
@@ -123,7 +120,7 @@ class searchSidebar extends React.Component {
     this.setState({
       trends: this.props.currentTrends,
       tweets: [],
-      searchTerm: ""
+      searchTerm: ''
     });
 
     this.props.setSearchQuery(null);
@@ -131,23 +128,23 @@ class searchSidebar extends React.Component {
     this.props.clearTweets();
   }
 
-  render () {
-
-    const trendList = this.state.trends.slice(0,7).map((trend, idx) => {
+  render() {
+    const trendList = this.state.trends.slice(0, 7).map((trend, idx) => {
       const id = trend.id;
-      if (trend.volume !== "null") {
+      if (trend.volume !== 'null') {
         return (
-          <div key={ trend.name }>
+          <div key={trend.name}>
             <ListItem
-              onClick={() => this.sidebarSearch(`${trend.name}`, this.props.myLocation)}
+              onClick={() =>
+                this.sidebarSearch(`${trend.name}`, this.props.myLocation)}
               primaryText={`${trend.name}`}
               secondaryText={
                 <p>
                   {trend.volume} people are tweeting about this
                 </p>
               }
-              secondaryTextLines={ 1 }
-              />
+              secondaryTextLines={1}
+            />
             <Divider inset={true} />
           </div>
         );
@@ -171,24 +168,24 @@ class searchSidebar extends React.Component {
         const tweetText = this.handleTweetText(tweet.text);
 
         return (
-          <div key={ tweet.text }>
+          <div key={tweet.text}>
             <ListItem
-              onClick={() => this.props.setCurrentTweet({id})}
-              leftAvatar= {<img src={`${tweet.profile_picture}`} />}
+              onClick={() => this.props.setCurrentTweet({ id })}
+              leftAvatar={<img src={`${tweet.profile_picture}`} />}
               primaryText={`${tweet.screen_name}`}
               secondaryText={
                 <p>
                   {tweetText}
                 </p>
               }
-              secondaryTextLines={ 2 }
-              />
+              secondaryTextLines={2}
+            />
             <Divider inset={true} />
           </div>
         );
       });
     } else {
-      tweetList = "";
+      tweetList = '';
     }
 
     let primaryTextVar;
@@ -197,62 +194,64 @@ class searchSidebar extends React.Component {
       primaryTextVar = `You are currently livestreaming!`;
     } else {
       primaryTextVar = `Current Search: ${this.props.searchTerm}`;
-      clearTweetsButton =
-      <button className='clear-tweets-button'
-              onClick={this.handleClearSearch}>
-              Clear Tweets
-      </button>;
+      clearTweetsButton = (
+        <button
+          className="clear-tweets-button"
+          onClick={this.handleClearSearch}
+        >
+          Clear Tweets
+        </button>
+      );
     }
 
     return (
-      <div className='sidebar-container'>
+      <div className="sidebar-container">
         <div id="spinner" className="spinner">
-          <img id="img-spinner" src={window.assets.loader} alt="Loading"/>
+          <img id="img-spinner" src={window.assets.loader} alt="Loading" />
         </div>
-        <aside className='sidebar'>
+        <aside className="sidebar">
           <List>
-            { ( tweetsPresent === false && this.props.searchTerm === null) ? (
-              <div>
-                <a onClick={() => this.setState({ tweets: [] })} />
-                <ListItem
-                  primaryText= "Unsure of what to search?"
-                  secondaryText= "Try one of these trending topics:"
-                  disabled = { true }
+            {tweetsPresent === false && this.props.searchTerm === null
+              ? <div>
+                  <a onClick={() => this.setState({ tweets: [] })} />
+                  <ListItem
+                    primaryText="Unsure of what to search?"
+                    secondaryText="Try one of these trending topics:"
+                    disabled={true}
                   />
-                { trendList }
-              </div>
-            ) : (
-              <div>
-                <ListItem
-                  primaryText = {primaryTextVar}
-                  disabled = { true }
-                  />
-                <Divider />
-                <Subheader className='tweets-subheader'>
-                  Most Recent
-                  {clearTweetsButton}
-                </Subheader>
-                { tweetList }
-              </div>
-            )}
+                  {trendList}
+                </div>
+              : <div>
+                  <ListItem primaryText={primaryTextVar} disabled={true} />
+                  <Divider />
+                  <Subheader className="tweets-subheader">
+                    Most Recent
+                    {clearTweetsButton}
+                  </Subheader>
+                  {tweetList}
+                </div>}
           </List>
-          { this.props.searchTerm === null ? (
-            <div className='search-disclaimer'>
-              <p className='search-disclaimer-text'>
-                <strong>Disclaimer:</strong> only ~3% of tweets have geolocation data, so results may be sparse
-              </p>
-            </div>
-          ) : (
-            tweetsPresent === false ? (
-              <div className="no-tweets-container">
-                <p className="no-tweets-found-message">Sorry, we couldn't geolocate any tweets matching that search term. Please try another search.</p>
-                <button className="return-trending-button"
-                  onClick={this.backToTrendingTopics}>Go Back to Trending Topics</button>
+          {this.props.searchTerm === null
+            ? <div className="search-disclaimer">
+                <p className="search-disclaimer-text">
+                  <strong>Disclaimer:</strong> only ~3% of tweets have
+                  geolocation data, so results may be sparse
+                </p>
               </div>
-            ) : (
-              ""
-            )
-          )}
+            : tweetsPresent === false
+              ? <div className="no-tweets-container">
+                  <p className="no-tweets-found-message">
+                    Sorry, we couldn't geolocate any tweets matching that search
+                    term. Please try another search.
+                  </p>
+                  <button
+                    className="return-trending-button"
+                    onClick={this.backToTrendingTopics}
+                  >
+                    Go Back to Trending Topics
+                  </button>
+                </div>
+              : ''}
         </aside>
       </div>
     );
