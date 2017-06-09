@@ -2,15 +2,14 @@
 // @flow
 
 import React from 'react';
+// support for Material UI
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MapContainer from './map/map_container';
 import HeaderContainer from './header/header_container';
-import FooterContainer from './footer/footer_container';
 import SidebarContainer from './sidebar/sidebar_container';
+import Footer from './footer/footer';
 
-//support for Material UI
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-const App = ({ children }: { children: Object }) =>
+const App = ({ children }: { children: Object }) => (
   <MuiThemeProvider>
     <div className="root-div">
       <HeaderContainer />
@@ -19,8 +18,9 @@ const App = ({ children }: { children: Object }) =>
         <MapContainer />
       </main>
       {children}
-      <FooterContainer />
+      <Footer />
     </div>
-  </MuiThemeProvider>;
+  </MuiThemeProvider>
+);
 
 export default App;
