@@ -48,9 +48,16 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
     "babel-jest": "^20.0.3",
     "babel-preset-flow": "^6.23.0",
     "enzyme": "^2.8.2",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-flowtype": "^2.34.0",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.0.1",
     "flow-bin": "^0.47.0",
     "flow-remove-types": "^1.2.1",
     "flow-typed": "^2.1.2",
@@ -58,8 +65,10 @@
     "jest-cli": "^20.0.3",
     "jquery": "^3.2.1",
     "nock": "^9.0.13",
+    "react-addons-perf": "^15.4.2",
     "react-test-renderer": "^15.5.4",
-    "redux-mock-store": "^1.2.3"
+    "redux-mock-store": "^1.2.3",
+    "why-did-you-update": "0.0.8"
   },
   "jest": {
     "transform": {
