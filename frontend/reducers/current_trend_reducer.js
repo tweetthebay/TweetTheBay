@@ -2,7 +2,6 @@
 // @flow
 
 import { RECEIVE_CURRENT_TRENDS } from '../actions/current_trend_actions';
-import merge from 'lodash/merge';
 
 const CurrentTrendReducer = (state: Array<Object> = [], action: Object) => {
   Object.freeze(state);

@@ -2,7 +2,7 @@
 // @flow
 
 import merge from 'lodash/merge';
-import { RECEIVE_STREAM, CLEAR_STREAM } from '../actions/stream_actions.js';
+import { RECEIVE_STREAM, CLEAR_STREAM } from '../actions/stream_actions';
 
 const StreamReducer = (state: Object = { tweets: [] }, action: Object) => {
   Object.freeze(state);

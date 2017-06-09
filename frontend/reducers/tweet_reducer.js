@@ -2,11 +2,7 @@
 // @flow
 
 import merge from 'lodash/merge';
-import {
-  RECEIVE_TWEETS,
-  CLEAR_TWEETS,
-  RECEIVE_SEARCH_QUERY
-} from '../actions/tweet_actions.js';
+import { RECEIVE_TWEETS, CLEAR_TWEETS } from '../actions/tweet_actions';
 
 const TweetReducer = (state: Object = { tweets: [] }, action: Object) => {
   Object.freeze(state);

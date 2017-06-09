@@ -2,7 +2,6 @@
 // @flow
 
 import { SET_CURRENT_TWEET } from '../actions/current_tweet_actions';
-import merge from 'lodash/merge';
 
 const CurrentTweetReducer = (state: ?Object = null, action: Object) => {
   Object.freeze(state);

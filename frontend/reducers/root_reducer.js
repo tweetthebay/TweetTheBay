@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   currentTweet: CurrentTweetReducer,
   stream: StreamReducer,
   currentTrends: CurrentTrendReducer,
-  searchQuery: SearchQueryReducer
+  searchQuery: SearchQueryReducer,
 });
 
 export default rootReducer;

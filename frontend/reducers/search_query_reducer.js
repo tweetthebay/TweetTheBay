@@ -1,7 +1,7 @@
 // frontend/reducers/search_query_reducer.js
 // @flow
 
-import { RECEIVE_SEARCH_QUERY } from '../actions/tweet_actions.js';
+import { RECEIVE_SEARCH_QUERY } from '../actions/tweet_actions';
 
 const SearchQueryReducer = (state: ?Object = null, action: Object) => {
   Object.freeze(state);
