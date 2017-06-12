@@ -4,7 +4,8 @@ import SearchQueryReducer from '../../reducers/search_query_reducer';
 
 describe('Reducers', () => {
   describe('SearchQueryReducer', () => {
-    const _oldState = "potato";
+    // eslint-disable-next-line no-underscore-dangle
+    const _oldState = 'potato';
 
     it('exports an function', () => {
       expect(typeof SearchQueryReducer).toEqual('function');
@@ -20,25 +21,25 @@ describe('Reducers', () => {
     });
 
     describe('handling the RECEIVE_SEARCH_QUERY action', () => {
-      let query,
-          receiveSearchQueryAction;
+      let query;
+      let receiveSearchQueryAction;
 
       beforeEach(() => {
         query = 'tacos';
 
         receiveSearchQueryAction = {
           type: 'RECEIVE_SEARCH_QUERY',
-          query
+          query,
         };
       });
 
-      it('should replace the state with the action\'s query', () => {
+      it("should replace the state with the action's query", () => {
         const state = SearchQueryReducer(undefined, receiveSearchQueryAction);
         expect(state).toEqual(query);
       });
 
       it('should not modify the old state', () => {
-        const oldState = "potato";
+        const oldState = 'potato';
 
         SearchQueryReducer(oldState, receiveSearchQueryAction);
         expect(oldState).toEqual(_oldState);

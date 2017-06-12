@@ -4,17 +4,18 @@ import CurrentTrendReducer from '../../reducers/current_trend_reducer';
 
 describe('Reducers', () => {
   describe('CurrentTrendReducer', () => {
+    // eslint-disable-next-line no-underscore-dangle
     const _oldState = {
-      'trends': [
+      trends: [
         {
-          name: "#DubNation",
-          volume: 46800
+          name: '#DubNation',
+          volume: 46800,
         },
         {
-          name: "Giants",
-          volume: 33620
-        }
-      ]
+          name: 'Giants',
+          volume: 33620,
+        },
+      ],
     };
 
     it('exports an function', () => {
@@ -31,46 +32,46 @@ describe('Reducers', () => {
     });
 
     describe('handling the RECEIVE_CURRENT_TRENDS action', () => {
-      let currentTrends,
-          receiveCurrentTrendsAction;
+      let currentTrends;
+      let receiveCurrentTrendsAction;
 
       beforeEach(() => {
         currentTrends = {
-          'trends': [
+          trends: [
             {
-              name: "Burritos",
-              volume: 74330
+              name: 'Burritos',
+              volume: 74330,
             },
             {
-              name: "Tacos",
-              volume: 43620
-            }
-          ]
+              name: 'Tacos',
+              volume: 43620,
+            },
+          ],
         };
 
         receiveCurrentTrendsAction = {
           type: 'RECEIVE_CURRENT_TRENDS',
-          currentTrends
+          currentTrends,
         };
       });
 
-      it('should replace the state with the action\'s currentTrends', () => {
+      it("should replace the state with the action's currentTrends", () => {
         const state = CurrentTrendReducer(undefined, receiveCurrentTrendsAction);
         expect(state).toEqual(currentTrends);
       });
 
       it('should not modify the old state', () => {
         const oldState = {
-          'trends': [
+          trends: [
             {
-              name: "#DubNation",
-              volume: 46800
+              name: '#DubNation',
+              volume: 46800,
             },
             {
-              name: "Giants",
-              volume: 33620
-            }
-          ]
+              name: 'Giants',
+              volume: 33620,
+            },
+          ],
         };
 
         CurrentTrendReducer(oldState, receiveCurrentTrendsAction);

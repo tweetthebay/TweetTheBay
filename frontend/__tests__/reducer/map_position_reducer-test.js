@@ -4,10 +4,11 @@ import MapPositionReducer from '../../reducers/map_position_reducer';
 
 describe('Reducers', () => {
   describe('MapPositionReducer', () => {
+    // eslint-disable-next-line no-underscore-dangle
     const _oldState = {
       lat: 37.9,
       lng: -122.5,
-      radius: 42.99316579561581
+      radius: 42.99316579561581,
     };
 
     it('exports an function', () => {
@@ -24,23 +25,23 @@ describe('Reducers', () => {
     });
 
     describe('handling the SET_MAP_POSITION action', () => {
-      let mapPosition,
-          setMapAction;
+      let mapPosition;
+      let setMapAction;
 
       beforeEach(() => {
         mapPosition = {
           lat: 97.9,
           lng: -129.5,
-          radius: 92.99316579561581
+          radius: 92.99316579561581,
         };
 
         setMapAction = {
           type: 'SET_MAP_POSITION',
-          mapPosition
+          mapPosition,
         };
       });
 
-      it('should replace the state with the action\'s map', () => {
+      it("should replace the state with the action's map", () => {
         const state = MapPositionReducer(undefined, setMapAction);
         expect(state).toEqual(mapPosition);
       });
@@ -49,7 +50,7 @@ describe('Reducers', () => {
         const oldState = {
           lat: 37.9,
           lng: -122.5,
-          radius: 42.99316579561581
+          radius: 42.99316579561581,
         };
 
         MapPositionReducer(oldState, setMapAction);

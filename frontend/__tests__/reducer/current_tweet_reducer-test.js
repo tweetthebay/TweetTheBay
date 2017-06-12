@@ -4,6 +4,7 @@ import CurrentTweetReducer from '../../reducers/current_tweet_reducer';
 
 describe('Reducers', () => {
   describe('CurrentTweetReducer', () => {
+    // eslint-disable-next-line no-underscore-dangle
     const _oldState = { id: 2 };
 
     it('exports an function', () => {
@@ -20,19 +21,19 @@ describe('Reducers', () => {
     });
 
     describe('handling the SET_CURRENT_TWEET action', () => {
-      let currentTweet,
-          setCurrentTweetAction;
+      let currentTweet;
+      let setCurrentTweetAction;
 
       beforeEach(() => {
         currentTweet = { id: 1 };
 
         setCurrentTweetAction = {
           type: 'SET_CURRENT_TWEET',
-          tweet: currentTweet
+          tweet: currentTweet,
         };
       });
 
-      it('should replace the state with the action\'s tweet', () => {
+      it("should replace the state with the action's tweet", () => {
         const state = CurrentTweetReducer(undefined, setCurrentTweetAction);
         expect(state).toEqual(currentTweet);
       });

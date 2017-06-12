@@ -4,21 +4,23 @@ import TweetReducer from '../../reducers/tweet_reducer';
 
 describe('Reducers', () => {
   describe('TweetReducer', () => {
+    // eslint-disable-next-line no-underscore-dangle
     const _oldState = {
-      'tweets': [
+      tweets: [
         {
           text: 'Tacos. Tacos. Tacos!',
-          screenName: 'tacoFan'
+          screenName: 'tacoFan',
         },
         {
           text: 'Eating burritos until life makes more sense',
-          screenName: 'burritoGuy'
-        }
-      ]
+          screenName: 'burritoGuy',
+        },
+      ],
     };
 
+    // eslint-disable-next-line no-underscore-dangle
     const _defaultState = {
-      tweets: []
+      tweets: [],
     };
 
     it('exports an function', () => {
@@ -35,44 +37,44 @@ describe('Reducers', () => {
     });
 
     describe('handling the RECEIVE_TWEETS action', () => {
-      let receiveTweetsAction,
-          tweets;
+      let receiveTweetsAction;
+      let tweets;
 
       beforeEach(() => {
         tweets = [
           {
             text: 'Hot dogs. Hot dogs. Hot dogs!',
-            screenName: 'hotDogFan'
+            screenName: 'hotDogFan',
           },
           {
             text: 'Eating hamburgers until life makes more sense',
-            screenName: 'hamburgerGuy'
-          }
-        ]
+            screenName: 'hamburgerGuy',
+          },
+        ];
 
         receiveTweetsAction = {
           type: 'RECEIVE_TWEETS',
-          tweets
+          tweets,
         };
       });
 
-      it('should replace the state with the action\'s tweets', () => {
+      it("should replace the state with the action's tweets", () => {
         const state = TweetReducer(undefined, receiveTweetsAction);
         expect(state).toEqual({ tweets });
       });
 
       it('should not modify the old state', () => {
         const oldState = {
-          'tweets': [
+          tweets: [
             {
               text: 'Tacos. Tacos. Tacos!',
-              screenName: 'tacoFan'
+              screenName: 'tacoFan',
             },
             {
               text: 'Eating burritos until life makes more sense',
-              screenName: 'burritoGuy'
-            }
-          ]
+              screenName: 'burritoGuy',
+            },
+          ],
         };
 
         TweetReducer(oldState, receiveTweetsAction);
@@ -85,7 +87,7 @@ describe('Reducers', () => {
 
       beforeEach(() => {
         resetAction = {
-          type: 'CLEAR_TWEETS'
+          type: 'CLEAR_TWEETS',
         };
       });
 

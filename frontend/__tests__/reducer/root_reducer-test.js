@@ -1,5 +1,6 @@
 /* globals jest */
 
+import { createStore } from 'redux';
 import TweetReducer from '../../reducers/tweet_reducer';
 import ErrorReducer from '../../reducers/error_reducer';
 import MapPositionReducer from '../../reducers/map_position_reducer';
@@ -8,7 +9,6 @@ import StreamReducer from '../../reducers/stream_reducer';
 import CurrentTrendReducer from '../../reducers/current_trend_reducer';
 import SearchQueryReducer from '../../reducers/search_query_reducer';
 import RootReducer from '../../reducers/root_reducer';
-import { createStore } from 'redux';
 
 describe('Reducers', () => {
   describe('RootReducer', () => {
@@ -24,111 +24,106 @@ describe('Reducers', () => {
 
     it('includes the TweetReducer under the key `tweet`', () => {
       const tweets = {
-        'tweets': [
+        tweets: [
           {
             text: 'Tacos. Tacos. Tacos!',
-            screenName: 'tacoFan'
+            screenName: 'tacoFan',
           },
           {
             text: 'Eating burritos until life makes more sense',
-            screenName: 'burritoGuy'
-          }
-        ]
+            screenName: 'burritoGuy',
+          },
+        ],
       };
 
       const action = {
         type: 'RECEIVE_TWEETS',
-        tweets
+        tweets,
       };
 
       fakeStore.dispatch(action);
 
-      expect(fakeStore.getState().tweets)
-        .toEqual(TweetReducer({}, action));
+      expect(fakeStore.getState().tweets).toEqual(TweetReducer({}, action));
     });
 
     it('includes the CurrentTweetReducer under the key `currentTweet`', () => {
       const tweet = {
-        id: 1
+        id: 1,
       };
 
       const action = {
         type: 'SET_CURRENT_TWEET',
-        tweet
+        tweet,
       };
 
       fakeStore.dispatch(action);
 
-      expect(fakeStore.getState().currentTweet)
-        .toEqual(CurrentTweetReducer({}, action));
+      expect(fakeStore.getState().currentTweet).toEqual(CurrentTweetReducer({}, action));
     });
 
     it('includes the MapPositionReducer under the key `mapPosition`', () => {
       const mapPosition = {
         lat: 37.9,
         lng: -122.5,
-        radius: 42.99316579561581
+        radius: 42.99316579561581,
       };
 
       const action = {
         type: 'SET_MAP_POSITION',
-        mapPosition
+        mapPosition,
       };
 
       fakeStore.dispatch(action);
 
-      expect(fakeStore.getState().mapPosition)
-        .toEqual(MapPositionReducer({}, action));
+      expect(fakeStore.getState().mapPosition).toEqual(MapPositionReducer({}, action));
     });
 
     it('includes the StreamReducer under the key `stream`', () => {
       const streamtweets = {
-        'tweets': [
+        tweets: [
           {
             text: 'Tacos. Tacos. Tacos!',
-            screenName: 'tacoFan'
+            screenName: 'tacoFan',
           },
           {
             text: 'Eating burritos until life makes more sense',
-            screenName: 'burritoGuy'
-          }
-        ]
+            screenName: 'burritoGuy',
+          },
+        ],
       };
 
       const action = {
         type: 'RECEIVE_STREAM',
-        tweets: streamtweets
+        tweets: streamtweets,
       };
 
       fakeStore.dispatch(action);
 
-      expect(fakeStore.getState().stream)
-        .toEqual(StreamReducer({}, action));
+      expect(fakeStore.getState().stream).toEqual(StreamReducer({}, action));
     });
 
     it('includes the CurrentTrendReducer under the key `currentTrends`', () => {
       const currentTrends = {
-        'trends': [
+        trends: [
           {
-            name: "#DubNation",
-            volume: 46800
+            name: '#DubNation',
+            volume: 46800,
           },
           {
-            name: "Giants",
-            volume: 33620
-          }
-        ]
+            name: 'Giants',
+            volume: 33620,
+          },
+        ],
       };
 
       const action = {
         type: 'RECEIVE_CURRENT_TRENDS',
-        currentTrends
+        currentTrends,
       };
 
       fakeStore.dispatch(action);
 
-      expect(fakeStore.getState().currentTrends)
-        .toEqual(CurrentTrendReducer({}, action));
+      expect(fakeStore.getState().currentTrends).toEqual(CurrentTrendReducer({}, action));
     });
 
     it('includes the SearchQueryReducer under the key `searchQuery`', () => {
@@ -136,32 +131,27 @@ describe('Reducers', () => {
 
       const action = {
         type: 'RECEIVE_SEARCH_QUERY',
-        query
+        query,
       };
 
       fakeStore.dispatch(action);
 
-      expect(fakeStore.getState().searchQuery)
-        .toEqual(SearchQueryReducer({}, action));
+      expect(fakeStore.getState().searchQuery).toEqual(SearchQueryReducer({}, action));
     });
 
     it('includes the ErrorReducer under the key `errors`', () => {
       const errors = {
-        errors: [
-          'I am an error',
-          'I am also an error'
-        ]
+        errors: ['I am an error', 'I am also an error'],
       };
 
       const action = {
         type: 'RECEIVE_ERRORS',
-        errors
+        errors,
       };
 
       fakeStore.dispatch(action);
 
-      expect(fakeStore.getState().errors)
-        .toEqual(ErrorReducer({}, action));
+      expect(fakeStore.getState().errors).toEqual(ErrorReducer({}, action));
     });
   });
 });
