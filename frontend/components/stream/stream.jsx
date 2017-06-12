@@ -2,15 +2,8 @@
 // @flow
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Link } from 'react-router';
-import Modal from 'react-modal';
 
 class Stream extends React.Component {
-  startStreaming: Function;
-  stopStreaming: Function;
-  timer: number;
-
   constructor(props: Object) {
     super(props);
 
@@ -19,26 +12,30 @@ class Stream extends React.Component {
   }
 
   componentDidMount() {
-    let timeNowUTC = Date.now() - 25000;
+    const timeNowUTC = Date.now() - 25000;
     this.props.fetchStreamSince(timeNowUTC);
     this.startStreaming(timeNowUTC);
   }
 
+  componentWillUnmount() {
+    this.props.clearStream();
+    this.stopStreaming();
+  }
+
+  startStreaming: Function;
+  stopStreaming: Function;
+  timer: number;
+
   startStreaming(timeNowUTC: string) {
-    let that = this;
+    const that = this;
     this.props.fetchStreamSince(timeNowUTC);
-    this.timer = setInterval(function() {
+    this.timer = setInterval(() => {
       that.props.fetchStreamSince(timeNowUTC);
     }, 6000);
   }
 
   stopStreaming() {
     clearInterval(this.timer);
-  }
-
-  componentWillUnmount() {
-    this.props.clearStream();
-    this.stopStreaming();
   }
 
   render() {
