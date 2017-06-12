@@ -1,7 +1,8 @@
 /* globals jest */
 
+import thunk from 'redux-thunk';
+import configureMockStore from 'redux-mock-store';
 import * as StreamApiUtil from '../../util/stream_api_util';
-
 import {
   RECEIVE_STREAM,
   RECEIVE_STREAM_ERRORS,
@@ -10,13 +11,10 @@ import {
   receiveStreamErrors,
   clearStream,
   fetchStream,
-  fetchStreamSince
+  fetchStreamSince,
 } from '../../actions/stream_actions';
 
-import thunk from 'redux-thunk';
-import configureMockStore from 'redux-mock-store';
-
-const middlewares = [ thunk ];
+const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('stream actions', () => {
@@ -48,39 +46,41 @@ describe('stream actions', () => {
 
       it('should pass on the streamtweets we pass in', () => {
         const streamtweets = {
-          'tweets': [
+          tweets: [
             {
               text: 'Tacos. Tacos. Tacos!',
-              screenName: 'tacoFan'
+              screenName: 'tacoFan',
             },
             {
               text: 'Eating burritos until life makes more sense',
-              screenName: 'burritoGuy'
-            }
-          ]
+              screenName: 'burritoGuy',
+            },
+          ],
         };
 
         expect(receiveStream(streamtweets).streamtweets).toEqual(streamtweets);
       });
 
-      it ('should pass on the streamtweets we pass in (with mock store)', () => {
+      it('should pass on the streamtweets we pass in (with mock store)', () => {
         const streamtweets = {
-          'tweets': [
+          tweets: [
             {
               text: 'Tacos. Tacos. Tacos!',
-              screenName: 'tacoFan'
+              screenName: 'tacoFan',
             },
             {
               text: 'Eating burritos until life makes more sense',
-              screenName: 'burritoGuy'
-            }
-          ]
+              screenName: 'burritoGuy',
+            },
+          ],
         };
 
-        const expectedActions = [{
-          type: RECEIVE_STREAM,
-          streamtweets
-        }];
+        const expectedActions = [
+          {
+            type: RECEIVE_STREAM,
+            streamtweets,
+          },
+        ];
 
         store.dispatch(receiveStream(streamtweets));
         expect(store.getActions()).toEqual(expectedActions);
@@ -94,27 +94,23 @@ describe('stream actions', () => {
 
       it('should pass on the errors we pass in', () => {
         const errors = {
-          errors: [
-            'I am an error',
-            'I am also an error'
-          ]
+          errors: ['I am an error', 'I am also an error'],
         };
 
         expect(receiveStreamErrors(errors).errors).toEqual(errors);
       });
 
-      it ('should pass on the errors we pass in (with mock store)', () => {
+      it('should pass on the errors we pass in (with mock store)', () => {
         const errors = {
-          errors: [
-            'I am an error',
-            'I am also an error'
-          ]
+          errors: ['I am an error', 'I am also an error'],
         };
 
-        const expectedActions = [{
-          type: RECEIVE_STREAM_ERRORS,
-          errors
-        }];
+        const expectedActions = [
+          {
+            type: RECEIVE_STREAM_ERRORS,
+            errors,
+          },
+        ];
 
         store.dispatch(receiveStreamErrors(errors));
         expect(store.getActions()).toEqual(expectedActions);
@@ -126,10 +122,12 @@ describe('stream actions', () => {
         expect(clearStream().type).toEqual(CLEAR_STREAM);
       });
 
-      it ('mock store should receive CLEAR_STREAM action', () => {
-        const expectedActions = [{
-          type: CLEAR_STREAM,
-        }];
+      it('mock store should receive CLEAR_STREAM action', () => {
+        const expectedActions = [
+          {
+            type: CLEAR_STREAM,
+          },
+        ];
 
         store.dispatch(clearStream());
         expect(store.getActions()).toEqual(expectedActions);
@@ -151,26 +149,26 @@ describe('stream actions', () => {
 
       it('dispatches RECEIVE_STREAM when streamtweets have been fetched', () => {
         const streamtweets = {
-          'tweets': [
+          tweets: [
             {
               text: 'Tacos. Tacos. Tacos!',
-              screenName: 'tacoFan'
+              screenName: 'tacoFan',
             },
             {
               text: 'Eating burritos until life makes more sense',
-              screenName: 'burritoGuy'
-            }
-          ]
+              screenName: 'burritoGuy',
+            },
+          ],
         };
 
-        StreamApiUtil.fetchStream = jest.fn(() => (
-          Promise.resolve(streamtweets)
-        ));
+        StreamApiUtil.fetchStream = jest.fn(() => Promise.resolve(streamtweets));
 
-        const expectedActions = [{
-          type: RECEIVE_STREAM,
-          streamtweets
-        }];
+        const expectedActions = [
+          {
+            type: RECEIVE_STREAM,
+            streamtweets,
+          },
+        ];
 
         return store.dispatch(fetchStream()).then(() => {
           expect(store.getActions()).toEqual(expectedActions);
@@ -187,26 +185,26 @@ describe('stream actions', () => {
         const time = Date.now();
 
         const streamtweets = {
-          'tweets': [
+          tweets: [
             {
               text: 'Tacos. Tacos. Tacos!',
-              screenName: 'tacoFan'
+              screenName: 'tacoFan',
             },
             {
               text: 'Eating burritos until life makes more sense',
-              screenName: 'burritoGuy'
-            }
-          ]
+              screenName: 'burritoGuy',
+            },
+          ],
         };
 
-        StreamApiUtil.fetchStreamSince = jest.fn((time) => (
-          Promise.resolve(streamtweets)
-        ));
+        StreamApiUtil.fetchStreamSince = jest.fn(time => Promise.resolve(streamtweets));
 
-        const expectedActions = [{
-          type: RECEIVE_STREAM,
-          streamtweets
-        }];
+        const expectedActions = [
+          {
+            type: RECEIVE_STREAM,
+            streamtweets,
+          },
+        ];
 
         return store.dispatch(fetchStreamSince(time)).then(() => {
           expect(store.getActions()).toEqual(expectedActions);

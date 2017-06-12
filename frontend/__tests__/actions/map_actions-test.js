@@ -1,14 +1,10 @@
 /* globals jest */
 
-import {
-  SET_MAP_POSITION,
-  setMapPosition
-} from '../../actions/map_actions';
-
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
+import { SET_MAP_POSITION, setMapPosition } from '../../actions/map_actions';
 
-const middlewares = [ thunk ];
+const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('map actions', () => {
@@ -33,23 +29,25 @@ describe('map actions', () => {
       const mapPosition = {
         lat: 37.9,
         lng: -122.5,
-        radius: 42.99316579561581
+        radius: 42.99316579561581,
       };
 
       expect(setMapPosition(mapPosition).mapPosition).toEqual(mapPosition);
     });
 
-    it ('should pass on the map coordinates we pass in (with mock store)', () => {
+    it('should pass on the map coordinates we pass in (with mock store)', () => {
       const mapPosition = {
         lat: 37.9,
         lng: -122.5,
-        radius: 42.99316579561581
+        radius: 42.99316579561581,
       };
 
-      const expectedActions = [{
-        type: SET_MAP_POSITION,
-        mapPosition
-      }];
+      const expectedActions = [
+        {
+          type: SET_MAP_POSITION,
+          mapPosition,
+        },
+      ];
 
       store.dispatch(setMapPosition(mapPosition));
       expect(store.getActions()).toEqual(expectedActions);

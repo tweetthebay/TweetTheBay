@@ -1,17 +1,15 @@
 /* globals jest */
 
+import thunk from 'redux-thunk';
+import configureMockStore from 'redux-mock-store';
 import * as CurrentTrendApiUtil from '../../util/current_trend_api_util';
-
 import {
   RECEIVE_CURRENT_TRENDS,
   receiveCurrentTrends,
-  fetchCurrentTrends
+  fetchCurrentTrends,
 } from '../../actions/current_trend_actions';
 
-import thunk from 'redux-thunk';
-import configureMockStore from 'redux-mock-store';
-
-const middlewares = [ thunk ];
+const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('current trend actions', () => {
@@ -35,39 +33,41 @@ describe('current trend actions', () => {
 
       it('should pass on the currentTrends we pass in', () => {
         const currentTrends = {
-          'trends': [
+          trends: [
             {
-              name: "#DubNation",
-              volume: 46800
+              name: '#DubNation',
+              volume: 46800,
             },
             {
-              name: "Giants",
-              volume: 33620
-            }
-          ]
+              name: 'Giants',
+              volume: 33620,
+            },
+          ],
         };
 
         expect(receiveCurrentTrends(currentTrends).currentTrends).toEqual(currentTrends);
       });
 
-      it ('should pass on the currentTrends we pass in (with mock store)', () => {
+      it('should pass on the currentTrends we pass in (with mock store)', () => {
         const currentTrends = {
-          'trends': [
+          trends: [
             {
-              name: "#DubNation",
-              volume: 46800
+              name: '#DubNation',
+              volume: 46800,
             },
             {
-              name: "Giants",
-              volume: 33620
-            }
-          ]
+              name: 'Giants',
+              volume: 33620,
+            },
+          ],
         };
 
-        const expectedActions = [{
-          type: RECEIVE_CURRENT_TRENDS,
-          currentTrends
-        }];
+        const expectedActions = [
+          {
+            type: RECEIVE_CURRENT_TRENDS,
+            currentTrends,
+          },
+        ];
 
         store.dispatch(receiveCurrentTrends(currentTrends));
         expect(store.getActions()).toEqual(expectedActions);
@@ -89,26 +89,26 @@ describe('current trend actions', () => {
 
       it('dispatches RECEIVE_CURRENT_TRENDS when trends have been fetched', () => {
         const currentTrends = {
-          'trends': [
+          trends: [
             {
-              name: "#DubNation",
-              volume: 46800
+              name: '#DubNation',
+              volume: 46800,
             },
             {
-              name: "Giants",
-              volume: 33620
-            }
-          ]
+              name: 'Giants',
+              volume: 33620,
+            },
+          ],
         };
 
-        CurrentTrendApiUtil.fetchCurrentTrends = jest.fn(() => (
-          Promise.resolve(currentTrends)
-        ));
+        CurrentTrendApiUtil.fetchCurrentTrends = jest.fn(() => Promise.resolve(currentTrends));
 
-        const expectedActions = [{
-          type: RECEIVE_CURRENT_TRENDS,
-          currentTrends
-        }];
+        const expectedActions = [
+          {
+            type: RECEIVE_CURRENT_TRENDS,
+            currentTrends,
+          },
+        ];
 
         return store.dispatch(fetchCurrentTrends()).then(() => {
           expect(store.getActions()).toEqual(expectedActions);

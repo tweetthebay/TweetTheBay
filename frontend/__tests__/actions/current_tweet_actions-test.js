@@ -1,14 +1,10 @@
 /* globals jest */
 
-import {
-  SET_CURRENT_TWEET,
-  setCurrentTweet
-} from '../../actions/current_tweet_actions';
-
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
+import { SET_CURRENT_TWEET, setCurrentTweet } from '../../actions/current_tweet_actions';
 
-const middlewares = [ thunk ];
+const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('current tweet actions', () => {
@@ -34,13 +30,15 @@ describe('current tweet actions', () => {
       expect(setCurrentTweet(currentTweet).tweet).toEqual(currentTweet);
     });
 
-    it ('should pass on the tweet we pass in (with mock store)', () => {
+    it('should pass on the tweet we pass in (with mock store)', () => {
       const currentTweet = { id: 2 };
 
-      const expectedActions = [{
-        type: SET_CURRENT_TWEET,
-        tweet: currentTweet
-      }];
+      const expectedActions = [
+        {
+          type: SET_CURRENT_TWEET,
+          tweet: currentTweet,
+        },
+      ];
 
       store.dispatch(setCurrentTweet(currentTweet));
       expect(store.getActions()).toEqual(expectedActions);
