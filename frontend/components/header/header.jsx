@@ -2,42 +2,36 @@
 // @flow
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { hashHistory, withRouter } from 'react-router';
-import SearchContainer from '../search/search_container';
+import { withRouter } from 'react-router';
 
 import AppBar from 'material-ui/AppBar';
 import Dialog from 'material-ui/Dialog';
 import FontIcon from 'material-ui/FontIcon';
-import Toggle from 'material-ui/Toggle';
 import Help from 'material-ui/svg-icons/action/help';
 import Search from 'material-ui/svg-icons/action/search';
 import RssFeed from 'material-ui/svg-icons/communication/rss-feed';
-import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 
-class Header extends React.Component {
-  state: Object;
-  setSearch: Function;
-  setStream: Function;
-  handleOpen: Function;
-  handleClose: Function;
-  search: ?Object;
+import SearchContainer from '../search/search_container';
 
-  constructor(props) {
+class Header extends React.Component {
+  constructor(props: Object) {
     super(props);
 
     this.state = {
       toggleText: 'search',
-      open: false
+      open: false,
     };
 
     this.setSearch = this.setSearch.bind(this);
     this.setStream = this.setStream.bind(this);
-    // this.handleToggle = this.handleToggle.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
+
+  state: Object;
+  setSearch: Function;
+  setStream: Function;
 
   setSearch() {
     const search = document.querySelector('.search-container');
@@ -67,21 +61,9 @@ class Header extends React.Component {
     this.setState({ toggleText: 'streaming' });
   }
 
-  //deprecated toggle logic. if toggle is re-implemented, use this code
-
-  // handleToggle() {
-  //   const search = document.querySelector(".search-container");
-  //   if (this.state.toggleText === "search") {
-  //     this.setStream();
-  //   } else {
-  //     this.setSearch();
-  //   }
-  //   if (hashHistory.getCurrentLocation().pathname === "/"){
-  //     hashHistory.push("/stream");
-  //   } else {
-  //     hashHistory.push("/");
-  //   }
-  // }
+  handleOpen: Function;
+  handleClose: Function;
+  search: ?Object;
 
   handleOpen() {
     this.setState({ open: true });
@@ -96,37 +78,25 @@ class Header extends React.Component {
       fontSize: '55px',
       marginBottom: '9px',
       ariaHidden: 'true',
-      color: 'white'
+      color: 'white',
     };
 
     const helpStyle = {
       color: 'white',
       marginRight: '25px',
-      marginTop: '14px'
+      marginTop: '14px',
     };
 
-    const tooltipStyle = {
-      height: 100,
-      width: 100,
-      margin: 20,
-      textAlign: 'center',
-      display: 'inline-block'
-    };
-
+    /* eslint-disable react/no-children-prop */
+    // Material-UI AppBar accepts "children" as prop, linter false positive
     return (
       <div className="header">
         <AppBar
           title="Tweet The Bay"
           titleStyle={{ marginTop: '6px' }}
-          iconElementLeft={
-            <FontIcon className="fa fa-twitter-square" style={logoStyle} />
-          }
+          iconElementLeft={<FontIcon className="fa fa-twitter-square" style={logoStyle} />}
           iconElementRight={
-            <Help
-              style={helpStyle}
-              className="help-button"
-              onTouchTap={() => this.handleOpen()}
-            />
+            <Help style={helpStyle} className="help-button" onTouchTap={() => this.handleOpen()} />
           }
           children={
             <div className="header-children">
@@ -142,7 +112,7 @@ class Header extends React.Component {
                   onTouchTap={() => this.setSearch()}
                   style={{
                     width: '117px',
-                    bottom: '14px'
+                    bottom: '14px',
                   }}
                 />
                 <h3 className="or-text">OR</h3>
@@ -152,7 +122,7 @@ class Header extends React.Component {
                   icon={<RssFeed />}
                   onTouchTap={() => this.setStream()}
                   style={{
-                    width: '175px'
+                    width: '175px',
                   }}
                 />
               </div>
@@ -175,7 +145,7 @@ class Header extends React.Component {
                   backgroundColor="#9EA4D1"
                   icon={<RssFeed />}
                   style={{
-                    width: '175px'
+                    width: '175px',
                   }}
                 />
                 <p>
@@ -190,7 +160,7 @@ class Header extends React.Component {
                   backgroundColor="#5CB0CF"
                   style={{
                     width: '117px',
-                    bottom: '14px'
+                    bottom: '14px',
                   }}
                 />
                 <p>
@@ -207,7 +177,7 @@ class Header extends React.Component {
           }
           style={{
             backgroundColor: '#0084b4',
-            paddingLeft: '70px'
+            paddingLeft: '70px',
           }}
         />
       </div>
