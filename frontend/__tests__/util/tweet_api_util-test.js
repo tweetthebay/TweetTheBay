@@ -1,14 +1,11 @@
 /* globals jest */
 
-import {
-  searchTweets,
-  fetchTweets
-} from '../../util/tweet_api_util';
+import { searchTweets, fetchTweets } from '../../util/tweet_api_util';
 
 describe('the tweet api util', () => {
   beforeEach(() => {
     global.$ = require.requireMock('jquery');
-    global.$.ajax = jest.fn(options => "ajax promise");
+    global.$.ajax = jest.fn(() => 'ajax promise');
   });
 
   afterEach(() => {
@@ -16,8 +13,8 @@ describe('the tweet api util', () => {
   });
 
   it('searchTweets makes request and returns an ajax promise', () => {
-    const query = "tacos"
-    const location = "location"
+    const query = 'tacos';
+    const location = 'location';
     const returnValue = searchTweets(query, location);
     expect($.ajax).toBeCalled();
 
@@ -25,8 +22,8 @@ describe('the tweet api util', () => {
     const ajaxCallArg = $.ajax.mock.calls[0][0];
     expect(ajaxCallArg.url).toEqual('api/tweets');
     expect(ajaxCallArg.type || ajaxCallArg.method).toMatch('GET');
-    expect(ajaxCallArg.data).toEqual({ query, location })
-    expect(returnValue).toEqual("ajax promise");
+    expect(ajaxCallArg.data).toEqual({ query, location });
+    expect(returnValue).toEqual('ajax promise');
   });
 
   it('fetchTweets makes request and returns an ajax promise', () => {
@@ -36,6 +33,6 @@ describe('the tweet api util', () => {
     const ajaxCallArg = $.ajax.mock.calls[0][0];
     expect(ajaxCallArg.url).toEqual('api/tweets');
     expect(ajaxCallArg.type || ajaxCallArg.method).toMatch('GET');
-    expect(returnValue).toEqual("ajax promise");
+    expect(returnValue).toEqual('ajax promise');
   });
 });

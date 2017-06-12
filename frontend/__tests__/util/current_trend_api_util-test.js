@@ -5,7 +5,7 @@ import { fetchCurrentTrends } from '../../util/current_trend_api_util';
 describe('the current trend api util', () => {
   beforeEach(() => {
     global.$ = require.requireMock('jquery');
-    global.$.ajax = jest.fn(options => "ajax promise");
+    global.$.ajax = jest.fn(() => 'ajax promise');
   });
 
   afterEach(() => {
@@ -20,6 +20,6 @@ describe('the current trend api util', () => {
     const ajaxCallArg = $.ajax.mock.calls[0][0];
     expect(ajaxCallArg.url).toEqual('api/trends');
     expect(ajaxCallArg.type || ajaxCallArg.method).toMatch('GET');
-    expect(returnValue).toEqual("ajax promise");
+    expect(returnValue).toEqual('ajax promise');
   });
 });

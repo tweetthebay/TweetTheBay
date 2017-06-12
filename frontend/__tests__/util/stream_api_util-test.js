@@ -1,14 +1,11 @@
 /* globals jest */
 
-import {
-  fetchStream,
-  fetchStreamSince
-} from '../../util/stream_api_util';
+import { fetchStream, fetchStreamSince } from '../../util/stream_api_util';
 
 describe('the stream api util', () => {
   beforeEach(() => {
     global.$ = require.requireMock('jquery');
-    global.$.ajax = jest.fn(options => "ajax promise");
+    global.$.ajax = jest.fn(() => 'ajax promise');
   });
 
   afterEach(() => {
@@ -23,18 +20,18 @@ describe('the stream api util', () => {
     const ajaxCallArg = $.ajax.mock.calls[0][0];
     expect(ajaxCallArg.url).toEqual('api/streams');
     expect(ajaxCallArg.type || ajaxCallArg.method).toMatch('GET');
-    expect(returnValue).toEqual("ajax promise");
+    expect(returnValue).toEqual('ajax promise');
   });
 
   it('fetchStreamSince makes request and returns an ajax promise', () => {
-    const timeNowUTC = Date.now()
+    const timeNowUTC = Date.now();
     const returnValue = fetchStreamSince(timeNowUTC);
     expect($.ajax).toBeCalled();
 
     const ajaxCallArg = $.ajax.mock.calls[0][0];
     expect(ajaxCallArg.url).toEqual('api/streams');
     expect(ajaxCallArg.type || ajaxCallArg.method).toMatch('GET');
-    expect(ajaxCallArg.data).toEqual({ timeNowUTC })
-    expect(returnValue).toEqual("ajax promise");
+    expect(ajaxCallArg.data).toEqual({ timeNowUTC });
+    expect(returnValue).toEqual('ajax promise');
   });
 });
