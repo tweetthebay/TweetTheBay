@@ -1,4 +1,4 @@
-# Tweet The Bay [![TravisCI Build Status](https://travis-ci.org/tweetthebay/TweetTheBay.svg?branch=master)](https://travis-ci.org/tweetthebay/TweetTheBay) [![CircleCI Build Status](https://circleci.com/gh/tweetthebay/TweetTheBay.png?style=shield&circle-token=:circle-token)](https://circleci.com/gh/tweetthebay/TweetTheBay)
+# Tweet The Bay [![TravisCI Build Status](https://travis-ci.org/tweetthebay/TweetTheBay.svg?branch=master)](https://travis-ci.org/tweetthebay/TweetTheBay) [![CircleCI Build Status](https://circleci.com/gh/tweetthebay/TweetTheBay.png?style=shield&circle-token=:circle-token)](https://circleci.com/gh/tweetthebay/TweetTheBay) [![codecov](https://codecov.io/gh/tweetthebay/TweetTheBay/branch/master/graph/badge.svg)](https://codecov.io/gh/tweetthebay/TweetTheBay)
 
 A Twitter mapping project by [Michael Altamirano][michael], [Nico Giraldo][nico], [Adrian Lobdill][adrian],  and [Elif Sezgin][elif].
 

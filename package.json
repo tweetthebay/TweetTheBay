@@ -73,6 +73,8 @@
   "jest": {
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
-    }
+    },
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   }
 }
