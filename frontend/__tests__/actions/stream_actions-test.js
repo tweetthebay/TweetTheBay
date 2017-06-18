@@ -174,6 +174,34 @@ describe('stream actions', () => {
           expect(store.getActions()).toEqual(expectedActions);
         });
       });
+
+      it('dispatches RECEIVE_STREAM_ERRORS when streamtweets have been fetched', () => {
+        const streamtweets = {
+          tweets: [
+            {
+              text: 'Tacos. Tacos. Tacos!',
+              screenName: 'tacoFan',
+            },
+            {
+              text: 'Eating burritos until life makes more sense',
+              screenName: 'burritoGuy',
+            },
+          ],
+        };
+
+        StreamApiUtil.fetchStream = jest.fn(() => Promise.reject(streamtweets));
+
+        const expectedActions = [
+          {
+            type: RECEIVE_STREAM_ERRORS,
+            errors: undefined,
+          },
+        ];
+
+        return store.dispatch(fetchStream()).then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+        });
+      });
     });
 
     describe('fetchStreamSince', () => {
@@ -197,12 +225,42 @@ describe('stream actions', () => {
           ],
         };
 
-        StreamApiUtil.fetchStreamSince = jest.fn(time => Promise.resolve(streamtweets));
+        StreamApiUtil.fetchStreamSince = jest.fn(() => Promise.resolve(streamtweets));
 
         const expectedActions = [
           {
             type: RECEIVE_STREAM,
             streamtweets,
+          },
+        ];
+
+        return store.dispatch(fetchStreamSince(time)).then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+        });
+      });
+
+      it('dispatches RECEIVE_STREAM_ERRORS when streamtweets have been fetched', () => {
+        const time = Date.now();
+
+        const streamtweets = {
+          tweets: [
+            {
+              text: 'Tacos. Tacos. Tacos!',
+              screenName: 'tacoFan',
+            },
+            {
+              text: 'Eating burritos until life makes more sense',
+              screenName: 'burritoGuy',
+            },
+          ],
+        };
+
+        StreamApiUtil.fetchStreamSince = jest.fn(() => Promise.reject(streamtweets));
+
+        const expectedActions = [
+          {
+            type: RECEIVE_STREAM_ERRORS,
+            errors: undefined,
           },
         ];
 
