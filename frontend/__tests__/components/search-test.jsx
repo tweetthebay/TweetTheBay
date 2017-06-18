@@ -1,6 +1,5 @@
 import React from 'react';
 import thunk from 'redux-thunk';
-import sinon from 'sinon';
 import configureMockStore from 'redux-mock-store';
 import { mount } from 'enzyme';
 import SearchContainer from '../../components/search/search_container';
