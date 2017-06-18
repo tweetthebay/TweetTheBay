@@ -2,7 +2,7 @@
 
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import * as TweetApiUtil from '../../util/tweet_api_util';
+import * as TweetAPIUtil from '../../util/tweet_api_util';
 import {
   RECEIVE_TWEETS,
   RECEIVE_TWEET_ERRORS,
@@ -14,6 +14,10 @@ import {
   setSearchQuery,
   fetchTweets,
 } from '../../actions/tweet_actions';
+
+const window = document.defaultView;
+global.window = window;
+global.$ = require('jquery');
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -178,37 +182,66 @@ describe('tweet actions', () => {
       });
     });
 
-    // TODO: Integrate thunk with 3rd party API call
+    it('dispatches RECEIVE_TWEETS when trends have been fetched', () => {
+      const query = 'query';
+      const location = 'location';
+      const tweets = {
+        tweets: [
+          {
+            text: 'Tacos. Tacos. Tacos!',
+            screenName: 'tacoFan',
+          },
+          {
+            text: 'Eating burritos until life makes more sense',
+            screenName: 'burritoGuy',
+          },
+        ],
+      };
 
-    // it('dispatches RECEIVE_TWEETS when trends have been fetched', () => {
-    //   const query = "query";
-    //   const location = "location";
-    //   const tweets = {
-    //     'tweets': [
-    //       {
-    //         text: "Tacos. Tacos. Tacos!",
-    //         screenName: "tacoFan"
-    //       },
-    //       {
-    //         text: "Eating burritos until life makes more sense",
-    //         screenName: "burritoGuy"
-    //       }
-    //     ]
-    //   };
-    //
-    //   TweetApiUtil.fetchTweets = jest.fn((query, location) => (
-    //     Promise.resolve(tweets)
-    //   ));
-    //
-    //   const expectedActions = [{
-    //     type: "RECEIVE_TWEETS",
-    //     tweets
-    //   }];
-    //
-    //   return store.dispatch(fetchTweets(query, location)).then(() => {
-    //     expect(store.getActions()).toEqual(expectedActions);
-    //   });
-    // });
-    // });
+      TweetAPIUtil.fetchTweets = jest.fn(() => Promise.resolve(tweets));
+      TweetAPIUtil.searchTweets = jest.fn(() => Promise.resolve(tweets));
+
+      const expectedActions = [
+        {
+          type: 'RECEIVE_TWEETS',
+          tweets,
+        },
+      ];
+
+      return store.dispatch(fetchTweets(query, location)).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+    });
+
+    it('dispatches RECEIVE_TWEET_ERRORS when trends have been fetched', () => {
+      const query = 'query';
+      const location = 'location';
+      const tweets = {
+        tweets: [
+          {
+            text: 'Tacos. Tacos. Tacos!',
+            screenName: 'tacoFan',
+          },
+          {
+            text: 'Eating burritos until life makes more sense',
+            screenName: 'burritoGuy',
+          },
+        ],
+      };
+
+      TweetAPIUtil.fetchTweets = jest.fn(() => Promise.reject(tweets));
+      TweetAPIUtil.searchTweets = jest.fn(() => Promise.reject(tweets));
+
+      const expectedActions = [
+        {
+          type: 'RECEIVE_TWEET_ERRORS',
+          errors: undefined,
+        },
+      ];
+
+      return store.dispatch(fetchTweets(query, location)).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+    });
   });
 });
