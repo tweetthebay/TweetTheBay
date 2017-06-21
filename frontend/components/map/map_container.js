@@ -10,13 +10,13 @@ const mapStateToProps = state => ({
   tweets: state.tweets.tweets,
   currentTweet: state.currentTweet,
   stream: state.stream.tweets,
-  searchQuery: state.searchQuery
+  searchQuery: state.searchQuery,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchTweets: () => dispatch(fetchTweets()),
   setMapPosition: pos => dispatch(setMapPosition(pos)),
-  setCurrentTweet: tweet => dispatch(setCurrentTweet(tweet))
+  setCurrentTweet: tweet => dispatch(setCurrentTweet(tweet)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

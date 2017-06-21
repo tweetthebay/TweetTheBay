@@ -7,14 +7,13 @@ import { setCurrentTweet } from '../../actions/current_tweet_actions';
 
 const mapStateToProps = state => ({
   location: state.mapPosition,
-  searchTerm: state.searchQuery
+  searchTerm: state.searchQuery,
 });
 
 const mapDispatchToProps = dispatch => ({
-  searchTweets: (searchInput, location) =>
-    dispatch(fetchTweets(searchInput, location)),
+  searchTweets: (searchInput, location) => dispatch(fetchTweets(searchInput, location)),
   setCurrentTweet: tweet => dispatch(setCurrentTweet(tweet)),
-  setSearchQuery: searchInput => dispatch(setSearchQuery(searchInput))
+  setSearchQuery: searchInput => dispatch(setSearchQuery(searchInput)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
