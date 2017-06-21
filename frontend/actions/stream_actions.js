@@ -21,12 +21,6 @@ export const receiveStreamErrors = (errors: ?Array<string>) => ({
   errors,
 });
 
-export const fetchStream = () => (dispatch: Function) =>
-  APIUtils.fetchStream().then(
-    data => dispatch(receiveStream(data)),
-    err => dispatch(receiveStreamErrors(err.responseJSON)),
-  );
-
 export const fetchStreamSince = (timeNowUTC: number) => (dispatch: Function) =>
   APIUtils.fetchStreamSince(timeNowUTC).then(
     data => dispatch(receiveStream(data)),

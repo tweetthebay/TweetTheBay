@@ -10,7 +10,6 @@ import {
   receiveStream,
   receiveStreamErrors,
   clearStream,
-  fetchStream,
   fetchStreamSince,
 } from '../../actions/stream_actions';
 
@@ -140,68 +139,6 @@ describe('stream actions', () => {
 
     beforeEach(() => {
       store = mockStore({ stream: {} });
-    });
-
-    describe('fetchStream', () => {
-      it('should export a fetchStream function', () => {
-        expect(typeof fetchStream).toEqual('function');
-      });
-
-      it('dispatches RECEIVE_STREAM when streamtweets have been fetched', () => {
-        const streamtweets = {
-          tweets: [
-            {
-              text: 'Tacos. Tacos. Tacos!',
-              screenName: 'tacoFan',
-            },
-            {
-              text: 'Eating burritos until life makes more sense',
-              screenName: 'burritoGuy',
-            },
-          ],
-        };
-
-        StreamApiUtil.fetchStream = jest.fn(() => Promise.resolve(streamtweets));
-
-        const expectedActions = [
-          {
-            type: RECEIVE_STREAM,
-            streamtweets,
-          },
-        ];
-
-        return store.dispatch(fetchStream()).then(() => {
-          expect(store.getActions()).toEqual(expectedActions);
-        });
-      });
-
-      it('dispatches RECEIVE_STREAM_ERRORS when streamtweets have been fetched', () => {
-        const streamtweets = {
-          tweets: [
-            {
-              text: 'Tacos. Tacos. Tacos!',
-              screenName: 'tacoFan',
-            },
-            {
-              text: 'Eating burritos until life makes more sense',
-              screenName: 'burritoGuy',
-            },
-          ],
-        };
-
-        StreamApiUtil.fetchStream = jest.fn(() => Promise.reject(streamtweets));
-
-        const expectedActions = [
-          {
-            type: RECEIVE_STREAM_ERRORS,
-            errors: undefined,
-          },
-        ];
-
-        return store.dispatch(fetchStream()).then(() => {
-          expect(store.getActions()).toEqual(expectedActions);
-        });
-      });
     });
 
     describe('fetchStreamSince', () => {
