@@ -26,14 +26,17 @@ const testStore = mockStore({
 });
 
 describe('search container', () => {
+  let searchWrapperRoot;
   let searchWrapper;
   let searchBody;
+  let searchForm;
 
   describe('creating a new search', () => {
     beforeEach(() => {
-      searchWrapper = mount(<SearchContainer store={testStore} />).find('Search');
-
+      searchWrapperRoot = mount(<SearchContainer store={testStore} />);
+      searchWrapper = searchWrapperRoot.find('Search');
       searchBody = searchWrapper.find('input');
+      searchForm = searchWrapper.find('form');
     });
 
     test('correctly maps dispatch to props', () => {
@@ -52,7 +55,7 @@ describe('search container', () => {
     });
 
     test('search component has handleSubmit function', () => {
-      searchBody.simulate('submit', { target: { value: 'potato' } });
+      searchForm.simulate('submit', { target: { value: 'potato' } });
       expect(searchWrapper.props().setCurrentTweet(null)).toEqual({
         tweet: null,
         type: 'SET_CURRENT_TWEET',
