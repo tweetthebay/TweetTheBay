@@ -4,33 +4,28 @@
 import React from 'react';
 
 class Search extends React.Component {
-  state: Object;
-  update: Function;
-  handleSubmit: Function;
-
   constructor(props: Object) {
     super(props);
 
     this.state = {
-      searchParams: ''
+      searchParams: '',
     };
 
     this.update = this.update.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  state: Object;
+
   componentWillMount() {
     this.props.searchTweets();
   }
 
-  componentWillReceiveProps(newProps: Object) {
-    if (newProps.searchTerm) {
-      $('input:text').val(`${newProps.searchTerm}`);
-    }
-  }
+  update: Function;
+  handleSubmit: Function;
 
   update(e: Event & { target: HTMLInputElement }) {
-    this.setState({ ['searchParams']: e.target.value });
+    this.setState({ searchParams: e.target.value });
   }
 
   handleSubmit(e: Event) {
